@@ -1,0 +1,51 @@
+.messages {
+  background-color: var(--background-primary);
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  overflow: hidden scroll;
+  width: 100%;
+}
+
+.message {
+  color: var(--text-normal);
+  display: flex;
+  margin: 8px 0;
+  padding-right: 16px;
+  padding-bottom: 12px;
+}
+
+.message:hover {
+  background-color: #32353a;
+}
+
+.message__avatar {
+  display: flex;
+  margin: 0 16px;
+  padding-top: 8px;
+}
+
+.message__avatar .MuiSvgIcon-root {
+  font-size: 40px;
+}
+
+.message__header {
+  display: flex;
+}
+
+.message__username {
+  color: var(--header-primary);
+  font-size: 14px;
+  font-weight: 500;
+  margin-right: 8px;
+}
+
+.message__timestamp {
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.message__content {
+  font-size: 14px;
+}

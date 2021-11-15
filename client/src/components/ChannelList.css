@@ -1,0 +1,41 @@
+.channel-list {
+  flex: 1;
+  padding: 8px 0;
+}
+
+.channel-list-item {
+  border-radius: 4px;
+  color: var(--channels-default);
+  cursor: default;
+  display: flex;
+  flex: 0 0 auto;
+  font-size: 15px;
+  padding: 4px 6px;
+  margin: 2px 6px;
+  white-space: nowrap;
+}
+
+.channel-list-item:hover {
+  background-color: var(--background-modifier-hover);
+  color: var(--interactive-normal);
+  cursor: pointer;
+}
+
+.channel-list-item__hashtag {
+  display: flex;
+}
+
+.channel-list-item__hashtag .MuiSvgIcon-root {
+  color: var(--text-muted);
+  font-size: 22px;
+}
+
+.channel-list-item__text {
+  align-items: center;
+  display: flex;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
