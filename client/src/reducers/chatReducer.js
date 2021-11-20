@@ -1,22 +1,26 @@
-import {
-  SET_ACTIVE_CHANNEL,
-} from "../actions";
+import { createSlice } from "@reduxjs/toolkit";
 
-const INITIAL_STATE = {
-  activeChannel: "announcement",
-  messages: [],
-}
+const initialState = {
+  "messages": [],
+  "activeChannel": "annoucement"
+};
 
-const chatReducer = (state = INITIAL_STATE, action) => {
-  switch (action.type) {
-    case SET_ACTIVE_CHANNEL:
-      return {
-        ...state,
-        activeChannel: action.payload
-      }
-    default:
-      return state
+const chatSlice = createSlice({
+  name: "chat",
+  initialState,
+  reducers: {
+    sendMessage(state, action) {
+      state.messages.push(action.payload);
+    },
+    receiveMessage(state, action) {
+      state.messages.push(action.payload);
+    },
+    changeActiveChannel(state, action) {
+      state.activeChannel = action.payload;
+    }
   }
-}
+})
 
-export default chatReducer
+export const { messageSent } = chatSlice.actions;
+
+export default chatSlice.reducer;

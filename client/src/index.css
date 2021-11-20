@@ -1,8 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');
+
 * {
   margin: 0;
+  box-sizing: border-box;
 }
 
-body {
+:root {
+  --brand: #5865f2;
   --background-primary: #36393f;
   --background-secondary: #2f3136;
   --background-secondary-alt: #292b2f;
@@ -23,7 +27,11 @@ body {
   --text-normal: #dcddde;
   --text-muted: #72767d;
   --text-link: hsl(197, calc(var(--saturation-factor, 1) * 100%), 47.8%);
-  font-family: -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font: "IBM Plex Sans", Arial, sans-serif;
+}
+
+body {
+  font-family: var(--font);
 }
 
 a {

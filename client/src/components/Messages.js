@@ -1,10 +1,11 @@
 import React from "react";
 
+import { useSelector } from "react-redux";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 import "./Messages.css";
 
-const Message = () => {
+const Message = ({ username, createdAt, content }) => {
   return (
     <div className="message">
       <div className="message__avatar">
@@ -13,32 +14,25 @@ const Message = () => {
       <div>
         <div className="message__header">
           <h2>
-            <span className="message__username">ZumdEworld</span>
-            <span className="message__timestamp">11/10/2021 11:39am</span>
+            <span className="message__username">{username}</span>
+            <span className="message__timestamp">{createdAt}</span>
           </h2>
         </div>
-        <div className="message__content">
-          I would agree about the slanted text feeling ‘off’. I would agree
-          about the slanted text feeling ‘off’. Small bits of it as a header or
-          something could work, but straight text with the background still
-          being rotated seems like it would feel more interesting.
-        </div>
+        <div className="message__content">{content}</div>
       </div>
     </div>
   );
 };
 
 const Messages = () => {
+  const messages = useSelector((state) => state.chat.messages);
+
   return (
-    <div className="messages scrollable">
-      <Message />
-      <Message />
-      <Message />
-      <Message />
-      <Message />
-      <Message />
-      <Message />
-      <Message />
+    <div id="messages" className="messages scrollable">
+      {messages.length
+        ? messages.map((message, index) => <Message key={index} {...message} />)
+        : "No message."
+      }
     </div>
   );
 };

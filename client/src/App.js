@@ -2,18 +2,17 @@ import React from "react";
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import "./App.css";
-import Content from "./components/Content";
-import Sidebar from "./components/Sidebar";
-
+import LoginPage from "./components/LoginPage";
+import Dashboard from "./components/Dashboard";
 
 const App = () => {
+
   return (
-    <div className="app">
+    <div>
       <BrowserRouter>
-        <Sidebar />
         <Routes>
-          <Route path="/:channel" element={<Content />} />
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/:channel" element={<Dashboard />} />
         </Routes>
       </BrowserRouter>
     </div>

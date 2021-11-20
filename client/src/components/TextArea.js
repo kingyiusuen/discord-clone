@@ -1,12 +1,24 @@
 import React from "react";
 
-import "./TextArea.css";
+import { useDispatch } from "react-redux";
 
-const TextArea = () => {
+import "./TextArea.css";
+import { sendMessage } from "../actions";
+
+const TextArea = ({ channel }) => {
+  const dispatch = useDispatch();
+  
+  const handleOnSubmit = (event) => {
+    event.preventDefault();
+    const content = event.target.content.value;
+    dispatch(sendMessage(content));
+    event.target.reset();
+  }
+
   return (
     <div className="textarea">
-      <form>
-        <input type="text" placeholder="Message #channel-name" />
+      <form onSubmit={handleOnSubmit}>
+        <input type="text" name="content" placeholder={`Message #${channel}`} />
         <button type="submit" />
       </form>
     </div>

@@ -1,30 +1,7 @@
 import React from "react";
 
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-
 import "./Sidebar.css";
 import ChannelList from "./ChannelList";
-
-const SidebarHeader = () => {
-  return (
-    <div className="sidebar-header">
-      <h3>Discord Clone</h3>
-    </div>
-  );
-};
-
-const SidebarFooter = () => {
-  return (
-    <div className="sidebar-footer">
-      <div className="sidebar-footer__avatar-icon">
-        <AccountCircleIcon />
-      </div>
-      <div className="sidebar-footer__username">
-        <div>John Doe</div>
-      </div>
-    </div>
-  );
-};
 
 const Sidebar = () => {
   const channels = [
@@ -53,9 +30,16 @@ const Sidebar = () => {
 
   return (
     <div className="sidebar disable-select">
-      <SidebarHeader />
+      <div className="sidebar__header">
+        <h3>Discord Clone</h3>
+      </div>
       <ChannelList channels={channels} />
-      <SidebarFooter />
+      <div className="sidebar__footer">
+        <i class="fas fa-user-circle"></i>
+        <div className="sidebar__username">
+          <div>John Doe</div>
+        </div>
+      </div>
     </div>
   );
 };

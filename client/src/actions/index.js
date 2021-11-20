@@ -1,9 +1,15 @@
-export const SET_ACTIVE_CHANNEL = "SET_ACTIVE_CHANNEL";
+import { createAction } from '@reduxjs/toolkit';
 
-export const setActiveChannel = (channel) => {
+export const sendMessage = createAction('chat/sendMessage', (content) => {
   return {
-    type: SET_ACTIVE_CHANNEL,
-    payload: channel
+    payload: {
+      content,
+      username: "username",
+      createdAt: new Date().toISOString(),
+    },
   }
-}
+})
 
+export const receiveMessage = createAction("chat/receiveMessage");
+
+export const changeActiveChannel = createAction("chat/changeActiveChannel");
