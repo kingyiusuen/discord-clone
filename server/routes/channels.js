@@ -2,13 +2,24 @@ const channelsRouter = require("express").Router();
 
 const db = require("../db");
 
+// Get all channels
+channelsRouter.get("/", async (request, response) => {
+  try {
+    const result = await db.query("SELECT * FROM channels");
+    response.status(200).json(result.rows);
+  } catch (err) {
+    console.log(err);
+    response.status(500).send("A database error has occurred");
+  }
+});
+
 // Create a new channel
 channelsRouter.post("/", async (request, response) => {
   const { name } = request.body;
 
   try {
     const result = await db.query(
-      "INSERT INTO (name) messages VALUES ($1) RETURNING id",
+      "INSERT INTO (name) channels VALUES ($1) RETURNING id",
       [name],
     );
     const newId = result.rows[0].id;
