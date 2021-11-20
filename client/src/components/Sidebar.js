@@ -27,7 +27,7 @@ const SidebarFooter = () => {
 };
 
 const Sidebar = () => {
-  const names = [
+  const channels = [
     "announcement",
     "general",
     "introduce-yourself",
@@ -54,7 +54,7 @@ const Sidebar = () => {
   return (
     <div className="sidebar disable-select">
       <SidebarHeader />
-      <ChannelList names={names} />
+      <ChannelList channels={channels} />
       <SidebarFooter />
     </div>
   );

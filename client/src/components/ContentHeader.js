@@ -6,14 +6,14 @@ import TagIcon from "@mui/icons-material/Tag";
 
 import "./ContentHeader.css";
 
-const ChannelName = () => {
+const ChannelName = ({ channel }) => {
   return (
     <div className="channel-name">
       <div className="channel-name__hashtag">
         <TagIcon />
       </div>
       <div className="channel-name__text disable-select">
-        <h3>Channel Name</h3>
+        <h3>{channel}</h3>
       </div>
     </div>
   );
@@ -43,10 +43,10 @@ const Toolbar = () => {
   );
 };
 
-const ContentHeader = () => {
+const ContentHeader = ({ channel }) => {
   return (
     <div className="content-header">
-      <ChannelName />
+      <ChannelName channel={channel} />
       <Toolbar />
     </div>
   );

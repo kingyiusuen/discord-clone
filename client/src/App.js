@@ -1,20 +1,21 @@
 import React from "react";
 
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
 import "./App.css";
+import Content from "./components/Content";
 import Sidebar from "./components/Sidebar";
-import ContentHeader from "./components/ContentHeader";
-import Messages from "./components/Messages";
-import TextArea from "./components/TextArea";
+
 
 const App = () => {
   return (
     <div className="app">
-      <Sidebar />
-      <div className="content">
-        <ContentHeader />
-        <Messages />
-        <TextArea />
-      </div>
+      <BrowserRouter>
+        <Sidebar />
+        <Routes>
+          <Route path="/:channel" element={<Content />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 };

@@ -21,6 +21,11 @@
   cursor: pointer;
 }
 
+.channel-list-item--active, .channel-list-item--active:hover {
+  background-color: var(--background-modifier-selected);
+  color: var(--interactive-active);
+}
+
 .channel-list-item__hashtag {
   display: flex;
 }

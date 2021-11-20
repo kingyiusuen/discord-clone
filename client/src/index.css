@@ -26,6 +26,10 @@ body {
   font-family: -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+a {
+  text-decoration: none;
+}
+
 .disable-select {
   user-select: none; /* Chrome and Opera */
   -webkit-user-select: none; /* Safari */
