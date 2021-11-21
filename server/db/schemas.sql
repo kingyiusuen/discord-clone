@@ -11,8 +11,8 @@ CREATE TABLE channels (
 
 CREATE TABLE messages (
     id SERIAL PRIMARY KEY,
-    user_id INTEGER REFERENCES users (id) NOT NULL,
-    channel_id INTEGER REFERENCES channels (id) NOT NULL,
+    userId INTEGER REFERENCES users (id) NOT NULL,
+    channelId INTEGER REFERENCES channels (id) NOT NULL,
     content TEXT NOT NULL,
-    created_at TIMESTAMPTZ
+    createdAt TIMESTAMPTZ
 );
