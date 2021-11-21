@@ -10,9 +10,10 @@ usersRouter.get("/:id", async (request, response) => {
   try {
     const result = await db.query(
       "SELECT * FROM users WHERE id = $1",
-      [userId],
+      [userId]
     );
-    response.status(200).json(result.rows);
+    const { password, ...rest } = result.rows[0];
+    response.status(200).json(rest);
   } catch (err) {
     console.log(err);
     response.status(500).send("A database error has occurred");
@@ -29,7 +30,7 @@ usersRouter.post("/", async (request, response) => {
       "SELECT * FROM users WHERE username = $1",
       [username]
     );
-    if (result.rows.length) {
+    if (result.rowCount) {
       response.status(400).send("The username has already been taken");
       return;
     }
@@ -39,8 +40,7 @@ usersRouter.post("/", async (request, response) => {
     const passwordHash = await bcrypt.hash(password, saltRounds);
 
     result = await db.query(
-      "INSERT INTO users (username, password) VALUES ($1, $2) RETURNING id",
-      [username, passwordHash],
+      "INSERT INTO users (username, password) VALUES ($1, $2) RETURNING id", [username, passwordHash]
     );
     const newId = result.rows[0].id;
     response.status(201).send(`User added with ID: ${newId}`);
@@ -57,19 +57,19 @@ usersRouter.post("/login", async (request, response) => {
   try {
     const result = await db.query(
       "SELECT * FROM users WHERE username = $1",
-      [username],
+      [username]
     );
     const isPasswordCorrect =
-      !result
+      result.rowCount === 0
         ? false
         : await bcrypt.compare(password, result.rows[0].password);
     if (isPasswordCorrect) {
-      response.status(200).send("Login successful");
+      const { password, ...rest } = result.rows[0];
+      response.status(200).json(rest);
     } else {
       response.status(401).send("Invalid username or password");
     }
   } catch (err) {
-    console.log(err);
     response.status(500).send("A database error has occurred");
   }
 });
@@ -81,9 +81,9 @@ usersRouter.delete("/:id", async (request, response) => {
   try {
     const result = await db.query(
       "DELETE FROM users WHERE id = $1 RETURNING id",
-      [userId],
+      [userId]
     );
-    if (result.length) {
+    if (result.rowCount) {
       response.status(200).json(`User deleted with ID: ${userId}`);
     } else {
       response.status(401).send("This user does not exist");

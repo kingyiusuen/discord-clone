@@ -2,17 +2,6 @@ const channelsRouter = require("express").Router();
 
 const db = require("../db");
 
-// Get all channels
-channelsRouter.get("/", async (request, response) => {
-  try {
-    const result = await db.query("SELECT * FROM channels");
-    response.status(200).json(result.rows);
-  } catch (err) {
-    console.log(err);
-    response.status(500).send("A database error has occurred");
-  }
-});
-
 // Create a new channel
 channelsRouter.post("/", async (request, response) => {
   const { name } = request.body;
@@ -36,7 +25,7 @@ channelsRouter.get("/:id", async (request, response) => {
 
   try {
     const result = await db.query(
-      "SELECT * FROM messages WHERE channel_id = $1",
+      "SELECT messages.id, user_id, username, channel_id, content, created_at FROM messages INNER JOIN users ON messages.user_id = users.id WHERE channel_id = $1",
       [channelId],
     );
     response.status(200).json(result.rows);
@@ -59,6 +48,17 @@ channelsRouter.post("/:id/add", async (request, response) => {
     );
     const newId = result.rows[0].id;
     response.status(201).send(`Message added with ID: ${newId}`);
+  } catch (err) {
+    console.log(err);
+    response.status(500).send("A database error has occurred");
+  }
+});
+
+// Get all channels
+channelsRouter.get("/", async (request, response) => {
+  try {
+    const result = await db.query("SELECT * FROM channels");
+    response.status(200).json(result.rows);
   } catch (err) {
     console.log(err);
     response.status(500).send("A database error has occurred");
