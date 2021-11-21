@@ -18,7 +18,13 @@ io.on("connection", (socket) => {
       "INSERT INTO messages (user_id, channel_id, content) VALUES ($1, $2, $3) RETURNING *",
       [user.id, channelId, content],
     );
-    io.emit("message", { ...message, createdAt: result.rows[0].created_at});
+    io.emit("message", {
+      id: result.rows[0].id,
+      content: message.content,
+      createdAt: result.rows[0].created_at,
+      channelId: message.channelId,
+      user,
+    });
   });
 
   socket.on("disconnect", () => {

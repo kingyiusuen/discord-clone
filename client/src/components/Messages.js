@@ -1,24 +1,21 @@
 import React from "react";
 
 import { useSelector } from "react-redux";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 import "./Messages.css";
 
-const Message = ({ username, createdAt, content }) => {
+const Message = ({ message }) => {
   return (
     <div className="message">
       <div className="message__avatar">
-        <AccountCircleIcon />
+        <i className="fas fa-user-circle"></i>
       </div>
       <div>
         <div className="message__header">
-          <h2>
-            <span className="message__username">{username}</span>
-            <span className="message__timestamp">{createdAt}</span>
-          </h2>
+            <span className="message__username">{message.user.username}</span>
+            <span className="message__timestamp">{message.createdAt}</span>
         </div>
-        <div className="message__content">{content}</div>
+        <div className="message__content">{message.content}</div>
       </div>
     </div>
   );
@@ -29,8 +26,8 @@ const Messages = () => {
 
   return (
     <div id="messages" className="messages scrollable">
-      {messages.length
-        ? messages.map((message, index) => <Message key={index} {...message} />)
+      {messages.allIds.length
+        ? messages.allIds.map((id) => <Message key={id} message={messages.byId[id]} />)
         : "No message."
       }
     </div>

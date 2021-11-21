@@ -1,32 +1,36 @@
 import React, { useEffect } from "react";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import "./Dashboard.css";
-import { changeActiveChannel } from "../actions";
-import ContentHeader from "./ContentHeader";
-import Messages from "./Messages";
-import TextArea from "./TextArea";
+import { setActiveChannel, getChannels } from "../actions/chat";
+import Content from "./Content";
 import Sidebar from "./Sidebar";
 
 const Dashboard = () => {
   const params = useParams();
-  const activeChannel = params.channel;
+  const activeChannelId = parseInt(params.channel);
+  const user = useSelector(state => state.auth.user);
 
   const dispatch = useDispatch();
+
+  // The list of channels is fetched from server only once
   useEffect(() => {
-    dispatch(changeActiveChannel(activeChannel));
-  })
- 
+    dispatch(getChannels());
+  }, [dispatch])
+
+  useEffect(() => {
+    dispatch(setActiveChannel(activeChannelId));
+  }, [dispatch, activeChannelId])
+
+  const channels = useSelector((state) => state.chat.channels);
+  const activeChannel = channels.byId[activeChannelId];
+
   return (
     <div className="dashboard">
-      <Sidebar />
-      <div className="content">
-        <ContentHeader channel={activeChannel} />
-        <Messages />
-        <TextArea channel={activeChannel} />
-      </div>
+      <Sidebar user={user} activeChannel={activeChannel} channels={channels} />
+      <Content user={user} activeChannel={activeChannel} />
     </div>
   )
 }

@@ -1,23 +1,40 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+import { getChannels, setActiveChannel } from "../actions/chat";
+
 const initialState = {
-  "messages": [],
-  "activeChannel": "annoucement"
+  "messages": { byId: {}, allIds: [] },
+  "channels": { byId: {}, allIds: [] },
+  "activeChannelId": 1,
 };
 
 const chatSlice = createSlice({
   name: "chat",
   initialState,
   reducers: {
-    sendMessage(state, action) {
-      state.messages.push(action.payload);
-    },
     receiveMessage(state, action) {
-      state.messages.push(action.payload);
+      const message = action.payload;
+      state.messages.byId[message.id] = message;
+      state.messages.allIds.push(message.id);
     },
-    changeActiveChannel(state, action) {
-      state.activeChannel = action.payload;
-    }
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(getChannels.fulfilled, (state, action) => {
+        state.channels = { byId: {}, allIds: [] };
+        action.payload.forEach((channel) => {
+          state.channels.byId[channel.id] = channel;
+          state.channels.allIds.push(channel.id);
+        })
+      })
+      .addCase(setActiveChannel.fulfilled, (state, action) => {
+        state.activeChannelId = action.payload.activeChannelId;
+        state.messages = { byId: {}, allIds: [] };
+        action.payload.forEach((message) => {
+          state.messages.byId[message.id] = message;
+          state.messages.allIds.push(message.id);
+        })
+      })
   }
 })
 

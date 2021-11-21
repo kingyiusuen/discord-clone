@@ -1,3 +1,10 @@
+.content {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
 .content__header {
   align-items: center;
   background: var(--background-primary);
@@ -37,4 +44,35 @@
 
 .fa-sign-out-alt:hover {
   color: var(--interactive-hover);
+}
+
+.content__textarea {
+  background-color: var(--background-primary);
+  padding: 0 16px 24px 16px;
+  flex: 0 0 auto;
+}
+
+.content__textarea form {
+  display: flex;
+  flex: 0;
+}
+
+.content__textarea input {
+  border: 0;
+  border-radius: 8px;
+  background-color: var(--channeltextarea-background);
+  color: var(--text-normal);
+  font-size: 15px;
+  min-height: 44px;
+  outline: none;
+  padding-left: 14px;
+  width: 100%;
+}
+
+.content__textarea input::placeholder {
+  color: var(--text-muted);
+}
+
+.content__textarea button {
+  display: none;
 }

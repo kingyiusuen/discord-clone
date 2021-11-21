@@ -2,8 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import socketMiddleware from "./middleware/socketMiddleware";
 import chatReducer from "./reducers/chatReducer";
-import userReducer from "./reducers/userReducer";
-
+import authReducer from "./reducers/authReducer";
 
 //const asyncFunctionMiddleware = storeAPI => next => action => (
 //  (typeof action === "function") ?
@@ -14,7 +13,7 @@ import userReducer from "./reducers/userReducer";
 const store = configureStore({
   reducer: {
     chat: chatReducer,
-    user: userReducer,
+    auth: authReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(socketMiddleware),

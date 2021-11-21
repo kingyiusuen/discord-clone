@@ -11,8 +11,7 @@
   color: var(--text-normal);
   display: flex;
   margin: 8px 0;
-  padding-right: 16px;
-  padding-bottom: 12px;
+  padding: 8px 16px 12px 0;
 }
 
 .message:hover {
@@ -22,15 +21,16 @@
 .message__avatar {
   display: flex;
   margin: 0 16px;
-  padding-top: 8px;
 }
 
-.message__avatar .MuiSvgIcon-root {
-  font-size: 40px;
+.message__avatar .fa-user-circle {
+  font-size: 32px;
 }
 
 .message__header {
   display: flex;
+  align-items: center;
+  padding-bottom: 4px;
 }
 
 .message__username {

@@ -1,21 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
 import "./LoginPage.css";
 import { login } from "../actions/user";
 
-const LoginForm = () => {
+const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleOnSubmit = (event) => {
     event.preventDefault();
     const username = event.target.username.value;
-    dispatch(login(username));
-    navigate("/announcement");
+    dispatch(login({ username, password: username }));
   }
+
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/channel/1");
+    }
+  }, [isAuthenticated, navigate])
 
   return (
     <div className="login">
@@ -38,4 +45,4 @@ const LoginForm = () => {
   )
 }
 
-export default LoginForm
+export default LoginPage

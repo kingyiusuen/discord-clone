@@ -1,6 +1,6 @@
 import io from "socket.io-client";
 
-import { receiveMessage } from "../actions";
+import { receiveMessage } from "../actions/chat";
 
 const socketMiddleware = () => {
   return storeAPI => {
@@ -8,8 +8,8 @@ const socketMiddleware = () => {
     // This part is called when the Redux store is created
     const socket = io("/");
     socket.on("message", (message) => {
-      storeAPI.dispatch(receiveMessage(message));
-    })
+      storeAPI.dispatch(receiveMessage(message))
+    });
 
     // This part is called when an action is dispatched
     return next => action => {

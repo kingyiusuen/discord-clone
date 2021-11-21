@@ -9,12 +9,7 @@ const client = new Client({
 });
 
 const query = async (text, params) => {
-  const start = Date.now();
-  const results = await client.query(text, params);
-  const duration = Date.now() - start;
-  console.log("Date:", new Date().toLocaleString());
-  console.log("Executed query:", { text, duration, rows: results.rowCount });
-  return results;
+  return await client.query(text, params);
 };
 
 module.exports = {

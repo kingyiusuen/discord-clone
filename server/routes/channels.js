@@ -28,7 +28,16 @@ channelsRouter.get("/:id", async (request, response) => {
       "SELECT messages.id, user_id, username, channel_id, content, created_at FROM messages INNER JOIN users ON messages.user_id = users.id WHERE channel_id = $1",
       [channelId],
     );
-    response.status(200).json(result.rows);
+    const messages = result.rows.map((message) => {
+      return {
+        id: message.id,
+        content: message.content,
+        createdAt: message.created_at,
+        channelId: message.channel_id,
+        user: { id: message.user_id, username: message.username },
+      }
+    })
+    response.status(200).json(messages);
   } catch (err) {
     console.log(err);
     response.status(500).send("A database error has occurred");
