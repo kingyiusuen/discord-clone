@@ -29,7 +29,7 @@
   align-items: center;
   background-color: var(--background-secondary-alt);
   display: flex;
-  padding: 8px;
+  padding: 10px 8px;
 }
 
 .sidebar .fa-user-circle {
@@ -71,9 +71,17 @@
   cursor: pointer;
 }
 
+.sidebar__list-item:hover i {
+  color: var(--channels-default);
+}
+
 .sidebar__list-item--active, .sidebar__list-item--active:hover {
   background-color: var(--background-modifier-selected);
   color: var(--interactive-active);
+}
+
+.sidebar__list-item--active i, .sidebar__list-item--active:hover i {
+  color: var(--channels-default);
 }
 
 .sidebar__list-item__text {

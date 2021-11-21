@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 
 import "./Content.css";
+import UserList from "./UserList";
 import Messages from "./Messages";
 import { sendMessage } from "../actions/chat";
 
@@ -17,6 +17,11 @@ const Content = ({ user, activeChannel }) => {
     dispatch(sendMessage({ user, content, channelId: activeChannel.id }));
     event.target.reset();
   }
+  
+  const [showUserList, setShowUserList] = useState(true)
+  const toggleUserList = () => {
+    setShowUserList(!showUserList)
+  }
 
   return (
     <div className="content">
@@ -25,14 +30,26 @@ const Content = ({ user, activeChannel }) => {
           <i className="fas fa-hashtag"></i>
           <h3>{channelName}</h3>
         </div>
-        <Link to="/logout"><i className="fas fa-sign-out-alt"></i></Link>
+        <div className="content__icon-group">
+          <i
+            className={`fas fa-user-friends ${showUserList ? "interactive-icon--active" : "interactive-icon"}`}
+            onClick={toggleUserList}
+          >
+          </i>
+          <i className="fas fa-sign-out-alt interactive-icon"></i>
+        </div>
       </div>
-      <Messages />
-      <div className="content__textarea">
-        <form onSubmit={handleOnSubmit}>
-          <input type="text" name="content" placeholder={`Message #${channelName}`} />
-          <button type="submit" />
-        </form>
+      <div className="tmp">
+        <div className="content__chat-area">
+          <Messages />
+          <div className="content__textarea">
+            <form onSubmit={handleOnSubmit}>
+              <input type="text" name="content" placeholder={`Message #${channelName}`} />
+              <button type="submit" />
+            </form>
+          </div>
+        </div>
+        {showUserList && <UserList />}
       </div>
     </div>
   )
