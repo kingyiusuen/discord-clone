@@ -57,25 +57,25 @@
   cursor: pointer;
 }
 
-.content__chat-area {
+.chat-area__container {
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
-.content__textarea {
+.chat-area__form {
   background-color: var(--background-primary);
   height: 64px;
   padding: 0 16px;
   flex: 0 0 auto;
 }
 
-.content__textarea form {
+.chat-area__form form {
   display: flex;
   flex: 0;
 }
 
-.content__textarea input {
+.chat-area__form input {
   border: 0;
   border-radius: 8px;
   background-color: var(--channeltextarea-background);
@@ -87,15 +87,15 @@
   width: 100%;
 }
 
-.content__textarea input::placeholder {
+.chat-area__form input::placeholder {
   color: var(--text-muted);
 }
 
-.content__textarea button {
+.chat-area__form button {
   display: none;
 }
 
-.tmp {
+.chat-area {
   display: flex;
   min-height: calc(100vh - 48px);
 }

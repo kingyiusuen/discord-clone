@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
 import "./LoginPage.css";
-import { login } from "../actions/user";
+import { login } from "../actions/auth";
 import { connectSocket } from "../actions/chat";
 
 const LoginPage = () => {

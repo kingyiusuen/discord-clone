@@ -2,10 +2,10 @@ import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 
 import * as userAPI from "../api/user";
 
-export const logout = createAction("user/logout");
+export const logout = createAction("auth/logout");
 
 export const login = createAsyncThunk(
-  "user/login",
+  "auth/login",
   async (userInfo, { rejectWithValue }) => {
     try {
       const response = await userAPI.login(userInfo);

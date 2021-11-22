@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import "./Content.css";
 import UserList from "./UserList";
 import Messages from "./Messages";
+import { logout } from "../actions/auth";
 import { sendMessage } from "../actions/chat";
 
 const Content = ({ user, activeChannel }) => {
@@ -36,13 +37,17 @@ const Content = ({ user, activeChannel }) => {
             onClick={toggleUserList}
           >
           </i>
-          <i className="fas fa-sign-out-alt interactive-icon"></i>
+          <i
+            className="fas fa-sign-out-alt interactive-icon"
+            onClick={() => dispatch(logout())}
+          >
+          </i>
         </div>
       </div>
-      <div className="tmp">
-        <div className="content__chat-area">
+      <div className="chat-area">
+        <div className="chat-area__container">
           <Messages />
-          <div className="content__textarea">
+          <div className="chat-area__form">
             <form onSubmit={handleOnSubmit}>
               <input type="text" name="content" placeholder={`Message #${channelName}`} />
               <button type="submit" />
