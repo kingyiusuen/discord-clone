@@ -1,6 +1,6 @@
 import io from "socket.io-client";
 
-import { receiveMessage, updateUserList } from "../actions/chat";
+import { receiveMessage, updateOnlineUsers } from "../actions/chat";
 
 const socketMiddleware = () => {
   return storeAPI => {
@@ -13,7 +13,7 @@ const socketMiddleware = () => {
     });
 
     socket.on("update-user-list", (user) => {
-      storeAPI.dispatch(updateUserList(user))
+      storeAPI.dispatch(updateOnlineUsers(user))
     })
 
     // This part is called when an action is dispatched

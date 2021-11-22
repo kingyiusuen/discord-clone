@@ -7,6 +7,33 @@
   width: 100%;
 }
 
+.messages__container {
+  margin-top: auto;
+}
+
+.messages__header {
+  margin: 4px 16px;
+}
+
+.messages hr {
+  height: 1px;
+  background-color: var(--text-muted);
+  border: none;
+}
+
+.messages h1 {
+  color: var(--header-primary);
+  margin-top: 12px;
+  margin-bottom: 4px;
+}
+
+.messages h2 {
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 16px;
+  color: var(--channels-default);
+}
+
 .message {
   color: var(--text-normal);
   display: flex;
@@ -20,7 +47,7 @@
 
 .message__avatar {
   display: flex;
-  margin: 0 16px;
+  margin: 0 16px 0 16px;
 }
 
 .message__avatar .fa-user-circle {

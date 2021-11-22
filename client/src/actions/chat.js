@@ -8,7 +8,7 @@ export const receiveMessage = createAction("chat/receiveMessage");
 
 export const connectSocket = createAction("chat/connectSocket");
 
-export const updateUserList = createAction("chat/updateUserList");
+export const updateOnlineUsers = createAction("chat/updateOnlineUsers");
 
 export const getChannels = createAsyncThunk(
   "chat/getChannels",

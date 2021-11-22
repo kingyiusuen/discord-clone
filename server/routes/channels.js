@@ -25,7 +25,9 @@ channelsRouter.get("/:id", async (request, response) => {
 
   try {
     const result = await db.query(
-      "SELECT messages.id, user_id, username, channel_id, content, created_at FROM messages INNER JOIN users ON messages.user_id = users.id WHERE channel_id = $1",
+      "SELECT messages.id, user_id, username, channel_id, content, created_at "
+      + "FROM messages INNER JOIN users ON messages.user_id = users.id "
+      + "WHERE channel_id = $1",
       [channelId],
     );
     const messages = result.rows.map((message) => {

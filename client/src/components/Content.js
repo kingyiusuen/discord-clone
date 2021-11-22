@@ -46,7 +46,7 @@ const Content = ({ user, activeChannel }) => {
       </div>
       <div className="chat-area">
         <div className="chat-area__container">
-          <Messages />
+          <Messages channelName={channelName}/>
           <div className="chat-area__form">
             <form onSubmit={handleOnSubmit}>
               <input type="text" name="content" placeholder={`Message #${channelName}`} />
