@@ -37,6 +37,7 @@ body {
 
 a {
   text-decoration: none;
+  color: inherit;
 }
 
 .disable-select {

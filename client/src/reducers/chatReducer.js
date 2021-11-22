@@ -5,6 +5,7 @@ import { getChannels, setActiveChannel } from "../actions/chat";
 const initialState = {
   "messages": { byId: {}, allIds: [] },
   "channels": { byId: {}, allIds: [] },
+  "userList": [],
   "activeChannelId": 1,
 };
 
@@ -17,6 +18,9 @@ const chatSlice = createSlice({
       state.messages.byId[message.id] = message;
       state.messages.allIds.push(message.id);
     },
+    updateUserList(state, action) {
+      state.userList = action.payload;
+    }
   },
   extraReducers: (builder) => {
     builder

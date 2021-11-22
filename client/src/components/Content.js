@@ -18,7 +18,7 @@ const Content = ({ user, activeChannel }) => {
     dispatch(sendMessage({ user, content, channelId: activeChannel.id }));
     event.target.reset();
   }
-  
+
   const [showUserList, setShowUserList] = useState(true)
   const toggleUserList = () => {
     setShowUserList(!showUserList)

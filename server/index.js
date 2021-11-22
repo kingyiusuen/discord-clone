@@ -9,8 +9,10 @@ const io = new Server(server);
 const clients = {};
 
 io.on("connection", (socket) => {
-  console.log("a user connected");
-  //clients[socket.id] = user;
+  socket.on("new-login", (user) => {
+    clients[socket.id] = user;
+    io.emit("update-user-list", Object.values(clients));
+  })
 
   socket.on("message", async (message) => {
     const { user, channelId, content } = message;
@@ -28,7 +30,8 @@ io.on("connection", (socket) => {
   });
 
   socket.on("disconnect", () => {
-    console.log("user disconnected");
+    delete clients[socket.id];
+    io.emit("update-user-list", Object.values(clients));
   });
 
 });

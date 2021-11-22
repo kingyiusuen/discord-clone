@@ -6,6 +6,10 @@ export const sendMessage = createAction('chat/sendMessage');
 
 export const receiveMessage = createAction("chat/receiveMessage");
 
+export const connectSocket = createAction("chat/connectSocket");
+
+export const updateUserList = createAction("chat/updateUserList");
+
 export const getChannels = createAsyncThunk(
   "chat/getChannels",
   async (_, { rejectWithValue }) => {
