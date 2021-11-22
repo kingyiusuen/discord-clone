@@ -8,10 +8,10 @@ const ChannelListItem = ({ channel, isActive }) => {
   return (
     <Link to={`/channel/${channel.id}`}>
       <div className={
-        `sidebar__list-item ${isActive ? "sidebar__list-item--active" : ""}`
+        `channel-list-item ${isActive ? "channel-list-item--active" : ""}`
       }>
         <i className="fas fa-hashtag"></i>
-        <span className="sidebar__list-item__text disable-select">{channel.name}</span>
+        <span className="channel-list-item__text disable-select">{channel.name}</span>
       </div>
     </Link>
   );
@@ -21,7 +21,7 @@ const Sidebar = ({ user, activeChannel, channels }) => {
   return (
     <div className="sidebar disable-select">
       <div className="sidebar__header">
-        <h3>Discord Clone</h3>
+      <h3><a href="/">Discord Clone</a></h3>
       </div>
       <div className="sidebar__list scrollable">
         {channels && channels.allIds.map((id) => (

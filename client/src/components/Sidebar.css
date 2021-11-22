@@ -52,7 +52,7 @@
   padding: 8px 0;
 }
 
-.sidebar__list-item {
+.channel-list-item {
   border-radius: 4px;
   color: var(--channels-default);
   cursor: default;
@@ -65,26 +65,26 @@
   white-space: nowrap;
 }
 
-.sidebar__list-item:hover {
+.channel-list-item:hover {
   background-color: var(--background-modifier-hover);
   color: var(--interactive-normal);
   cursor: pointer;
 }
 
-.sidebar__list-item:hover i {
+.channel-list-item:hover i {
   color: var(--channels-default);
 }
 
-.sidebar__list-item--active, .sidebar__list-item--active:hover {
+.channel-list-item--active, .channel-list-item--active:hover {
   background-color: var(--background-modifier-selected);
   color: var(--interactive-active);
 }
 
-.sidebar__list-item--active i, .sidebar__list-item--active:hover i {
+.channel-list-item--active i, .channel-list-item--active:hover i {
   color: var(--channels-default);
 }
 
-.sidebar__list-item__text {
+.channel-list-item__text {
   font-size: 14px;
   font-weight: 500;
   margin: 0 6px;
@@ -92,7 +92,7 @@
   text-overflow: ellipsis;
 }
 
-.sidebar__list-item .fa-hashtag {
+.channel-list-item .fa-hashtag {
   padding: 2px 3px;
   font-size: 18px;
 }
