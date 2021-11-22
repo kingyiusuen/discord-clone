@@ -1,6 +1,7 @@
 import io from "socket.io-client";
 
-import { receiveMessage, updateOnlineUsers } from "../actions/chat";
+import { receiveMessage } from "../reducers/chatReducer";
+import { updateOnlineUsers } from "../reducers/userListReducer";
 
 const socketMiddleware = () => {
   return storeAPI => {
@@ -22,11 +23,11 @@ const socketMiddleware = () => {
         case "chat/sendMessage":
           socket.emit("message", action.payload);
           break;
-        case "chat/connectSocket":
+        case "session/connectSocket":
           socket.connect();
           socket.emit("new-login", action.payload);
           break;
-        case "auth/logout":
+        case "session/logout":
           socket.close();
           break;
         default:

@@ -1,8 +1,10 @@
 import React from "react";
 
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import "./Sidebar.css";
+import { useActiveChannel } from "../hooks";
 
 const ChannelListItem = ({ channel, isActive }) => {
   return (
@@ -17,7 +19,11 @@ const ChannelListItem = ({ channel, isActive }) => {
   );
 };
 
-const Sidebar = ({ user, activeChannel, channels }) => {  
+const Sidebar = () => {
+  const user = useSelector(state => state.session.user);
+  const channels = useSelector((state) => state.chat.channels);
+  const activeChannel = useActiveChannel();
+
   return (
     <div className="sidebar disable-select">
       <div className="sidebar__header">

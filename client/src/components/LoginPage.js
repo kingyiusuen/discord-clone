@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
 import "./LoginPage.css";
-import { login } from "../actions/auth";
-import { connectSocket } from "../actions/chat";
+import { login, connectSocket } from "../reducers/sessionReducer";
+import { loadChannels } from "../reducers/chatReducer";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -17,14 +17,15 @@ const LoginPage = () => {
     dispatch(login({ username, password: username }));
   }
 
-  const auth = useSelector(state => state.auth);
+  const session = useSelector(state => state.session);
 
   useEffect(() => {
-    if (auth.isAuthenticated) {
-      dispatch(connectSocket(auth.user));
+    if (session.isAuthenticated) {
+      dispatch(connectSocket(session.user));
+      dispatch(loadChannels());
       navigate("/channel/1");
     }
-  }, [dispatch, navigate, auth])
+  }, [dispatch, navigate, session])
 
   return (
     <div className="login">

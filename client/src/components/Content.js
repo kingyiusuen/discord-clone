@@ -5,12 +5,13 @@ import { useDispatch } from "react-redux";
 import "./Content.css";
 import UserList from "./UserList";
 import Messages from "./Messages";
-import { logout } from "../actions/auth";
-import { sendMessage } from "../actions/chat";
+import { useActiveChannel } from "../hooks";
+import { logout } from "../reducers/sessionReducer";
+import { sendMessage } from "../reducers/chatReducer";
 
-const Content = ({ user, activeChannel }) => {
+const Content = ({ user }) => {
   const dispatch = useDispatch();
-  const channelName = activeChannel && activeChannel.name;
+  const activeChannel = useActiveChannel();
 
   const handleOnSubmit = (event) => {
     event.preventDefault();
@@ -29,11 +30,16 @@ const Content = ({ user, activeChannel }) => {
       <div className="content__header">
         <div className="content__title disable-select">
           <i className="fas fa-hashtag"></i>
-          <h3>{channelName}</h3>
+          <h3>{activeChannel && activeChannel.name}</h3>
         </div>
         <div className="content__icon-group">
+          <a href="https://github.com/kingyiusuen/discord-clone" target="blank">
+            <i class="fab fa-github interactive-icon"></i>
+          </a>
           <i
-            className={`fas fa-user-friends ${showUserList ? "interactive-icon--active" : "interactive-icon"}`}
+            className={
+              `fas fa-user-friends interactive-icon${showUserList ? "--active" : ""}`
+            }
             onClick={toggleUserList}
           >
           </i>
@@ -46,10 +52,14 @@ const Content = ({ user, activeChannel }) => {
       </div>
       <div className="chat-area">
         <div className="chat-area__container">
-          <Messages channelName={channelName}/>
+          {activeChannel && <Messages activeChannel={activeChannel} />}
           <div className="chat-area__form">
             <form onSubmit={handleOnSubmit}>
-              <input type="text" name="content" placeholder={`Message #${channelName}`} />
+              <input
+                type="text"
+                name="content"
+                placeholder={`Message #${activeChannel && activeChannel.name}`}
+              />
               <button type="submit" />
             </form>
           </div>

@@ -1,6 +1,18 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { login } from "../actions/auth";
+import * as userAPI from "../api/user";
+
+export const login = createAsyncThunk(
+  "session/login",
+  async (userInfo, { rejectWithValue }) => {
+    try {
+      const response = await userAPI.login(userInfo);
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response);
+    }
+  }
+);
 
 const initialState = {
   isAuthenticated: false,
@@ -9,10 +21,11 @@ const initialState = {
   error: null,
 };
 
-const authSlice = createSlice({
-  name: "auth",
+const sessionSlice = createSlice({
+  name: "session",
   initialState,
   reducers: {
+    connectSocket(state, action) { },
     logout(state, action) {
       state.isAuthenticated = false;
       state.isLoading = false;
@@ -40,6 +53,6 @@ const authSlice = createSlice({
     }
 });
 
-export const { logout } = authSlice.actions;
+export const { connectSocket, logout } = sessionSlice.actions;
 
-export default authSlice.reducer;
+export default sessionSlice.reducer;

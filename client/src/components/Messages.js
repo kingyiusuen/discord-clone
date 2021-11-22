@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import "./Messages.css";
+import { loadMessages } from "../reducers/chatReducer";
 
 const Message = ({ message }) => {
   return (
@@ -21,20 +22,40 @@ const Message = ({ message }) => {
   );
 };
 
-const Messages = ({ channelName }) => {
+const Messages = ({ activeChannel }) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(loadMessages(activeChannel.id));
+  }, [dispatch, activeChannel])
+
   const messages = useSelector((state) => state.chat.messages);
+  const isLoadingMessages = useSelector((state) => state.chat.isLoadingMessages);
+  const hasMessages = messages.allIds.length > 0;
+
+  // Scroll to bottom of the chat history
+  let messageContainerBottomRef = document.getElementById("messagesContainerBottom");
+  useEffect(() => {
+    !isLoadingMessages && messageContainerBottomRef.scrollIntoView(false);
+  }, [isLoadingMessages, messageContainerBottomRef]);
 
   return (
-    <div id="messages" className="messages scrollable">
-      <div className="messages__container">
-        <div className="messages__header disable-select">
-          <h1>Welcome to #{channelName}!</h1>
-          <h2>This is the start of #{channelName}.</h2>
-          {messages.allIds.length > 0 && <hr />}
+    <div className="messages scrollable">
+      {
+        !isLoadingMessages &&
+        <div id="messagesContainer" className="messages__container">
+          <div className="messages__header disable-select">
+            <h1>Welcome to #{activeChannel.name}!</h1>
+            <h2>This is the start of #{activeChannel.name}.</h2>
+            {hasMessages && <hr />}
+          </div>
+          {hasMessages && (messages.allIds.map((id) => <Message key={id} message={messages.byId[id]} />))}
         </div>
-        {messages.allIds.length > 0
-          && (messages.allIds.map((id) => <Message key={id} message={messages.byId[id]} />))
-        }
+      }
+      <div
+        ref={element => (messageContainerBottomRef = element)}
+        id="messagesContainerBottom"
+      >
       </div>
     </div>
   );

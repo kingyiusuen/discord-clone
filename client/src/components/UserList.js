@@ -14,7 +14,7 @@ const UserListItem = ({ user }) => {
 };
 
 const UserList = () => {
-  const users = useSelector(state => state.chat.onlineUsers);
+  const users = useSelector(state => state.userList.onlineUsers);
 
   return (
     <div className="user-list">
