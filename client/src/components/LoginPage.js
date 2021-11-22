@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 
 import "./LoginPage.css";
 import { login } from "../actions/user";
+import { connectSocket } from "../actions/chat";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -16,13 +17,14 @@ const LoginPage = () => {
     dispatch(login({ username, password: username }));
   }
 
-  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+  const auth = useSelector(state => state.auth);
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (auth.isAuthenticated) {
+      dispatch(connectSocket(auth.user));
       navigate("/channel/1");
     }
-  }, [isAuthenticated, navigate])
+  }, [dispatch, navigate, auth])
 
   return (
     <div className="login">
