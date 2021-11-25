@@ -11,13 +11,14 @@ const clients = {};
 io.on("connection", (socket) => {
   socket.on("new-client", (user) => {
     clients[socket.id] = user;
-    io.emit("update-user-list", Object.values(clients));
+    io.emit("update-member-list", Object.values(clients));
   })
 
   socket.on("message", async (message) => {
     const { user, channelId, content } = message;
     const result = await db.query(
-      "INSERT INTO messages (user_id, channel_id, content) VALUES ($1, $2, $3) RETURNING *",
+      "INSERT INTO channel_messages (author_id, channel_id, content) "
+      + "VALUES($1, $2, $3) RETURNING * ",
       [user.id, channelId, content],
     );
     io.emit("message", {
@@ -39,7 +40,7 @@ io.on("connection", (socket) => {
 
   socket.on("disconnect", () => {
     delete clients[socket.id];
-    io.emit("update-user-list", Object.values(clients));
+    io.emit("update-member-list", Object.values(clients));
   });
 
 });

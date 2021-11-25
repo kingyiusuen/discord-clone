@@ -13,7 +13,7 @@ const socketMiddleware = () => {
       storeAPI.dispatch(receiveMessage(message))
     });
 
-    socket.on("update-user-list", (user) => {
+    socket.on("update-member-list", (user) => {
       storeAPI.dispatch(updateOnlineUsers(user))
     })
 

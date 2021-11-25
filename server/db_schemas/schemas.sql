@@ -9,10 +9,18 @@ CREATE TABLE channels (
     name VARCHAR(30) NOT NULL
 );
 
-CREATE TABLE messages (
+CREATE TABLE channel_messages (
     id SERIAL PRIMARY KEY,
-    user_id INTEGER REFERENCES users (id) NOT NULL,
     channel_id INTEGER REFERENCES channels (id) NOT NULL,
+    author_id INTEGER REFERENCES users (id) NOT NULL,
+    content TEXT NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE private_messages (
+    id SERIAL PRIMARY KEY,
+    author_id INTEGER REFERENCES users (id) NOT NULL,
+    receiver_id INTEGER REFERENCES users (id) NOT NULL,
     content TEXT NOT NULL,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
