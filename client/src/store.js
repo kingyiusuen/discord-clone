@@ -3,17 +3,18 @@ import { configureStore } from "@reduxjs/toolkit";
 import socketMiddleware from "./middleware/socketMiddleware";
 import chatReducer from "./reducers/chatReducer";
 import sessionReducer from "./reducers/sessionReducer";
-import userListReducer from "./reducers/userListReducer";
+import sidebarReducer from "./reducers/sidebarReducer";
+import memberListReducer from "./reducers/memberListReducer";
 
 const store = configureStore({
   reducer: {
     chat: chatReducer,
     session: sessionReducer,
-    userList: userListReducer,
+    sidebar: sidebarReducer,
+    memberList: memberListReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(socketMiddleware),
 })
-
 
 export default store;

@@ -1,23 +1,34 @@
 import React from "react";
 
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
+import { useWindowWidth } from "./hooks";
 import LoginPage from "./components/LoginPage";
-import Dashboard from "./components/Dashboard";
-import { RequireAuth } from "./routes/routes";
+import { DesktopLayout, MobileLayout } from "./layout";
+import { RequireAuth } from "./routes";
 
 const App = () => {
+  const width = useWindowWidth();
+  const isMobile = width <= 768;
 
   return (
-    <div>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/channel/:channel" element={<RequireAuth><Dashboard /></RequireAuth>} />
-        </Routes>
-      </BrowserRouter>
-    </div>
-  );
-};
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={<LoginPage />}
+        />
+        <Route
+          path="/channels/:channel"
+          element={
+            <RequireAuth>
+              {isMobile ? <MobileLayout /> : <DesktopLayout />}
+            </RequireAuth>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
+  )
+}
 
-export default App;
+export default App

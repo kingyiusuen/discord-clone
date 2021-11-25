@@ -1,51 +1,52 @@
-import React from "react";
+import React, { useRef } from 'react';
 
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import styled, { css } from "styled-components";
 
-import "./Sidebar.css";
-import { useActiveChannel } from "../hooks";
+import ServerList from "./ServerList";
+import ChannelList from "./ChannelList";
+import Backdrop from "./shared/Backdrop";
+import { toggleSidebar } from '../reducers/sidebarReducer';
+import { useDetectClickOutside } from "../hooks";
 
-const ChannelListItem = ({ channel, isActive }) => {
+const Container = styled.div`
+  display: flex;
+  flex: 0 0 auto;
+  height: 100vh;
+  z-index: 1300;
+
+  @media (max-width: 768px) {
+    & {
+      position: fixed;
+      left: -100%;
+      transition: 0.3s;
+    }
+
+    ${p => p.isActive && css`
+      & {
+        left: 0;
+      }
+    `}
+  }
+`
+
+const Sidebar = ({ isMobile }) => {
+  const sidebarRef = useRef(null);
+  const showSidebar = useSelector(state => state.sidebar.isOpen);
+  useDetectClickOutside({
+    action: toggleSidebar,
+    listenCondition: isMobile && showSidebar,
+    ref: sidebarRef,
+  })
+
   return (
-    <Link to={`/channel/${channel.id}`}>
-      <div className={
-        `channel-list-item ${isActive ? "channel-list-item--active" : ""}`
-      }>
-        <i className="fas fa-hashtag"></i>
-        <span className="channel-list-item__text disable-select">{channel.name}</span>
-      </div>
-    </Link>
-  );
-};
+    <Backdrop isActive={isMobile && showSidebar}>
+      <Container isActive={isMobile && showSidebar} ref={sidebarRef}>
+        <ServerList />
+        <ChannelList />
+      </Container>
+    </Backdrop>
+  )
+}
 
-const Sidebar = () => {
-  const user = useSelector(state => state.session.user);
-  const channels = useSelector((state) => state.chat.channels);
-  const activeChannel = useActiveChannel();
-
-  return (
-    <div className="sidebar disable-select">
-      <div className="sidebar__header">
-      <h3><a href="/">Discord Clone</a></h3>
-      </div>
-      <div className="sidebar__list scrollable">
-        {channels && channels.allIds.map((id) => (
-          <ChannelListItem
-            key={id}
-            channel={channels.byId[id]}
-            isActive={id === activeChannel.id}
-          />
-        ))}
-      </div>
-      <div className="sidebar__footer">
-        <i className="fas fa-user-circle"></i>
-        <div className="sidebar__username">
-          <div>{user && user.username}</div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default Sidebar;
+export default Sidebar

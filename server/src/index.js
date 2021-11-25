@@ -9,7 +9,7 @@ const io = new Server(server);
 const clients = {};
 
 io.on("connection", (socket) => {
-  socket.on("new-login", (user) => {
+  socket.on("new-client", (user) => {
     clients[socket.id] = user;
     io.emit("update-user-list", Object.values(clients));
   })

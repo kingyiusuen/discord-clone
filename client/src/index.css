@@ -12,12 +12,14 @@
   --background-secondary: #2f3136;
   --background-secondary-alt: #292b2f;
   --background-tertiary: #202225;
+  --background-floating: #18191c;
   --background-modifier-hover: rgba(79, 84, 92, 0.16);
   --background-modifier-active: rgba(79, 84, 92, 0.24);
   --background-modifier-selected: rgba(79, 84, 92, 0.32);
   --background-modifier-accent: hsla(0, 0%, 100%, 0.06);
   --channels-default: #8e9297;
   --channeltextarea-background: #40444b;
+  --elevation-high: 0 8px 16px rgba(0,0,0,0.24);
   --header-primary: #fff;
   --header-secondary: #b9bbbe;
   --interactive-normal: #b9bbbe;
@@ -38,6 +40,16 @@ body {
 a {
   text-decoration: none;
   color: inherit;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+ul {
+  list-style-type: none;
+}
+
+button:hover {
+  cursor: pointer;
 }
 
 .disable-select {
@@ -82,4 +94,14 @@ a {
 .scrollable::-webkit-scrollbar-track {
   background-color: var(--scrollbar-thin-track);
   border-color: var(--scrollbar-thin-track);
+}
+
+.hamburger {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex !important;
+  }
 }

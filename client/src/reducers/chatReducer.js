@@ -27,10 +27,8 @@ export const loadMessages = createAsyncThunk(
 );
 
 const initialState = {
-  channels: { byId: {}, allIds: [] },
-  messages: { byId: {}, allIds: [] },
-  isLoadingMessages: true,
-  error: null,
+  channels: { byId: {}, allIds: [], isLoading: true },
+  messages: { byId: {}, allIds: [], isLoading: true },
 };
 
 const chatSlice = createSlice({
@@ -47,23 +45,20 @@ const chatSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(loadMessages.pending, (state, action) => {
-        state.isLoadingMessages = true;
+        state.messages.isLoading = true;
       })
       .addCase(loadMessages.fulfilled, (state, action) => {
-        state.isLoadingMessages = false;
-        state.error = null;
-        state.messages = { byId: {}, allIds: [] };
+        state.messages = { byId: {}, allIds: [], isLoading: false };
         action.payload.forEach((message) => {
           state.messages.byId[message.id] = message;
           state.messages.allIds.push(message.id);
         })
       })
-      .addCase(loadMessages.rejected, (state, action) => {
-        state.isLoadingMessages = false;
-        state.error = action.payload.message;
+      .addCase(loadChannels.pending, (state, action) => {
+        state.messages.isLoading = true;
       })
       .addCase(loadChannels.fulfilled, (state, action) => {
-        state.channels = { byId: {}, allIds: [] };
+        state.channels = { byId: {}, allIds: [], isLoading: false };
         action.payload.forEach((channel) => {
           state.channels.byId[channel.id] = channel;
           state.channels.allIds.push(channel.id);

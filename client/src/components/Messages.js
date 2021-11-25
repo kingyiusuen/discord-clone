@@ -1,64 +1,88 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
 
 import { useSelector, useDispatch } from "react-redux";
+import styled from "styled-components";
 
-import "./Messages.css";
+import Message from "./Message";
+import Divider from "./shared/Divider";
+import { useGetActiveChannelId } from "../hooks";
 import { loadMessages } from "../reducers/chatReducer";
 
-const Message = ({ message }) => {
-  return (
-    <div className="message">
-      <div className="message__avatar">
-        <i className="fas fa-user-circle"></i>
-      </div>
-      <div>
-        <div className="message__header">
-            <span className="message__username">{message.user.username}</span>
-            <span className="message__timestamp">{message.createdAt.substring(0, 10)}</span>
-        </div>
-        <div className="message__content">{message.content}</div>
-      </div>
-    </div>
-  );
-};
+const Wrapper = styled.div`
+  background-color: var(--background-primary);
+  display: flex;
+  flex: 1;
+  overflow: hidden scroll;
+  height: calc(100vh - 48px - 68px);
+`
 
-const Messages = ({ activeChannel }) => {
+const Container = styled.div`
+  margin-top: auto;
+  width: 100%;
+`
+
+const HeaderContainer = styled.div`
+  margin: 4px 16px;
+`
+
+const PrimaryHeader = styled.h1`
+  color: var(--header-primary);
+  margin-top: 12px;
+  margin-bottom: 4px;
+`
+
+const SecondaryHeader = styled.h2`
+  color: var(--header-secondary);
+  margin-bottom: 16px;
+  font-size: 14px;
+  font-weight: 400;
+`
+
+const ContainerBottom = styled.div``
+
+const Messages = () => {
   const dispatch = useDispatch();
-
+  const activeChannelId = useGetActiveChannelId();
   useEffect(() => {
-    dispatch(loadMessages(activeChannel.id));
-  }, [dispatch, activeChannel])
+    dispatch(loadMessages(activeChannelId));
+  }, [activeChannelId, dispatch])
 
+  const channels = useSelector(state => state.chat.channels);
+  const activeChannelName = !channels.isLoading && channels.byId[activeChannelId].name;
+  
   const messages = useSelector((state) => state.chat.messages);
-  const isLoadingMessages = useSelector((state) => state.chat.isLoadingMessages);
   const hasMessages = messages.allIds.length > 0;
 
   // Scroll to bottom of the chat history
-  let messageContainerBottomRef = document.getElementById("messagesContainerBottom");
+  let containerBottomRef = document.getElementById("messagesContainerBottom");
   useEffect(() => {
-    !isLoadingMessages && messageContainerBottomRef.scrollIntoView(false);
-  }, [isLoadingMessages, messageContainerBottomRef]);
-
+    !messages.isLoading && containerBottomRef.scrollIntoView(false);
+  }, [messages.isLoading, containerBottomRef]);
+  
   return (
-    <div className="messages scrollable">
-      {
-        !isLoadingMessages &&
-        <div id="messagesContainer" className="messages__container">
-          <div className="messages__header disable-select">
-            <h1>Welcome to #{activeChannel.name}!</h1>
-            <h2>This is the start of #{activeChannel.name}.</h2>
-            {hasMessages && <hr />}
-          </div>
-          {hasMessages && (messages.allIds.map((id) => <Message key={id} message={messages.byId[id]} />))}
-        </div>
-      }
-      <div
-        ref={element => (messageContainerBottomRef = element)}
+    <Wrapper className="scrollable">
+      <Container>
+        <HeaderContainer className="disable-select">
+          <PrimaryHeader>Welcome #{activeChannelName}!</PrimaryHeader>
+          <SecondaryHeader>This is the start of #{activeChannelName}.</SecondaryHeader>
+          {hasMessages && <Divider />}
+        </HeaderContainer>
+        {
+          hasMessages && messages.allIds.map((id) => (
+            <Message
+              key={id}
+              message={messages.byId[id]}
+            />
+          ))
+        }
+      <ContainerBottom
+        ref={element => (containerBottomRef = element)}
         id="messagesContainerBottom"
       >
-      </div>
-    </div>
-  );
-};
+      </ContainerBottom>
+      </Container>
+    </Wrapper>
+  )
+}
 
 export default Messages;
