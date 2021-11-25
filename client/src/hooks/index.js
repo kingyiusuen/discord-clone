@@ -1,7 +1,6 @@
 import { useEffect, useLayoutEffect, useState } from 'react';
 
-import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 // Detect window width
 export const useWindowWidth = () => {
@@ -18,11 +17,11 @@ export const useWindowWidth = () => {
   return width;
 }
 
-// Extract the active channel Id from URL
-export const useGetActiveChannelId = () => {
-  const params = useParams();
-  const activeChannelId = parseInt(params.channel);
-  return activeChannelId
+export const useActiveChannel = () => {
+  const loading = useSelector(state => state.channels.loading);
+  const activeChannelId = useSelector(state => state.channels.active);
+  const channelsById = useSelector(state => state.channels.byId);
+  return !loading && channelsById[activeChannelId];
 }
 
 // Detect whether the user clicks outside of a component

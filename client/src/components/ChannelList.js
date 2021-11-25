@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -8,8 +8,6 @@ import Hashtag from "./shared/Hashtag";
 import AvatarWithStatus from "./shared/AvatarWithStatus";
 import Stack from "./shared/Stack";
 import ListItem from "./shared/ListItem";
-import { useGetActiveChannelId } from "../hooks";
-import { loadChannels } from "../reducers/chatReducer";
 
 const Container = styled.div`
   width: 240px;
@@ -65,14 +63,9 @@ const Username = styled.div`
 
 const ChannelList = () => {
   const user = useSelector(state => state.session.user);
-  
-  const channels = useSelector((state) => state.chat.channels);
-  const activeChannelId = useGetActiveChannelId();
 
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(loadChannels());
-  }, [dispatch])
+  const channels = useSelector((state) => state.channels);
+  const activeChannelId = useSelector((state) => state.channels.active);
 
   return (
     <Container className="disable-select">
@@ -81,7 +74,7 @@ const ChannelList = () => {
       </Header>
       <Content className="scrollable">
         <Stack gap="2px">
-          {!channels.pending && channels.allIds.map((id) => (
+          {!channels.loading && channels.allIds.map((id) => (
             <Link key={id} to={`/channels/${id}`}>
               <ListItem
                 icon={<Hashtag style={{ fontSize: "20px" }}/>}

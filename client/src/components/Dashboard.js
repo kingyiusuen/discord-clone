@@ -1,9 +1,16 @@
+import React, { useEffect } from "react";
+
+import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
+import { useWindowWidth } from "../hooks";
 import ChatArea from "../components/ChatArea";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import MemberList from "../components/MemberList";
+import { loadMessages } from "../reducers/chatReducer";
+import { loadChannels, setActiveChannel } from "../reducers/channelsReducer";
 
 const Container = styled.div`
   display: flex;
@@ -35,7 +42,7 @@ const Content = styled.div`
   }
 `
 
-export const DesktopLayout = () => {
+const DesktopLayout = () => {
   return (
     <Container>
       <Sidebar isMobile={true} />
@@ -50,7 +57,7 @@ export const DesktopLayout = () => {
   )
 };
 
-export const MobileLayout = () => {
+const MobileLayout = () => {
   return (
     <Container>
       <Sidebar isMobile={true} />
@@ -64,3 +71,25 @@ export const MobileLayout = () => {
     </Container>
   )
 };
+
+const Dashboard = () => {
+  const width = useWindowWidth();
+  const isMobile = width <= 768;
+
+  const params = useParams();
+  const activeChannelId = parseInt(params.channel);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setActiveChannel(activeChannelId));
+    dispatch(loadChannels());
+    dispatch(loadMessages(activeChannelId));
+  }, [activeChannelId, dispatch])
+
+  return (
+    isMobile ? <MobileLayout /> : <DesktopLayout />
+  )
+}
+
+export default Dashboard;

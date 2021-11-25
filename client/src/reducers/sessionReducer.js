@@ -16,7 +16,7 @@ export const login = createAsyncThunk(
 
 const initialState = {
   isAuthenticated: false,
-  isLoading: false,
+  loading: false,
   user: null,
   error: null,
 };
@@ -28,7 +28,7 @@ const sessionSlice = createSlice({
     connectSocket(state, action) { },
     logout(state, action) {
       state.isAuthenticated = false;
-      state.isLoading = false;
+      state.loading = false;
       state.user = null;
       state.error = null;
     },
@@ -36,17 +36,17 @@ const sessionSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(login.pending, (state, action) => {
-        state.isLoading = true;
+        state.loading = true;
         state.isAuthenticated = false;
       })
       .addCase(login.fulfilled, (state, action) => {
-        state.isLoading = false;
+        state.loading = false;
         state.isAuthenticated = true;
         state.user = action.payload;
         state.error = null;
       })
       .addCase(login.rejected, (state, action) => {
-        state.isLoading = false;
+        state.loading = false;
         state.isAuthenticated = false;
         state.user = null;
         state.error = action.payload.message;

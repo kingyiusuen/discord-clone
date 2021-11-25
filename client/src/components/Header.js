@@ -12,7 +12,6 @@ import styled from "styled-components"
 import Hashtag from "./shared/Hashtag";
 import Icon from "./shared/Icon";
 import Stack from "./shared/Stack";
-import { useGetActiveChannelId } from "../hooks";
 import { toggleSidebar } from '../reducers/sidebarReducer';
 import { toggleMemberList } from '../reducers/memberListReducer';
 
@@ -36,9 +35,8 @@ const Heading = styled.h2`
 const Header = () => {
   const dispatch = useDispatch();
   const isMemberListOpen = useSelector(state => state.memberList.isOpen);
-
-  const activeChannelId = useGetActiveChannelId();
-  const channels = useSelector(state => state.chat.channels);
+  const channels = useSelector(state => state.channels);
+  const activeChannelName = !channels.loading && channels.byId[channels.active].name;
 
   return (
     <Container className="disable-select">
@@ -53,7 +51,7 @@ const Header = () => {
         <Stack horizontal={true} gap="6px" style={{ alignItems: "center"}}>
           <Hashtag />
           <Heading>
-            {!channels.isLoading && channels.byId[activeChannelId].name}
+            {!channels.loading && activeChannelName}
           </Heading>
         </Stack>
       </Stack>

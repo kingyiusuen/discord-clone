@@ -1,12 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 import Message from "./Message";
 import Divider from "./shared/Divider";
-import { useGetActiveChannelId } from "../hooks";
-import { loadMessages } from "../reducers/chatReducer";
+import { useActiveChannel } from "../hooks";
 
 const Wrapper = styled.div`
   background-color: var(--background-primary);
@@ -25,13 +24,13 @@ const HeaderContainer = styled.div`
   margin: 4px 16px;
 `
 
-const PrimaryHeader = styled.h1`
+const PrimaryHeading = styled.h1`
   color: var(--header-primary);
   margin-top: 12px;
   margin-bottom: 4px;
 `
 
-const SecondaryHeader = styled.h2`
+const SecondaryHeading = styled.h2`
   color: var(--header-secondary);
   margin-bottom: 16px;
   font-size: 14px;
@@ -41,30 +40,23 @@ const SecondaryHeader = styled.h2`
 const ContainerBottom = styled.div``
 
 const Messages = () => {
-  const dispatch = useDispatch();
-  const activeChannelId = useGetActiveChannelId();
-  useEffect(() => {
-    dispatch(loadMessages(activeChannelId));
-  }, [activeChannelId, dispatch])
+  const activeChannel = useActiveChannel();
 
-  const channels = useSelector(state => state.chat.channels);
-  const activeChannelName = !channels.isLoading && channels.byId[activeChannelId].name;
-  
   const messages = useSelector((state) => state.chat.messages);
   const hasMessages = messages.allIds.length > 0;
 
-  // Scroll to bottom of the chat history
-  let containerBottomRef = document.getElementById("messagesContainerBottom");
+  // Scroll to bottom of the chat history whenever there is a new message
+  const containerBottomRef = useRef(null);
   useEffect(() => {
-    !messages.isLoading && containerBottomRef.scrollIntoView(false);
-  }, [messages.isLoading, containerBottomRef]);
-  
+    containerBottomRef.current.scrollIntoView(false);
+  }, [messages.allIds, containerBottomRef]);
+
   return (
     <Wrapper className="scrollable">
       <Container>
         <HeaderContainer className="disable-select">
-          <PrimaryHeader>Welcome #{activeChannelName}!</PrimaryHeader>
-          <SecondaryHeader>This is the start of #{activeChannelName}.</SecondaryHeader>
+          <PrimaryHeading>Welcome #{activeChannel.name}!</PrimaryHeading>
+          <SecondaryHeading>This is the start of #{activeChannel.name}.</SecondaryHeading>
           {hasMessages && <Divider />}
         </HeaderContainer>
         {
@@ -75,10 +67,7 @@ const Messages = () => {
             />
           ))
         }
-      <ContainerBottom
-        ref={element => (containerBottomRef = element)}
-        id="messagesContainerBottom"
-      >
+      <ContainerBottom ref={containerBottomRef}>
       </ContainerBottom>
       </Container>
     </Wrapper>

@@ -17,7 +17,7 @@ CREATE TABLE channel_messages (
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
-CREATE TABLE private_messages (
+CREATE TABLE direct_messages (
     id SERIAL PRIMARY KEY,
     author_id INTEGER REFERENCES users (id) NOT NULL,
     receiver_id INTEGER REFERENCES users (id) NOT NULL,

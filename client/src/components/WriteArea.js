@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 import InvisibleSubmitButton from './shared/InvisibleSubmitButton';
 import { sendMessage, typing, stopTyping } from "../reducers/chatReducer";
-import { useGetActiveChannelId } from '../hooks';
+import { useActiveChannel } from "../hooks";
 
 const Container = styled.div`
   background-color: var(--background-primary);
@@ -43,14 +43,14 @@ const WriteArea = () => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.user);
 
-  const activeChannelId = useGetActiveChannelId();
-  const channels = useSelector(state => state.chat.channels);
-  const activeChannelName = !channels.isLoading && channels.byId[activeChannelId].name;
+  const activeChannel = useActiveChannel();
+
   const handleOnSubmit = (event) => {
     event.preventDefault();
     const content = event.target.content.value;
-    dispatch(sendMessage({ user, content, channelId: activeChannelId }));
+    dispatch(sendMessage({ user, content, channelId: activeChannel.id }));
     event.target.reset();
+    dispatch(stopTyping(user));
   }
 
   const typingUser = useSelector(state => state.chat.typingUser);
@@ -73,7 +73,7 @@ const WriteArea = () => {
           ref={inputRef}
           type="text"
           name="content"
-          placeholder={`Message #${activeChannelName}`}
+          placeholder={`Message #${activeChannel.name}`}
         />
         <InvisibleSubmitButton />
       </Form>

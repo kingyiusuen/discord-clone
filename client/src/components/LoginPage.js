@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
 import { login, connectSocket } from "../reducers/sessionReducer";
-import { loadChannels } from "../reducers/chatReducer";
+import { loadChannels } from "../reducers/channelsReducer";
 import Avatar from "./shared/Avatar.js"
 
 const Wrapper = styled.div`
