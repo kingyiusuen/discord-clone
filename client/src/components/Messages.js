@@ -14,11 +14,11 @@ const Wrapper = styled.div`
   flex: 1;
   overflow: hidden scroll;
   height: calc(100vh - 48px - 68px);
+width: 100%;
 `
 
 const Container = styled.div`
   margin-top: auto;
-  width: 100%;
 `
 
 const HeaderContainer = styled.div`

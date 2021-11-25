@@ -9,7 +9,6 @@ const Container = styled.div`
   background-color: white;
   display: flex;
   flex-direction: column;
-  flex: 1;
   height: calc(100vh - 48px);
 `
 
