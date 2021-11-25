@@ -29,6 +29,7 @@ export const loadMessages = createAsyncThunk(
 const initialState = {
   channels: { byId: {}, allIds: [], isLoading: true },
   messages: { byId: {}, allIds: [], isLoading: true },
+  typingUser: null,
 };
 
 const chatSlice = createSlice({
@@ -41,6 +42,11 @@ const chatSlice = createSlice({
       state.messages.allIds.push(message.id);
     },
     sendMessage(state, action) { },
+    typing(state, action) { },
+    stopTyping(state, action) { },
+    updateTypingUser(state, action) {
+      state.typingUser = action.payload;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -67,6 +73,13 @@ const chatSlice = createSlice({
   }
 })
 
-export const { receiveMessage, updateOnlineUsers, sendMessage } = chatSlice.actions;
+export const {
+  receiveMessage,
+  updateOnlineUsers,
+  updateTypingUser,
+  sendMessage,
+  stopTyping,
+  typing,
+} = chatSlice.actions;
 
 export default chatSlice.reducer;

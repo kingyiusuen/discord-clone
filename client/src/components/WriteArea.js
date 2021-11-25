@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
 import InvisibleSubmitButton from './shared/InvisibleSubmitButton';
-import { sendMessage } from "../reducers/chatReducer";
+import { sendMessage, typing, stopTyping } from "../reducers/chatReducer";
 import { useGetActiveChannelId } from '../hooks';
 
 const Container = styled.div`
@@ -13,6 +13,8 @@ const Container = styled.div`
   padding: 0 16px;
   flex: 0 0 auto;
 `
+
+const Form = styled.form``
 
 const Input = styled.input`
   border: 0;
@@ -30,13 +32,20 @@ const Input = styled.input`
   }
 `
 
+const TypingStatus = styled.span`
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-normal);
+  padding: 0 14px;
+`
+
 const WriteArea = () => {
   const dispatch = useDispatch();
+  const user = useSelector(state => state.session.user);
+
   const activeChannelId = useGetActiveChannelId();
   const channels = useSelector(state => state.chat.channels);
   const activeChannelName = !channels.isLoading && channels.byId[activeChannelId].name;
-  const user = useSelector(state => state.session.user);
-
   const handleOnSubmit = (event) => {
     event.preventDefault();
     const content = event.target.content.value;
@@ -44,16 +53,33 @@ const WriteArea = () => {
     event.target.reset();
   }
 
+  const typingUser = useSelector(state => state.chat.typingUser);
+
+  // Detect whether the user is typing
+  const inputRef = useRef(null);
+  useEffect(() => {
+    let timeout = undefined;
+    inputRef.current.addEventListener("keyup", () => {
+      dispatch(typing(user));
+      clearTimeout(timeout);
+      timeout = setTimeout(() => dispatch(stopTyping(user)), 3000);
+    })
+  }, [dispatch, user])
+
   return (
     <Container>
-      <form onSubmit={handleOnSubmit}>
+      <Form onSubmit={handleOnSubmit}>
         <Input
+          ref={inputRef}
           type="text"
           name="content"
           placeholder={`Message #${activeChannelName}`}
         />
         <InvisibleSubmitButton />
-      </form>
+      </Form>
+      <TypingStatus>
+        {typingUser && `${typingUser.username} is typing...`}
+      </TypingStatus>
     </Container>
   )
 }

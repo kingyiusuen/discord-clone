@@ -29,6 +29,14 @@ io.on("connection", (socket) => {
     });
   });
 
+  socket.on("typing", () => {
+    socket.broadcast.emit("typing", clients[socket.id]);
+  });
+
+  socket.on("stop-typing", () => {
+    socket.broadcast.emit("stop-typing", clients[socket.id]);
+  });
+
   socket.on("disconnect", () => {
     delete clients[socket.id];
     io.emit("update-user-list", Object.values(clients));
