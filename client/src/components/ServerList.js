@@ -6,6 +6,26 @@ import { FaDiscord } from "react-icons/fa";
 
 import { baseIcon, roundedBackground } from "../design/mixins";
 
+const PillWrapper = styled.div`
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+  width: 8px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+`
+
+const PillContainer = styled.div`
+  width: 8px;
+  height: ${p => p.isActive ? "40px" : "0"};
+  margin-left: -4px;
+  border-radius: 0 4px 4px 0;
+  background-color: var(--header-primary);
+  transition: 0.2s;
+`
+
 const discordIconStyle = css`
   color: ${p => p.isActive ? "white" : "var(--text-normal)"};
   background-color: ${p => p.isActive ? "var(--brand)" : "var(--background-primary)"};
@@ -29,6 +49,10 @@ const IconWrapper = styled.div`
     border-radius: 16px;
   `}
 
+  &:hover + ${PillWrapper} > ${PillContainer} {
+    height: ${p => p.isActive ? "40px" : "24px"};
+  }
+
   ${p => p.isDiscord && discordIconStyle}
 `
 
@@ -37,6 +61,20 @@ const ServerIcon = ({ children, ...delegated }) => {
     <IconWrapper size="28px" w="48px" color="white" {...delegated}>
       {children}
     </IconWrapper>
+  )
+}
+
+const ListItem = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`
+
+const Pill = () => {
+  return (
+    <PillWrapper><PillContainer></PillContainer></PillWrapper>
   )
 }
 
@@ -61,13 +99,19 @@ const Container = styled.div`
 const ServerList = () => {
   return (
     <Container>
-      <ServerIcon isDiscord={true}>
-        <FaDiscord />
-      </ServerIcon>
+      <ListItem>
+        <ServerIcon isDiscord={true}>
+          <FaDiscord />
+        </ServerIcon>
+        <Pill />
+      </ListItem>
       <Divider></Divider>
-      <ServerIcon>
-        <AiOutlineCode title="Sample Server"/>
-      </ServerIcon>
+      <ListItem>
+        <ServerIcon>
+          <AiOutlineCode title="Sample Server"/>
+        </ServerIcon>
+        <Pill />
+      </ListItem>
     </Container>
   )
 }
