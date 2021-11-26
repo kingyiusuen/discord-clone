@@ -40,9 +40,12 @@ const IconWrapper = styled.button`
   background-color: transparent;
 `
 
-const IconButton = ({ children, ...delegated }) => {
+const IconButton = ({ children, href, ...delegated }) => {
+  const tag = href ? "a" : "button";
+  const type = tag === "button" ? "button" : "";
+
   return (
-    <IconWrapper type="button" size="22px" w="24px" {...delegated} >
+    <IconWrapper as={tag} type={type} href={href} size="22px" w="24px" {...delegated} >
       {children}
     </IconWrapper>
   )
