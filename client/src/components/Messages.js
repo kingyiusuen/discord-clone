@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 import Message from "./Message";
 import Divider from "./shared/Divider";
+import Hashtag, { Wrapper as HashtagWrapper} from "./shared/Hashtag";
 import { useActiveChannel } from "../hooks";
 
 const Wrapper = styled.div`
@@ -21,7 +22,16 @@ const Container = styled.div`
 `
 
 const HeaderContainer = styled.div`
-  margin: 4px 16px;
+  margin: 16px 16px 4px 16px;
+
+  ${HashtagWrapper} {
+    border-radius: 50%;
+    color: white;
+    background-color: var(--background-accent);
+    height: 68px;
+    width: 68px;
+    font-size: 36px;
+  }
 `
 
 const PrimaryHeading = styled.h1`
@@ -55,6 +65,7 @@ const Messages = () => {
     <Wrapper className="scrollable">
       <Container>
         <HeaderContainer className="disable-select">
+          <Hashtag />
           <PrimaryHeading>Welcome #{activeChannel.name}!</PrimaryHeading>
           <SecondaryHeading>This is the start of #{activeChannel.name}.</SecondaryHeading>
           {hasMessages && <Divider />}

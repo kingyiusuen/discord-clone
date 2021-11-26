@@ -5,7 +5,7 @@ import { FaHashtag } from "react-icons/fa";
 
 import { Wrapper as IconWrapper } from "./Icon";
 
-const Wrapper = styled(IconWrapper)`
+export const Wrapper = styled(IconWrapper)`
   color: var(--text-muted);
 
   &:hover {
