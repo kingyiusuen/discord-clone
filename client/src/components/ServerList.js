@@ -2,11 +2,50 @@ import React from 'react';
 
 import styled, { css } from 'styled-components';
 import { AiOutlineCode } from "react-icons/ai";
+import { FaDiscord } from "react-icons/fa";
 
-import Avatar from "./shared/Avatar";
-import Icon, { Wrapper as IconWrapper } from "./shared/Icon";
-import { Wrapper as DiscordIconWrapper } from "./shared/Avatar";
-import Divider from "./shared/Divider";
+import { baseIcon, roundedBackground } from "../design/mixins";
+
+const discordIconStyle = css`
+  color: ${p => p.isActive ? "white" : "var(--text-normal)"};
+  background-color: ${p => p.isActive ? "var(--brand)" : "var(--background-primary)"};
+
+  &:hover {
+    background-color: var(--brand);
+  }
+`
+
+const IconWrapper = styled.div`
+  ${baseIcon};
+  ${roundedBackground};
+  transition: 0.3s;
+  background-color: #faa519;
+
+  &:hover {
+    border-radius: 16px;
+  }
+
+  ${p => p.isActive && css`
+    border-radius: 16px;
+  `}
+
+  ${p => p.isDiscord && discordIconStyle}
+`
+
+const ServerIcon = ({ children, ...delegated }) => {
+  return (
+    <IconWrapper size="28px" w="48px" color="white" {...delegated}>
+      {children}
+    </IconWrapper>
+  )
+}
+
+const Divider = styled.div`
+  height: 2px;
+  width: 32px;
+  border-radius: 1px;
+  background-color: var(--background-modifier-accent);
+`
 
 const Container = styled.div`
   background-color: var(--background-tertiary);
@@ -17,53 +56,18 @@ const Container = styled.div`
   flex-direction: column;
   gap: 8px;
   align-items: center;
-
-  ${IconWrapper}, ${DiscordIconWrapper} {
-    font-size: 28px;
-    height: 48px;
-    width: 48px;
-    border-radius: 50%;
-    color: white;
-    transition: 0.3s;
-
-    &:hover {
-      border-radius: 16px;
-    }
-
-    ${p => p.isActive && css`
-      border-radius: 16px;
-      &:hover {
-        border-radius: 16px;
-      }
-    `}
-  }
-
-  ${IconWrapper} {
-    background-color: #faa519;
-  }
-
-  ${DiscordIconWrapper} {
-    background-color: var(--background-primary);
-
-    &:hover {
-      background-color: var(--brand);
-    }
-  }
-
-  ${Divider} {
-    border-top: 1px solid var(--background-modifier-accent);
-    width: 32px;
-  }
 `
 
 const ServerList = () => {
   return (
     <Container>
-      <Avatar title="Home" />
-      <Divider />
-      <Icon>
+      <ServerIcon isDiscord={true}>
+        <FaDiscord />
+      </ServerIcon>
+      <Divider></Divider>
+      <ServerIcon>
         <AiOutlineCode title="Sample Server"/>
-      </Icon>
+      </ServerIcon>
     </Container>
   )
 }

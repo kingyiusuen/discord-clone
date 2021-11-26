@@ -2,21 +2,54 @@ import React from "react";
 
 import styled from "styled-components";
 import { FaDiscord } from "react-icons/fa";
+import { MdFiberManualRecord } from "react-icons/md";
 
-import { Wrapper as IconWrapper } from "./Icon";
+import { baseIcon, roundedBackground } from "../../design/mixins";
 
-export const Wrapper = styled(IconWrapper)`
-  background-color: ${p => p.backgroundColor || "var(--brand)"};
-  border-radius: 50%;
-  display: flex;
-  color: white;
+const Wrapper = styled.div`
+  ${baseIcon};
+  ${roundedBackground};
 `
 
-const Avatar = ({ ...delegated }) => {
+const GreenDotWrapper = styled(Wrapper)`
+  padding: 0.5px;
+  height: 16px;
+  width: 16px;
+  position: absolute;
+  right: -4px;
+  bottom: -4px;
+`
+
+const Container = styled.div`
+  position: relative;
+`
+
+const GreenDot = () => {
   return (
-    <Wrapper {...delegated}>
+    <GreenDotWrapper color="#3aa55d" bgColor="var(--background-secondary-alt)">
+      <MdFiberManualRecord />
+    </GreenDotWrapper>
+  )
+}
+
+const DiscordIcon = ({ ...delegated }) => {
+  return (
+    <Wrapper color="white" {...delegated}>
       <FaDiscord />
     </Wrapper>
+  )
+}
+
+const Avatar = ({ status, onClick, ...delegated }) => {
+  return (
+    status
+      ? (
+        <Container onClick={onClick}>
+          <DiscordIcon {...delegated} />
+          <GreenDot />
+        </Container>
+      )
+      : <DiscordIcon onClick={onClick} {...delegated} />
   )
 }
 

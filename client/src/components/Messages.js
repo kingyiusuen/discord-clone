@@ -4,8 +4,7 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 import Message from "./Message";
-import Divider from "./shared/Divider";
-import Hashtag, { Wrapper as HashtagWrapper} from "./shared/Hashtag";
+import Hashtag from "./shared/Hashtag";
 import { useActiveChannel } from "../hooks";
 
 const Wrapper = styled.div`
@@ -23,15 +22,6 @@ const Container = styled.div`
 
 const HeaderContainer = styled.div`
   margin: 16px 16px 4px 16px;
-
-  ${HashtagWrapper} {
-    border-radius: 50%;
-    color: white;
-    background-color: var(--background-accent);
-    height: 68px;
-    width: 68px;
-    font-size: 36px;
-  }
 `
 
 const PrimaryHeading = styled.h1`
@@ -45,6 +35,12 @@ const SecondaryHeading = styled.h2`
   margin-bottom: 16px;
   font-size: 14px;
   font-weight: 400;
+`
+
+const Divider = styled.hr`
+  border: 0;
+  border-top: 1px solid var(--channeltextarea-background);
+  width: 100%;
 `
 
 const ContainerBottom = styled.div``
@@ -65,7 +61,7 @@ const Messages = () => {
     <Wrapper className="scrollable">
       <Container>
         <HeaderContainer className="disable-select">
-          <Hashtag />
+          <Hashtag size="36px" w="68px" color="white" bgColor="var(--background-accent)" />
           <PrimaryHeading>Welcome #{activeChannel.name}!</PrimaryHeading>
           <SecondaryHeading>This is the start of #{activeChannel.name}.</SecondaryHeading>
           {hasMessages && <Divider />}

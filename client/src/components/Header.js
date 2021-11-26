@@ -7,14 +7,14 @@ import {
   FaSignOutAlt,
   FaUserFriends,
 } from "react-icons/fa";
-import styled from "styled-components"
+import styled from "styled-components";
 
 import Hashtag from "./shared/Hashtag";
-import Icon from "./shared/Icon";
-import Stack from "./shared/Stack";
+import List from "./shared/List";
 import { toggleSidebar } from '../reducers/sidebarReducer';
 import { toggleMemberList } from '../reducers/memberListReducer';
 import { logout } from "../reducers/sessionReducer";
+import { baseIcon, interactiveColor } from "../design/mixins";
 
 const Container = styled.div`
   background-color: var(--background-primary);
@@ -33,6 +33,20 @@ const Heading = styled.h2`
   color: var(--header-primary);
 `
 
+const IconWrapper = styled.button`
+  ${baseIcon};
+  ${interactiveColor};
+  background-color: transparent;
+`
+
+const IconButton = ({ children, ...delegated }) => {
+  return (
+    <IconWrapper type="button" size="22px" w="24px" {...delegated} >
+      {children}
+    </IconWrapper>
+  )
+}
+
 const Header = () => {
   const dispatch = useDispatch();
   const isMemberListOpen = useSelector(state => state.memberList.isOpen);
@@ -41,43 +55,43 @@ const Header = () => {
 
   return (
     <Container className="disable-select">
-      <Stack horizontal={true} gap="10px">
-        <Icon
+      <List horizontal={true} gap="10px">
+        <IconButton
           title="Sidebar"
           className="hamburger"
           onClick={() => dispatch(toggleSidebar())}
         >
           <FaBars />
-        </Icon>
-        <Stack horizontal={true} gap="6px" style={{ alignItems: "center"}}>
-          <Hashtag />
+        </IconButton>
+        <List horizontal={true} gap="6px" style={{ alignItems: "center"}}>
+          <Hashtag size="22px" w="24px" />
           <Heading>
             {!channels.loading && activeChannelName}
           </Heading>
-        </Stack>
-      </Stack>
-      <Stack horizontal={true} gap="10px">
-        <Icon
+        </List>
+      </List>
+      <List horizontal={true} gap="16px">
+        <IconButton
           title="GitHub Repo"
           href="https://github.com/kingyiusuen/discord-clone"
           target="blank"
         >
           <FaGithub />
-        </Icon>
-        <Icon
+        </IconButton>
+        <IconButton
           title="User list"
           onClick={() => dispatch(toggleMemberList())}
           isActive={isMemberListOpen}
         >
           <FaUserFriends />
-        </Icon>
-        <Icon
+        </IconButton>
+        <IconButton
           title="Logout"
           onClick={() => dispatch(logout())}
         >
           <FaSignOutAlt />
-        </Icon>
-      </Stack>
+        </IconButton>
+      </List>
     </Container>
   )
 }

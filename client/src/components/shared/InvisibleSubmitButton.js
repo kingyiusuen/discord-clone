@@ -2,7 +2,7 @@ import React from "react";
 
 import styled from "styled-components";
 
-export const Wrapper = styled.button`
+export const Wrapper = styled.button.attrs(p => ({ type: "submit" }))`
   display: none;
 `
 

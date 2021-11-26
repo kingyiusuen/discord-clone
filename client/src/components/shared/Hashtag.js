@@ -3,14 +3,12 @@ import React from "react";
 import styled from "styled-components";
 import { FaHashtag } from "react-icons/fa";
 
-import { Wrapper as IconWrapper } from "./Icon";
+import { baseIcon, roundedBackground } from "../../design/mixins";
 
-export const Wrapper = styled(IconWrapper)`
-  color: var(--text-muted);
-
-  &:hover {
-    color: var(--text-muted);
-  }
+export const Wrapper = styled.div`
+  ${baseIcon};
+  color: ${p => p.color || "var(--text-muted)"};
+  ${p => p.bgColor && roundedBackground};
 `
 
 const Hashtag = ({ ...delegated }) => {

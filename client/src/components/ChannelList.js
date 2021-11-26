@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import Hashtag from "./shared/Hashtag";
-import AvatarWithStatus from "./shared/AvatarWithStatus";
-import Stack from "./shared/Stack";
+import Avatar from "./shared/Avatar";
+import List from "./shared/List";
 import ListItem from "./shared/ListItem";
 import { loadChannels } from "../reducers/channelsReducer";
 
@@ -78,25 +78,25 @@ const ChannelList = () => {
         <Heading>Sample Server</Heading>
       </Header>
       <Content className="scrollable">
-        <Stack gap="2px">
+        <List gap="2px">
           {!channels.loading && channels.allIds.map((id) => (
             <Link key={id} to={`/channels/${id}`}>
               <ListItem
                 icon={<Hashtag style={{ fontSize: "20px" }}/>}
                 text={channels.byId[id].name}
-                style={{ gap: "8px", padding: "2px"}}
+                style={{ gap: "8px", padding: "8px 2px"}}
                 isActive={id === activeChannelId}
               />
             </Link>
           ))}
-        </Stack>
+        </List>
       </Content>
       <Footer>
-        <AvatarWithStatus backgroundColor={user.avatarColor} />
+        <Avatar size="21px" w="32px" bgColor={user.avatarColor} />
         <Username>{user.username}</Username>
       </Footer>
     </Container>
   )
 }
 
-export default ChannelList
+export default ChannelList;

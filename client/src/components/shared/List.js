@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   gap: ${p => p.gap};
 `
 
-const Stack = ({ horizontal, gap, children, ...delegated }) => {
+const List = ({ horizontal, gap, children, ...delegated }) => {
   return (
     <Wrapper horizontal={horizontal} gap={gap} {...delegated}>
       {children}
@@ -16,4 +16,4 @@ const Stack = ({ horizontal, gap, children, ...delegated }) => {
   )
 }
 
-export default Stack;
+export default List;

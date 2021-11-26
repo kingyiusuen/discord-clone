@@ -2,7 +2,7 @@ import React from "react";
 
 import styled from "styled-components";
 
-import Avatar, { Wrapper as AvatarWrapper } from "./shared/Avatar";
+import Avatar from "./shared/Avatar";
 
 const Container = styled.div`
   display: flex;
@@ -12,12 +12,10 @@ const Container = styled.div`
   &:hover {
     background-color: #32353a;
   }
+`
 
-  ${AvatarWrapper} {
-    font-size: 27px;
-    padding: 7px;
-    margin: 0 16px;
-  }
+const AvatarWrapper = styled.div`
+  margin: 0 16px;
 `
 
 const Div = styled.div``
@@ -61,7 +59,9 @@ const Message = ({ message }) => {
 
   return (
     <Container>
-      <Avatar backgroundColor={message.user.avatarColor} />
+      <AvatarWrapper>
+        <Avatar size="27px" w="40px" bgColor={message.user.avatarColor} />
+      </AvatarWrapper>
       <Div>
         <Header>
           <Username>{message.user.username}</Username>

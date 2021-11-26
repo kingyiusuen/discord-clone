@@ -26,11 +26,7 @@ const Container = styled.div`
   }
 
   ${p => p.isActive && css`
-    & {
-      background-color: var(--background-modifier-selected);
-    }
-    
-    &:hover {
+    &, &:hover {
       background-color: var(--background-modifier-selected);
     }
 

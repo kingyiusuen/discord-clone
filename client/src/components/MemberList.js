@@ -3,9 +3,8 @@ import React, { useRef } from 'react'
 import { useSelector } from "react-redux";
 import styled, { css } from "styled-components";
 
-import { Wrapper as AvatarWrapper } from "./shared/Avatar";
-import AvatarWithStatus from "./shared/AvatarWithStatus";
-import Stack from "./shared/Stack";
+import Avatar from "./shared/Avatar";
+import List from "./shared/List";
 import ListItem from "./shared/ListItem";
 import Backdrop from "./shared/Backdrop";
 
@@ -20,11 +19,6 @@ const Container = styled.div`
   overflow: hidden scroll;
   text-overflow: ellipsis;
   padding: 10px 2px 10px 12px;
-
-  ${AvatarWrapper} {
-    font-size: 21px;
-    padding: 5.5px;
-  }
 
   @media (min-width: 768px) {
     ${p => !p.isActive && css`
@@ -73,13 +67,13 @@ const MemberList = ({ isMobile }) => {
         <Heading className="disable-select">
           online — {users.length}
         </Heading>
-        <Stack gap="2px">
+        <List gap="2px">
           {
             users.map((user) => (
               <ListItem
                 key={user.id}
                 icon={
-                  <AvatarWithStatus backgroundColor={user.avatarColor} />
+                  <Avatar size="21px" w="32px" bgColor={user.avatarColor} />
                 }
                 text={user.username}
                 style={{ gap: "12px", padding: "6px 8px"}}
@@ -87,7 +81,7 @@ const MemberList = ({ isMobile }) => {
               />
             ))
           }
-        </Stack>
+        </List>
       </Container>
     </Backdrop>
   )
