@@ -92,7 +92,7 @@ const ChannelList = () => {
         </List>
       </Content>
       <Footer>
-        <Avatar size="21px" w="32px" bgColor={user.avatarColor} />
+        <Avatar size="21px" w="32px" bgColor={user.avatarColor} status="online" />
         <Username>{user.username}</Username>
       </Footer>
     </Container>

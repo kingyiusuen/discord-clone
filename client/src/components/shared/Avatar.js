@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   ${roundedBackground};
 `
 
-const GreenDotWrapper = styled(Wrapper)`
+export const GreenDotWrapper = styled(Wrapper)`
   padding: 0.5px;
   height: 16px;
   width: 16px;

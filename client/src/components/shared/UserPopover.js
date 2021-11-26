@@ -3,11 +3,11 @@ import React from 'react';
 import styled from "styled-components";
 import Popover from '@mui/material/Popover';
 
-import Avatar from "./Avatar";
+import Avatar, { GreenDotWrapper } from "./Avatar";
 import InvisibleSubmitButton from "./InvisibleSubmitButton";
 
 const StyledPopover = styled(Popover)`
-  .MuiPopover-paper {
+  & .MuiPopover-paper {
     border-radius: 8px;
     background-color: var(--background-floating);
     transition-duration: 0s !important;
@@ -24,6 +24,16 @@ const AvatarWrapper = styled.div`
   position: absolute;
   top: 16px;
   left: 16px;
+
+  & ${GreenDotWrapper} {
+    padding: 0px;
+    font-size: 28px;
+    height: 30px;
+    width: 30px;
+    right: -2px;
+    bottom: 2px;
+    background-color: var(--background-floating);
+  }
 `
 
 const Header = styled.div`
@@ -81,6 +91,7 @@ const UserPopover = ({ user, ...delegated }) => {
           w="90px"
           border="6px solid var(--background-floating)"
           bgColor={user.avatarColor}
+          status="online"
         />
       </AvatarWrapper>
       <Header>
