@@ -28,6 +28,9 @@ const socketMiddleware = () => {
     // This part is called when an action is dispatched
     return next => action => {
       switch (action.type) {
+        case "channels/setActiveChannel":
+          socket.emit("set-active-channel", action.payload);
+          break;
         case "chat/sendMessage":
           socket.emit("message", action.payload);
           break;

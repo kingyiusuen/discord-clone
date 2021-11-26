@@ -65,7 +65,7 @@ const Messages = () => {
       <Container>
         <HeaderContainer className="disable-select">
           <Hashtag size="36px" w="68px" color="white" bgColor="var(--background-accent)" />
-          <PrimaryHeading>Welcome #{activeChannel.name}!</PrimaryHeading>
+          <PrimaryHeading>Welcome to #{activeChannel.name}!</PrimaryHeading>
           <SecondaryHeading>This is the start of #{activeChannel.name}.</SecondaryHeading>
           {hasMessages && <Divider />}
         </HeaderContainer>
