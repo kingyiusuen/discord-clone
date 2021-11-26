@@ -44,12 +44,15 @@ const ListItem = ({ icon, text, isActive, ...delegated }) => {
   return (
     <Container isActive={isActive} {...delegated}>
       <>{icon}</>
-      <Text
-        isActive={isActive}
-        className="disable-select"
-      >
+      {
+        text &&
+        <Text
+          isActive={isActive}
+          className="disable-select"
+        >
         {text}
-      </Text>
+        </Text>
+      }
     </Container>
   )
 }

@@ -2,7 +2,7 @@ import React from "react";
 
 import styled from "styled-components";
 
-import Avatar from "./shared/Avatar";
+import Avatar, { Wrapper as AvatarWrapper } from "./shared/Avatar";
 
 const Container = styled.div`
   display: flex;
@@ -12,7 +12,15 @@ const Container = styled.div`
   &:hover {
     background-color: #32353a;
   }
+
+  ${AvatarWrapper} {
+    font-size: 27px;
+    padding: 7px;
+    margin: 0 16px;
+  }
 `
+
+const Div = styled.div``
 
 const Header = styled.div`
   display: flex;
@@ -43,16 +51,24 @@ const Content = styled.div`
 `
 
 const Message = ({ message }) => {
+  const reformatTimestamp = (timestamp) => {
+    // Timestamp from PostgreSQL looks something like 2021-11-25T17:56:04.726Z
+    let [date, time] = timestamp.split("T");
+    const [year, month, day] = date.split("-");
+    time = time.split(".")[0];
+    return `${month}-${day}-${year} ${time}`;
+  }
+
   return (
     <Container>
-      <Avatar style={{ fontSize: "27px", padding: "7px", margin: "0 16px" }} />
-      <div>
+      <Avatar backgroundColor={message.user.avatarColor} />
+      <Div>
         <Header>
           <Username>{message.user.username}</Username>
-          <Timestamp>{message.timestamp}</Timestamp>
+          <Timestamp>{reformatTimestamp(message.createdAt)}</Timestamp>
         </Header>
         <Content>{message.content}</Content>
-      </div>
+      </Div>
     </Container>
   )
 }

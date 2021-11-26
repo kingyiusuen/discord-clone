@@ -79,7 +79,7 @@ const MemberList = ({ isMobile }) => {
               <ListItem
                 key={user.id}
                 icon={
-                  <AvatarWithStatus />
+                  <AvatarWithStatus backgroundColor={user.avatarColor} />
                 }
                 text={user.username}
                 style={{ gap: "12px", padding: "6px 8px"}}

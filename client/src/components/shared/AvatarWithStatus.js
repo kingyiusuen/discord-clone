@@ -18,10 +18,10 @@ const Container = styled.div`
   }
 `
 
-const AvatarWithStatus = () => {
+const AvatarWithStatus = ({ backgroundColor }) => {
   return (
     <Container>
-      <Avatar />
+      <Avatar backgroundColor={backgroundColor} />
       <GreenDot />
     </Container>
   )

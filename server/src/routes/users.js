@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const usersRouter = require("express").Router();
 
 const db = require("../db");
+const { renameKeysSnakeToCamel } = require("../utils/caseConverter");
 
 // Get a user's profile
 usersRouter.get("/:id", async (request, response) => {
@@ -9,11 +10,10 @@ usersRouter.get("/:id", async (request, response) => {
 
   try {
     const result = await db.query(
-      "SELECT * FROM users WHERE id = $1",
+      'SELECT id, username, avatar_color FROM users WHERE id = $1',
       [userId]
     );
-    const { password, ...rest } = result.rows[0];
-    response.status(200).json(rest);
+    response.status(200).json(renameKeysSnakeToCamel(result.rows[0]));
   } catch (err) {
     console.log(err);
     response.status(500).send("A database error has occurred");
@@ -22,7 +22,7 @@ usersRouter.get("/:id", async (request, response) => {
 
 // Create a new user
 usersRouter.post("/", async (request, response) => {
-  const { username, password } = request.body;
+  const { username, password, avatarColor } = request.body;
 
   let result;
   try {
@@ -40,7 +40,8 @@ usersRouter.post("/", async (request, response) => {
     const passwordHash = await bcrypt.hash(password, saltRounds);
 
     result = await db.query(
-      "INSERT INTO users (username, password) VALUES ($1, $2) RETURNING id", [username, passwordHash]
+      "INSERT INTO users (username, password, avatar_color) VALUES ($1, $2, $3) RETURNING id",
+      [username, passwordHash, avatarColor]
     );
     const newId = result.rows[0].id;
     response.status(201).send(`User added with ID: ${newId}`);
@@ -65,7 +66,7 @@ usersRouter.post("/login", async (request, response) => {
         : await bcrypt.compare(password, result.rows[0].password);
     if (isPasswordCorrect) {
       const { password, ...rest } = result.rows[0];
-      response.status(200).json(rest);
+      response.status(200).json(renameKeysSnakeToCamel(rest));
     } else {
       response.status(401).send("Invalid username or password");
     }

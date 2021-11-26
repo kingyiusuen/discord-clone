@@ -14,6 +14,7 @@ import Icon from "./shared/Icon";
 import Stack from "./shared/Stack";
 import { toggleSidebar } from '../reducers/sidebarReducer';
 import { toggleMemberList } from '../reducers/memberListReducer';
+import { logout } from "../reducers/sessionReducer";
 
 const Container = styled.div`
   background-color: var(--background-primary);
@@ -72,7 +73,7 @@ const Header = () => {
         </Icon>
         <Icon
           title="Logout"
-          onClick={() => console.log("logout")}
+          onClick={() => dispatch(logout())}
         >
           <FaSignOutAlt />
         </Icon>

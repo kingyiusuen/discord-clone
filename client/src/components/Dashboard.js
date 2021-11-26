@@ -10,7 +10,7 @@ import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import MemberList from "../components/MemberList";
 import { loadMessages } from "../reducers/chatReducer";
-import { loadChannels, setActiveChannel } from "../reducers/channelsReducer";
+import { setActiveChannel } from "../reducers/channelsReducer";
 
 const Container = styled.div`
   display: flex;
@@ -83,7 +83,6 @@ const Dashboard = () => {
 
   useEffect(() => {
     dispatch(setActiveChannel(activeChannelId));
-    dispatch(loadChannels());
     dispatch(loadMessages(activeChannelId));
   }, [activeChannelId, dispatch])
 

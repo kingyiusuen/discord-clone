@@ -25,7 +25,7 @@ export const useActiveChannel = () => {
 }
 
 // Detect whether the user clicks outside of a component
-export const useDetectClickOutside = ({ action, listenCondition, ref }) => {
+export const useDetectClickOutside = ({ ref, action, listenCondition }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {

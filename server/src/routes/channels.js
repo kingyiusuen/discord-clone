@@ -25,7 +25,7 @@ channelsRouter.get("/:id", async (request, response) => {
 
   try {
     const result = await db.query(
-      "SELECT channel_messages.id, author_id, username, channel_id, content, created_at "
+      "SELECT channel_messages.id, author_id, username, avatar_color, channel_id, content, created_at "
       + "FROM channel_messages INNER JOIN users ON channel_messages.author_id = users.id "
       + "WHERE channel_id = $1 ORDER BY created_at",
       [channelId],
@@ -36,7 +36,11 @@ channelsRouter.get("/:id", async (request, response) => {
         content: message.content,
         createdAt: message.created_at,
         channelId: message.channel_id,
-        user: { id: message.author_id, username: message.username },
+        user: {
+          id: message.author_id,
+          username: message.username,
+          avatarColor: message.avatar_color
+        },
       }
     })
     response.status(200).json(messages);

@@ -148,9 +148,10 @@ const LoginPage = () => {
         <Form onSubmit={handleOnSubmit}>
           <Label htmlFor="username">Username</Label>
           <Select name="username" id="username" defaultValue="john.doe">
-            <option value="john.doe">john.doe</option>
-            <option value="jane.doe">jane.doe</option>
-            <option value="react.god">react.god</option>
+            <option value="john_doe">john_doe</option>
+            <option value="jane_doe">jane_doe</option>
+            <option value="guest123">guest123</option>
+            <option value="programmer">programmer</option>
           </Select>
           <SubmitButton type="submit">Login</SubmitButton>
         </Form>
