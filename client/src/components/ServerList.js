@@ -4,6 +4,7 @@ import styled, { css } from 'styled-components';
 import { AiOutlineCode } from "react-icons/ai";
 import { FaDiscord } from "react-icons/fa";
 
+import ArrowTooltip from './shared/ArrowTooltip';
 import { baseIcon, roundedBackground } from "../design/mixins";
 
 const PillWrapper = styled.div`
@@ -56,14 +57,6 @@ const IconWrapper = styled.div`
   ${p => p.isDiscord && discordIconStyle}
 `
 
-const ServerIcon = ({ children, ...delegated }) => {
-  return (
-    <IconWrapper size="28px" w="48px" color="white" {...delegated}>
-      {children}
-    </IconWrapper>
-  )
-}
-
 const ListItem = styled.div`
   position: relative;
   display: flex;
@@ -71,12 +64,6 @@ const ListItem = styled.div`
   align-items: center;
   width: 100%;
 `
-
-const Pill = () => {
-  return (
-    <PillWrapper><PillContainer></PillContainer></PillWrapper>
-  )
-}
 
 const Divider = styled.div`
   height: 2px;
@@ -96,21 +83,45 @@ const Container = styled.div`
   align-items: center;
 `
 
+const Pill = () => {
+  return (
+    <PillWrapper>
+      <PillContainer></PillContainer>
+    </PillWrapper>
+  )
+}
+
+const ServerIcon = ({ children, ...delegated }) => {
+  return (
+    <IconWrapper size="28px" w="48px" color="white" {...delegated}>
+      {children}
+    </IconWrapper>
+  )
+}
+
 const ServerList = () => {
   return (
     <Container>
       <ListItem>
-        <ServerIcon isDiscord={true}>
-          <FaDiscord />
-        </ServerIcon>
-        <Pill />
+        <ArrowTooltip title="Home" placement="right">
+          <div>
+            <ServerIcon isDiscord={true}>
+              <FaDiscord />
+            </ServerIcon>
+            <Pill />
+          </div>
+        </ArrowTooltip>
       </ListItem>
       <Divider></Divider>
       <ListItem>
-        <ServerIcon>
-          <AiOutlineCode title="Sample Server"/>
-        </ServerIcon>
-        <Pill />
+        <ArrowTooltip title="Sample Server" placement="right">
+          <div>
+            <ServerIcon>
+              <AiOutlineCode/>
+            </ServerIcon>
+            <Pill />
+          </div>
+        </ArrowTooltip>
       </ListItem>
     </Container>
   )
