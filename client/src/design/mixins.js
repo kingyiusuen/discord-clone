@@ -5,23 +5,23 @@ export const wh = ({ w, h = w }) => css`
   height: ${h};
 `;
 
-export const font = ({ color, size }) => `
+export const font = ({ color, size }) => css`
   color: ${color || "var(--text-normal)"};
   font-size: ${size || "1rem"};
 `;
 
-export const baseIcon = css`
+export const baseIcon = ({ border }) => css`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: none;
+  border: ${border || "none"};
   ${wh};
   ${font};
 `
 
 export const roundedBackground = ({ bgColor, bgColorOnHover }) => css`
   border-radius: 50%;
-  background-color: ${bgColor || "var(--background-accent)"};
+  background-color: ${bgColor};
 
   ${bgColorOnHover && css`
     transition: 0.3s;

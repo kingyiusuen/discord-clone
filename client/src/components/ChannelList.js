@@ -82,9 +82,9 @@ const ChannelList = () => {
           {!channels.loading && channels.allIds.map((id) => (
             <Link key={id} to={`/channels/${id}`}>
               <ListItem
-                icon={<Hashtag style={{ fontSize: "20px" }}/>}
+                icon={<Hashtag size="20px"/>}
                 text={channels.byId[id].name}
-                style={{ gap: "8px", padding: "8px 2px"}}
+                style={{ gap: "8px", padding: "8px 4px"}}
                 isActive={id === activeChannelId}
               />
             </Link>

@@ -4,11 +4,11 @@ import { useSelector } from "react-redux";
 import styled, { css } from "styled-components";
 
 import Avatar from "./shared/Avatar";
+import Backdrop from "./shared/Backdrop";
 import List from "./shared/List";
 import ListItem from "./shared/ListItem";
-import Backdrop from "./shared/Backdrop";
-
-import { useDetectClickOutside } from "../hooks";
+import UserPopover from './shared/UserPopover';
+import { useDetectClickOutside, usePopover } from "../hooks";
 import { toggleMemberList } from '../reducers/memberListReducer';
 
 const Container = styled.div`
@@ -61,6 +61,8 @@ const MemberList = ({ isMobile }) => {
 
   const users = useSelector(state => state.memberList.onlineUsers);
 
+  const [user, anchorEl, showPopover, setShowPopover, handleOnClick, handleOnClickAway] = usePopover();
+
   return (
     <Backdrop isActive={isMobile && showMemberList}>
       <Container isActive={showMemberList} ref={memberListRef}>
@@ -77,11 +79,20 @@ const MemberList = ({ isMobile }) => {
                 }
                 text={user.username}
                 style={{ gap: "12px", padding: "6px 8px"}}
-                onClick={() => console.log(user.id)}
+                onClick={(event) => handleOnClick(event, user)}
               />
             ))
           }
         </List>
+        <UserPopover
+          open={showPopover}
+          anchorEl={anchorEl}
+          onClose={handleOnClickAway}
+          anchorOrigin={{ vertical: "center", horizontal: "left" }}
+          transformOrigin={{ vertical: "top", horizontal: "right" }}
+          user={user}
+          setShowPopover={setShowPopover}
+        />
       </Container>
     </Backdrop>
   )

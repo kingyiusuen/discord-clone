@@ -16,9 +16,11 @@ const Container = styled.div`
 
 const AvatarWrapper = styled.div`
   margin: 0 16px;
-`
 
-const Div = styled.div``
+  &:hover {
+    cursor: pointer;
+  }
+`
 
 const Header = styled.div`
   display: flex;
@@ -34,6 +36,7 @@ const Username = styled.a`
 
   &:hover {
     text-decoration: underline;
+    cursor: pointer;
   }
 `
 
@@ -48,7 +51,7 @@ const Content = styled.div`
   font-size: 14px;
 `
 
-const Message = ({ message }) => {
+const Message = ({ message, handleOnClick }) => {
   const reformatTimestamp = (timestamp) => {
     // Timestamp from PostgreSQL looks something like 2021-11-25T17:56:04.726Z
     let [date, time] = timestamp.split("T");
@@ -59,16 +62,18 @@ const Message = ({ message }) => {
 
   return (
     <Container>
-      <AvatarWrapper>
+      <AvatarWrapper onClick={handleOnClick}>
         <Avatar size="27px" w="40px" bgColor={message.user.avatarColor} />
       </AvatarWrapper>
-      <Div>
+      <div>
         <Header>
-          <Username>{message.user.username}</Username>
+          <Username onClick={handleOnClick}>
+            {message.user.username}
+          </Username>
           <Timestamp>{reformatTimestamp(message.createdAt)}</Timestamp>
         </Header>
         <Content>{message.content}</Content>
-      </Div>
+      </div>
     </Container>
   )
 }

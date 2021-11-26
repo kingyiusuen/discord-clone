@@ -44,3 +44,23 @@ export const useDetectClickOutside = ({ ref, action, listenCondition }) => {
     };
   }, [action, listenCondition, dispatch, ref]);
 }
+
+export const usePopover = () => {
+  const [showPopover, setShowPopover] = useState(false);
+  const [user, setUser] = useState("");
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleOnClick = (event, user) => {
+    setUser(user);
+    setShowPopover(true);
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleOnClickAway = () => {
+    setUser("");
+    setShowPopover(false);
+    setAnchorEl(null);
+  };
+
+  return [user, anchorEl, showPopover, setShowPopover, handleOnClick, handleOnClickAway];
+}

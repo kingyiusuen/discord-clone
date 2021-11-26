@@ -5,7 +5,8 @@ import styled from "styled-components";
 
 import Message from "./Message";
 import Hashtag from "./shared/Hashtag";
-import { useActiveChannel } from "../hooks";
+import UserPopover from "./shared/UserPopover";
+import { useActiveChannel, usePopover } from "../hooks";
 
 const Wrapper = styled.div`
   background-color: var(--background-primary);
@@ -57,6 +58,8 @@ const Messages = () => {
     containerBottomRef.current.scrollIntoView(false);
   }, [messages.allIds, containerBottomRef]);
 
+  const [user, anchorEl, showPopover, setShowPopover, handleOnClick, handleOnClickAway] = usePopover();
+
   return (
     <Wrapper className="scrollable">
       <Container>
@@ -71,11 +74,20 @@ const Messages = () => {
             <Message
               key={id}
               message={messages.byId[id]}
+              handleOnClick={(event) => handleOnClick(event, messages.byId[id].user)}
             />
           ))
         }
-      <ContainerBottom ref={containerBottomRef}>
-      </ContainerBottom>
+        <ContainerBottom ref={containerBottomRef}>
+        </ContainerBottom>
+        <UserPopover
+          open={showPopover}
+          anchorEl={anchorEl}
+          onClose={handleOnClickAway}
+          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+          user={user}
+          setShowPopover={setShowPopover}
+        />
       </Container>
     </Wrapper>
   )
