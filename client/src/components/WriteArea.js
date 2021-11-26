@@ -48,8 +48,10 @@ const WriteArea = () => {
   const handleOnSubmit = (event) => {
     event.preventDefault();
     const content = event.target.content.value;
-    dispatch(sendMessage({ user, content, channelId: activeChannel.id }));
-    event.target.reset();
+    if (content !== "") {
+      dispatch(sendMessage({ user, content, channelId: activeChannel.id }));
+      event.target.reset();
+    }
     dispatch(stopTyping(user));
   }
 
