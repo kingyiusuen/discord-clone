@@ -15,7 +15,7 @@ import List from "./shared/List";
 import { toggleSidebar } from '../reducers/sidebarReducer';
 import { toggleMemberList } from '../reducers/memberListReducer';
 import { logout } from "../reducers/sessionReducer";
-import { baseIcon, interactiveColor } from "../design/mixins";
+import { baseIcon, interactiveColor, hideInDesktop } from "../design/mixins";
 
 const Container = styled.div`
   background-color: var(--background-primary);
@@ -38,6 +38,8 @@ const IconWrapper = styled.button`
   ${baseIcon};
   ${interactiveColor};
   background-color: transparent;
+
+  ${p => p.$isHamburger && hideInDesktop}
 `
 
 const IconButton = ({ children, href, ...delegated }) => {
@@ -61,9 +63,8 @@ const Header = () => {
     <Container id="header" className="disable-select">
       <List horizontal={true} gap="10px">
         <IconButton
-          title="Sidebar"
-          className="hamburger"
           onClick={() => dispatch(toggleSidebar())}
+          $isHamburger
         >
           <FaBars />
         </IconButton>
