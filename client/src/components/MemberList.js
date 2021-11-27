@@ -1,15 +1,13 @@
-import React, { useRef } from 'react'
+import React from 'react'
 
 import { useSelector } from "react-redux";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 import Avatar from "./shared/Avatar";
-import Backdrop from "./shared/Backdrop";
 import List from "./shared/List";
 import ListItem from "./shared/ListItem";
 import UserPopover from './shared/UserPopover';
-import { useDetectClickOutside, usePopover } from "../hooks";
-import { toggleMemberList } from '../reducers/memberListReducer';
+import { usePopover } from "../hooks";
 
 const Container = styled.div`
   background-color: var(--background-secondary);
@@ -20,25 +18,8 @@ const Container = styled.div`
   text-overflow: ellipsis;
   padding: 10px 2px 10px 12px;
 
-  @media (min-width: 768px) {
-    ${p => !p.isActive && css`
-      display: none;
-    `}
-  }
-
   @media (max-width: 768px) {
-    & {
-      position: fixed;
-      height: 100vh;
-      right: -100%;
-      transition: 0.3s;
-    }
-
-    ${p => p.isActive && css`
-      & {
-        right: 0;
-      }
-    `}
+    height: 100vh;
   }
 `
 
@@ -51,50 +32,39 @@ const Heading = styled.h3`
 `
 
 const MemberList = ({ isMobile }) => {
-  const memberListRef = useRef(null);
-  const showMemberList = useSelector(state => state.memberList.isOpen);
-  useDetectClickOutside({
-    action: toggleMemberList,
-    listenCondition: isMobile && showMemberList,
-    ref: memberListRef,
-  })
-
   const users = useSelector(state => state.memberList.onlineUsers);
-
   const [user, anchorEl, showPopover, setShowPopover, handleOnClick, handleOnClickAway] = usePopover();
 
   return (
-    <Backdrop isActive={isMobile && showMemberList}>
-      <Container isActive={showMemberList} ref={memberListRef}>
-        <Heading className="disable-select">
-          online — {users.length}
-        </Heading>
-        <List gap="2px">
-          {
-            users.map((user) => (
-              <ListItem
-                key={user.id}
-                icon={
-                  <Avatar size="21px" w="32px" bgColor={user.avatarColor} status="online" />
-                }
-                text={user.username}
-                style={{ gap: "12px", padding: "6px 8px"}}
-                onClick={(event) => handleOnClick(event, user)}
-              />
-            ))
-          }
-        </List>
-        <UserPopover
-          open={showPopover}
-          anchorEl={anchorEl}
-          onClose={handleOnClickAway}
-          anchorOrigin={{ vertical: "center", horizontal: "left" }}
-          transformOrigin={{ vertical: "top", horizontal: "right" }}
-          user={user}
-          setShowPopover={setShowPopover}
-        />
-      </Container>
-    </Backdrop>
+    <Container>
+      <Heading className="disable-select">
+        online — {users.length}
+      </Heading>
+      <List gap="2px">
+        {
+          users.map((user) => (
+            <ListItem
+              key={user.id}
+              icon={
+                <Avatar size="21px" w="32px" bgColor={user.avatarColor} status="online" />
+              }
+              text={user.username}
+              style={{ gap: "12px", padding: "6px 8px"}}
+              onClick={(event) => handleOnClick(event, user)}
+            />
+          ))
+        }
+      </List>
+      <UserPopover
+        open={showPopover}
+        anchorEl={anchorEl}
+        onClose={handleOnClickAway}
+        anchorOrigin={{ vertical: "center", horizontal: "left" }}
+        transformOrigin={{ vertical: "top", horizontal: "right" }}
+        user={user}
+        setShowPopover={setShowPopover}
+      />
+    </Container>
   )
 }
 

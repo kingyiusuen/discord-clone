@@ -39,9 +39,12 @@ const IconWrapper = styled.button`
   background-color: transparent;
 `
 
-const IconButton = ({ children, ...delegated }) => {
+const IconButton = ({ children, href, ...delegated }) => {
+  const tag = href ? "a" : "button";
+  const type = tag === "button" ? "button" : undefined;
+
   return (
-    <IconWrapper type="button" size="22px" w="24px" {...delegated} >
+    <IconWrapper as={tag} type={type} href={href} size="22px" w="24px" {...delegated} >
       {children}
     </IconWrapper>
   )
@@ -54,7 +57,7 @@ const Header = () => {
   const activeChannelName = !channels.loading && channels.byId[channels.active].name;
 
   return (
-    <Container className="disable-select">
+    <Container id="header" className="disable-select">
       <List horizontal={true} gap="10px">
         <IconButton
           title="Sidebar"
@@ -79,7 +82,7 @@ const Header = () => {
           <FaGithub />
         </IconButton>
         <IconButton
-          title="User list"
+          title={`${isMemberListOpen ? "Hide" : "Show"} Member list`}
           onClick={() => dispatch(toggleMemberList())}
           isActive={isMemberListOpen}
         >

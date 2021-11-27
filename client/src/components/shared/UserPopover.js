@@ -81,7 +81,16 @@ const Input = styled.input`
   }
 `
 
-const UserPopover = ({ user, ...delegated }) => {
+const UserPopover = ({ user, setShowPopover, ...delegated }) => {
+  const handleOnSubmit = (event) => {
+    event.preventDefault();
+    const content = event.target.content.value;
+    if (content !== "") {
+      event.target.reset();
+      setShowPopover(false);
+    }
+  }
+
   return (
     <StyledPopover {...delegated}>
       <Banner bgColor={user.avatarColor}></Banner>
@@ -101,8 +110,10 @@ const UserPopover = ({ user, ...delegated }) => {
         <Divider></Divider>
       </Content>
       <Footer>
-        <Input placeholder={`message @${user.username}`} />
-        <InvisibleSubmitButton />
+        <form onSubmit={handleOnSubmit}>
+          <Input type="text" name="content" placeholder={`message @${user.username}`} />
+          <InvisibleSubmitButton />
+        </form>
       </Footer>
     </StyledPopover>
   )

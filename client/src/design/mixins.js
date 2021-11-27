@@ -44,3 +44,11 @@ export const interactiveColor = ({ isActive }) => css`
     color: var(--interactive-hover);
   }
 `
+
+export const hideInDesktop = css`
+  display: none;
+
+  @media (max-width: 768px) {
+    display: block;
+  }
+`

@@ -11,11 +11,12 @@ const Container = styled.div`
   flex-direction: column;
   width: 100%;
   height: calc(100vh - 48px);
+  overflow: hidden;
 `
 
 const ChatArea = () => {
   return (
-    <Container>
+    <Container id="chat-area">
       <Messages />
       <WriteArea />
     </Container>
