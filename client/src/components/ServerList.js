@@ -4,6 +4,7 @@ import styled, { css } from 'styled-components';
 import { AiOutlineCode } from "react-icons/ai";
 import { FaDiscord } from "react-icons/fa";
 
+import ArrowTooltip from './shared/ArrowTooltip';
 import { baseIcon, roundedBackground } from "../design/mixins";
 
 const PillWrapper = styled.div`
@@ -100,16 +101,20 @@ const ServerList = () => {
   return (
     <Container>
       <ListItem>
-        <ServerIcon isDiscord={true}>
-          <FaDiscord />
-        </ServerIcon>
+        <ArrowTooltip title="Home" placement="left">
+          <ServerIcon isDiscord={true}>
+            <FaDiscord />
+          </ServerIcon>
+        </ArrowTooltip>
         <Pill />
       </ListItem>
       <Divider></Divider>
       <ListItem>
-        <ServerIcon>
-          <AiOutlineCode title="Sample Server"/>
-        </ServerIcon>
+        <ArrowTooltip title="Sample Server" placement="left">
+          <ServerIcon>
+            <AiOutlineCode />
+          </ServerIcon>
+        </ArrowTooltip>
         <Pill />
       </ListItem>
     </Container>

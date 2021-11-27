@@ -9,6 +9,7 @@ import {
 } from "react-icons/fa";
 import styled from "styled-components";
 
+import ArrowTooltip from "./shared/ArrowTooltip";
 import Hashtag from "./shared/Hashtag";
 import List from "./shared/List";
 import { toggleSidebar } from '../reducers/sidebarReducer';
@@ -74,26 +75,29 @@ const Header = () => {
         </List>
       </List>
       <List horizontal={true} gap="16px">
-        <IconButton
-          title="GitHub Repo"
-          href="https://github.com/kingyiusuen/discord-clone"
-          target="blank"
-        >
-          <FaGithub />
-        </IconButton>
-        <IconButton
-          title={`${isMemberListOpen ? "Hide" : "Show"} Member list`}
-          onClick={() => dispatch(toggleMemberList())}
-          isActive={isMemberListOpen}
-        >
-          <FaUserFriends />
-        </IconButton>
-        <IconButton
-          title="Logout"
-          onClick={() => dispatch(logout())}
-        >
-          <FaSignOutAlt />
-        </IconButton>
+        <ArrowTooltip title="GitHub Repo">
+          <IconButton
+            href="https://github.com/kingyiusuen/discord-clone"
+            target="blank"
+          >
+            <FaGithub />
+          </IconButton>
+        </ArrowTooltip>
+        <ArrowTooltip title={`${isMemberListOpen ? "Hide" : "Show"} Member list`}>
+          <IconButton
+            onClick={() => dispatch(toggleMemberList())}
+            isActive={isMemberListOpen}
+          >
+            <FaUserFriends />
+          </IconButton>
+        </ArrowTooltip>
+        <ArrowTooltip title="Logout">
+          <IconButton
+            onClick={() => dispatch(logout())}
+          >
+            <FaSignOutAlt />
+          </IconButton>
+        </ArrowTooltip>
       </List>
     </Container>
   )
