@@ -1,6 +1,7 @@
 import React from "react";
 
 import styled from "styled-components";
+import { format } from "timeago.js";
 
 import Avatar from "./Avatar";
 
@@ -52,13 +53,6 @@ const Content = styled.div`
 `
 
 const Message = ({ message, handleClick }) => {
-  const reformatTimestamp = (timestamp) => {
-    // Timestamp from PostgreSQL looks something like 2021-11-25T17:56:04.726Z
-    let [date, time] = timestamp.split("T");
-    const [year, month, day] = date.split("-");
-    time = time.split(".")[0];
-    return `${month}-${day}-${year} ${time}`;
-  }
 
   return (
     <Container>
@@ -70,7 +64,7 @@ const Message = ({ message, handleClick }) => {
           <Username onClick={handleClick}>
             {message.user.username}
           </Username>
-          <Timestamp>{reformatTimestamp(message.createdAt)}</Timestamp>
+          <Timestamp>{format(message.createdAt)}</Timestamp>
         </Header>
         <Content>{message.content}</Content>
       </div>
