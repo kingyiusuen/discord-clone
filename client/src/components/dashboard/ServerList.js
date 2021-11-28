@@ -4,8 +4,8 @@ import styled, { css } from 'styled-components';
 import { AiOutlineCode } from "react-icons/ai";
 import { FaDiscord } from "react-icons/fa";
 
-import ArrowTooltip from './shared/ArrowTooltip';
-import { baseIcon, roundedBackground } from "../design/mixins";
+import ArrowTooltip from './ArrowTooltip';
+import { baseIcon, roundedBackground } from "../../design/mixins";
 
 const PillWrapper = styled.div`
   position: absolute;

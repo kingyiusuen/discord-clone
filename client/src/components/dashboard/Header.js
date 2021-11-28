@@ -9,13 +9,13 @@ import {
 } from "react-icons/fa";
 import styled from "styled-components";
 
-import ArrowTooltip from "./shared/ArrowTooltip";
-import Hashtag from "./shared/Hashtag";
-import List from "./shared/List";
-import { toggleSidebar } from '../reducers/sidebarReducer';
-import { toggleMemberList } from '../reducers/memberListReducer';
-import { logout } from "../reducers/sessionReducer";
-import { baseIcon, interactiveColor, hideInDesktop } from "../design/mixins";
+import ArrowTooltip from "./ArrowTooltip";
+import Hashtag from "./Hashtag";
+import List from "./List";
+import { toggleSidebar } from '../../reducers/sidebarReducer';
+import { toggleMemberList } from '../../reducers/memberListReducer';
+import { logout } from "../../reducers/sessionReducer";
+import { baseIcon, interactiveColor, hideInDesktop } from "../../design/mixins";
 
 const Container = styled.div`
   background-color: var(--background-primary);

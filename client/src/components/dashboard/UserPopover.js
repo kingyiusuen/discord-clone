@@ -82,7 +82,7 @@ const Input = styled.input`
 `
 
 const UserPopover = ({ user, setShowPopover, ...delegated }) => {
-  const handleOnSubmit = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     const content = event.target.content.value;
     if (content !== "") {
@@ -110,7 +110,7 @@ const UserPopover = ({ user, setShowPopover, ...delegated }) => {
         <Divider></Divider>
       </Content>
       <Footer>
-        <form onSubmit={handleOnSubmit}>
+        <form onSubmit={handleSubmit}>
           <Input type="text" name="content" placeholder={`message @${user.username}`} />
           <InvisibleSubmitButton />
         </form>

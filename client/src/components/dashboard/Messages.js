@@ -4,9 +4,9 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 import Message from "./Message";
-import Hashtag from "./shared/Hashtag";
-import UserPopover from "./shared/UserPopover";
-import { useActiveChannel, usePopover } from "../hooks";
+import Hashtag from "./Hashtag";
+import UserPopover from "./UserPopover";
+import { useActiveChannel, usePopover } from "../../hooks";
 
 const Wrapper = styled.div`
   background-color: var(--background-primary);
@@ -58,7 +58,7 @@ const Messages = () => {
     containerBottomRef.current.scrollIntoView(false);
   }, [messages.allIds, containerBottomRef]);
 
-  const [user, anchorEl, showPopover, setShowPopover, handleOnClick, handleOnClickAway] = usePopover();
+  const [user, anchorEl, showPopover, setShowPopover, handleClick, handleClickAway] = usePopover();
 
   return (
     <Wrapper className="scrollable">
@@ -74,7 +74,7 @@ const Messages = () => {
             <Message
               key={id}
               message={messages.byId[id]}
-              handleOnClick={(event) => handleOnClick(event, messages.byId[id].user)}
+              handleClick={(event) => handleClick(event, messages.byId[id].user)}
             />
           ))
         }
@@ -83,7 +83,7 @@ const Messages = () => {
         <UserPopover
           open={showPopover}
           anchorEl={anchorEl}
-          onClose={handleOnClickAway}
+          onClose={handleClickAway}
           anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
           user={user}
           setShowPopover={setShowPopover}

@@ -1,6 +1,6 @@
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 // Detect window width
 export const useWindowWidth = () => {
@@ -24,43 +24,22 @@ export const useActiveChannel = () => {
   return !loading && channelsById[activeChannelId];
 }
 
-// Detect whether the user clicks outside of a component
-export const useDetectClickOutside = ({ ref, action, listenCondition }) => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (ref.current && !ref.current.contains(event.target)) {
-        dispatch(action());
-      }
-    };
-
-    if (listenCondition) {
-      document.addEventListener("click", handleClickOutside, false);
-    }
-
-    return () => {
-      document.removeEventListener("click", handleClickOutside, false);
-    };
-  }, [action, listenCondition, dispatch, ref]);
-}
-
 export const usePopover = () => {
   const [showPopover, setShowPopover] = useState(false);
   const [user, setUser] = useState("");
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleOnClick = (event, user) => {
+  const handleClick = (event, user) => {
     setUser(user);
     setShowPopover(true);
     setAnchorEl(event.currentTarget);
   };
 
-  const handleOnClickAway = () => {
+  const handleClickAway = () => {
     setUser("");
     setShowPopover(false);
     setAnchorEl(null);
   };
 
-  return [user, anchorEl, showPopover, setShowPopover, handleOnClick, handleOnClickAway];
+  return [user, anchorEl, showPopover, setShowPopover, handleClick, handleClickAway];
 }

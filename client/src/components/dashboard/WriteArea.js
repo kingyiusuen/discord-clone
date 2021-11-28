@@ -3,9 +3,9 @@ import React, { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
-import InvisibleSubmitButton from './shared/InvisibleSubmitButton';
-import { sendMessage, typing, stopTyping } from "../reducers/chatReducer";
-import { useActiveChannel } from "../hooks";
+import InvisibleSubmitButton from './InvisibleSubmitButton';
+import { sendMessage, typing, stopTyping } from "../../reducers/chatReducer";
+import { useActiveChannel } from "../../hooks";
 
 const Container = styled.div`
   background-color: var(--background-primary);
@@ -45,7 +45,7 @@ const WriteArea = () => {
 
   const activeChannel = useActiveChannel();
 
-  const handleOnSubmit = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     const content = event.target.content.value;
     if (content !== "") {
@@ -70,7 +70,7 @@ const WriteArea = () => {
 
   return (
     <Container>
-      <Form onSubmit={handleOnSubmit}>
+      <Form onSubmit={handleSubmit}>
         <Input
           ref={inputRef}
           type="text"

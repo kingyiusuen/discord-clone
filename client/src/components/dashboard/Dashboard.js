@@ -10,12 +10,12 @@ import Sidebar from "./Sidebar";
 import Header from "./Header";
 import ChatArea from "./ChatArea";
 import MemberList from "./MemberList";
-import { hideInDesktop } from "../design/mixins";
-import { useWindowWidth } from "../hooks";
-import { loadMessages } from "../reducers/chatReducer";
-import { setActiveChannel } from "../reducers/channelsReducer";
-import { toggleSidebar } from '../reducers/sidebarReducer';
-import { toggleMemberList } from '../reducers/memberListReducer';
+import { hideInDesktop } from "../../design/mixins";
+import { useWindowWidth } from "../../hooks";
+import { loadMessages } from "../../reducers/chatReducer";
+import { setActiveChannel } from "../../reducers/channelsReducer";
+import { toggleSidebar } from '../../reducers/sidebarReducer';
+import { toggleMemberList } from '../../reducers/memberListReducer';
 
 const Container = styled.div`
   display: grid;

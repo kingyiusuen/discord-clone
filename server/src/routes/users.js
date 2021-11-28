@@ -41,7 +41,7 @@ usersRouter.post("/", async (request, response) => {
 
     result = await db.query(
       "INSERT INTO users (username, password, avatar_color) VALUES ($1, $2, $3) RETURNING id",
-      [username, passwordHash, avatarColor]
+      [username, passwordHash, "#5865f2"]
     );
     const newId = result.rows[0].id;
     response.status(201).send(`User added with ID: ${newId}`);
@@ -68,7 +68,7 @@ usersRouter.post("/login", async (request, response) => {
       const { password, ...rest } = result.rows[0];
       response.status(200).json(renameKeysSnakeToCamel(rest));
     } else {
-      response.status(401).send("Invalid username or password");
+      response.status(401).json("Invalid username or password");
     }
   } catch (err) {
     response.status(500).send("A database error has occurred");

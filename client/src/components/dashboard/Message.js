@@ -2,7 +2,7 @@ import React from "react";
 
 import styled from "styled-components";
 
-import Avatar from "./shared/Avatar";
+import Avatar from "./Avatar";
 
 const Container = styled.div`
   display: flex;
@@ -51,7 +51,7 @@ const Content = styled.div`
   font-size: 14px;
 `
 
-const Message = ({ message, handleOnClick }) => {
+const Message = ({ message, handleClick }) => {
   const reformatTimestamp = (timestamp) => {
     // Timestamp from PostgreSQL looks something like 2021-11-25T17:56:04.726Z
     let [date, time] = timestamp.split("T");
@@ -62,12 +62,12 @@ const Message = ({ message, handleOnClick }) => {
 
   return (
     <Container>
-      <AvatarWrapper onClick={handleOnClick}>
+      <AvatarWrapper onClick={handleClick}>
         <Avatar size="27px" w="40px" bgColor={message.user.avatarColor} />
       </AvatarWrapper>
       <div>
         <Header>
-          <Username onClick={handleOnClick}>
+          <Username onClick={handleClick}>
             {message.user.username}
           </Username>
           <Timestamp>{reformatTimestamp(message.createdAt)}</Timestamp>

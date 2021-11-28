@@ -16,7 +16,7 @@ const store = configureStore({
     memberList: memberListReducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(socketMiddleware),
+    getDefaultMiddleware({serializableCheck: false}).concat(socketMiddleware),
 })
 
 export default store;

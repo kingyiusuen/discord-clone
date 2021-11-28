@@ -4,11 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import Hashtag from "./shared/Hashtag";
-import Avatar from "./shared/Avatar";
-import List from "./shared/List";
-import ListItem from "./shared/ListItem";
-import { loadChannels } from "../reducers/channelsReducer";
+import Hashtag from "./Hashtag";
+import Avatar from "./Avatar";
+import List from "./List";
+import ListItem from "./ListItem";
+import { loadChannels } from "../../reducers/channelsReducer";
 
 const Container = styled.div`
   width: 240px;

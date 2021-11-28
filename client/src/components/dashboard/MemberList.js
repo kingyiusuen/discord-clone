@@ -3,11 +3,11 @@ import React from 'react'
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
-import Avatar from "./shared/Avatar";
-import List from "./shared/List";
-import ListItem from "./shared/ListItem";
-import UserPopover from './shared/UserPopover';
-import { usePopover } from "../hooks";
+import Avatar from "./Avatar";
+import List from "./List";
+import ListItem from "./ListItem";
+import UserPopover from './UserPopover';
+import { usePopover } from "../../hooks";
 
 const Container = styled.div`
   background-color: var(--background-secondary);
@@ -33,7 +33,7 @@ const Heading = styled.h3`
 
 const MemberList = ({ isMobile }) => {
   const users = useSelector(state => state.memberList.onlineUsers);
-  const [user, anchorEl, showPopover, setShowPopover, handleOnClick, handleOnClickAway] = usePopover();
+  const [user, anchorEl, showPopover, setShowPopover, handleClick, handleClickAway] = usePopover();
 
   return (
     <Container>
@@ -50,7 +50,7 @@ const MemberList = ({ isMobile }) => {
               }
               text={user.username}
               style={{ gap: "12px", padding: "6px 8px"}}
-              onClick={(event) => handleOnClick(event, user)}
+              onClick={(event) => handleClick(event, user)}
             />
           ))
         }
@@ -58,7 +58,7 @@ const MemberList = ({ isMobile }) => {
       <UserPopover
         open={showPopover}
         anchorEl={anchorEl}
-        onClose={handleOnClickAway}
+        onClose={handleClickAway}
         anchorOrigin={{ vertical: "center", horizontal: "left" }}
         transformOrigin={{ vertical: "top", horizontal: "right" }}
         user={user}
