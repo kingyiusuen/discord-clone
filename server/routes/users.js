@@ -10,7 +10,7 @@ usersRouter.get("/:id", async (request, response) => {
 
   try {
     const result = await db.query(
-      'SELECT id, username, avatar_color FROM users WHERE id = $1',
+      "SELECT id, username, avatar_color FROM users WHERE id = $1",
       [userId]
     );
     response.status(200).json(renameKeysSnakeToCamel(result.rows[0]));
@@ -22,14 +22,13 @@ usersRouter.get("/:id", async (request, response) => {
 
 // Create a new user
 usersRouter.post("/", async (request, response) => {
-  const { username, password, avatarColor } = request.body;
+  const { username, password } = request.body;
 
   let result;
   try {
-    result = await db.query(
-      "SELECT * FROM users WHERE username = $1",
-      [username]
-    );
+    result = await db.query("SELECT * FROM users WHERE username = $1", [
+      username,
+    ]);
     if (result.rowCount) {
       response.status(400).send("The username has already been taken");
       return;
@@ -39,9 +38,14 @@ usersRouter.post("/", async (request, response) => {
     const saltRounds = 10;
     const passwordHash = await bcrypt.hash(password, saltRounds);
 
+    // Pick a random color for avatar
+    const avatarColors = ["#ed4245", "#f9a517", "#5865f2", "#3aa55c"];
+    const avatarColor =
+      avatarColors[Math.floor(Math.random() * avatarColors.length)];
+
     result = await db.query(
       "INSERT INTO users (username, password_hash, avatar_color) VALUES ($1, $2, $3) RETURNING id",
-      [username, passwordHash, "#5865f2"]
+      [username, passwordHash, avatarColor]
     );
     const newId = result.rows[0].id;
     response.status(201).send(`User added with ID: ${newId}`);
@@ -56,13 +60,13 @@ usersRouter.post("/login", async (request, response) => {
   const { username, password } = request.body;
 
   try {
-    const result = await db.query(
-      "SELECT * FROM users WHERE username = $1",
-      [username]
-    );
-    const isPasswordCorrect = result.rowCount === 0
-      ? false
-      : await bcrypt.compare(password, result.rows[0].password_hash);
+    const result = await db.query("SELECT * FROM users WHERE username = $1", [
+      username,
+    ]);
+    const isPasswordCorrect =
+      result.rowCount === 0
+        ? false
+        : await bcrypt.compare(password, result.rows[0].password_hash);
     if (isPasswordCorrect) {
       const { password_hash, ...rest } = result.rows[0];
       response.status(200).json(renameKeysSnakeToCamel(rest));

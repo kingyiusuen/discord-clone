@@ -9,7 +9,7 @@ channelsRouter.post("/", async (request, response) => {
   try {
     const result = await db.query(
       "INSERT INTO (name) channels VALUES ($1) RETURNING id",
-      [name],
+      [name]
     );
     const newId = result.rows[0].id;
     response.status(201).send(`Channel added with ID: ${newId}`);
@@ -25,10 +25,10 @@ channelsRouter.get("/:id", async (request, response) => {
 
   try {
     const result = await db.query(
-      "SELECT messages.id, author_id, username, avatar_color, channel_id, content, created_at "
-      + "FROM messages INNER JOIN users ON messages.author_id = users.id "
-      + "WHERE channel_id = $1 ORDER BY created_at",
-      [channelId],
+      "SELECT messages.id, author_id, username, avatar_color, channel_id, content, created_at " +
+        "FROM messages INNER JOIN users ON messages.author_id = users.id " +
+        "WHERE channel_id = $1 ORDER BY created_at",
+      [channelId]
     );
     const messages = result.rows.map((message) => {
       return {
@@ -39,10 +39,10 @@ channelsRouter.get("/:id", async (request, response) => {
         user: {
           id: message.author_id,
           username: message.username,
-          avatarColor: message.avatar_color
+          avatarColor: message.avatar_color,
         },
-      }
-    })
+      };
+    });
     response.status(200).json(messages);
   } catch (err) {
     console.log(err);
@@ -58,9 +58,9 @@ channelsRouter.post("/:id/add", async (request, response) => {
 
   try {
     const result = await db.query(
-      "INSERT INTO messages (author_id, channel_id, content, created_at) "
-      + "VALUES($1, $2, $3, $4) RETURNING id",
-      [userId, channelId, content, currentTime],
+      "INSERT INTO messages (author_id, channel_id, content, created_at) " +
+        "VALUES($1, $2, $3, $4) RETURNING id",
+      [userId, channelId, content, currentTime]
     );
     const newId = result.rows[0].id;
     response.status(201).send(`Message added with ID: ${newId}`);

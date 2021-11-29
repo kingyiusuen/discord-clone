@@ -1,6 +1,6 @@
 // https://stackoverflow.com/a/61375162
 const snakeToCamel = (str) =>
-  str.replace(/(_[a-z])/g, (group) => group.toUpperCase().replace('_', ''));
+  str.replace(/(_[a-z])/g, (group) => group.toUpperCase().replace("_", ""));
 
 // https://stackoverflow.com/a/54246501
 const camelToSnake = (str) =>
@@ -8,20 +8,18 @@ const camelToSnake = (str) =>
 
 // https://stackoverflow.com/a/50101979
 const renameKeys = (obj, renameFunction) => {
-  Object.keys(obj).forEach(oldKey => {
+  Object.keys(obj).forEach((oldKey) => {
     const newKey = renameFunction(oldKey);
     if (newKey != oldKey) {
       delete Object.assign(obj, { [newKey]: obj[oldKey] })[oldKey];
     }
   });
   return obj;
-}
+};
 
-const renameKeysSnakeToCamel = (obj) =>
-  renameKeys(obj, snakeToCamel);
+const renameKeysSnakeToCamel = (obj) => renameKeys(obj, snakeToCamel);
 
-const renameKeysCamelToSnake = (obj) =>
-  renameKeys(obj, camelToSnake);
+const renameKeysCamelToSnake = (obj) => renameKeys(obj, camelToSnake);
 
 module.exports = {
   renameKeysSnakeToCamel,

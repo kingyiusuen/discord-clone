@@ -8,12 +8,17 @@ const channelsRouter = require("./routes/channels");
 db.client
   .connect()
   .then(() => console.info("Connected to PostgreSQL"))
-  .catch((err) => console.error("Error connecting to PostgreSQL:", err.message));
+  .catch((err) =>
+    console.error("Error connecting to PostgreSQL:", err.message)
+  );
 
 const app = express();
+
+// middlewares
 app.use(express.json());
 app.use(cors());
 
+// api routes
 app.use("/api/users", usersRouter);
 app.use("/api/channels", channelsRouter);
 
