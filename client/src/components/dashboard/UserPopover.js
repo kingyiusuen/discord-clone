@@ -63,6 +63,12 @@ const Footer = styled.div`
   padding: 0 16px 16px;
 `
 
+const Note = styled.div`
+  font-size: 13px;
+  color: var(--text-normal);
+  padding-bottom: 8px;
+`
+
 const Input = styled.input`
   background-color: var(--background-secondary-alt);
   font-size: 14px;
@@ -100,7 +106,6 @@ const UserPopover = ({ user, setShowPopover, ...delegated }) => {
           w="90px"
           border="6px solid var(--background-floating)"
           bgColor={user.avatarColor}
-          status="online"
         />
       </AvatarWrapper>
       <Header>
@@ -110,6 +115,7 @@ const UserPopover = ({ user, setShowPopover, ...delegated }) => {
         <Divider></Divider>
       </Content>
       <Footer>
+        <Note>Direct messaging is not implemented!</Note>
         <form onSubmit={handleSubmit}>
           <Input type="text" name="content" placeholder={`message @${user.username}`} />
           <InvisibleSubmitButton />
