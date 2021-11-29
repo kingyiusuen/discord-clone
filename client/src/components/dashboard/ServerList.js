@@ -99,12 +99,10 @@ const ServerList = () => {
     <Container>
       <ListItem>
         <ArrowTooltip title="Sample Server" placement="left">
-          <div>
-            <ServerIcon isActive isDiscord>
-              <FaDiscord />
-            </ServerIcon>
+          <ServerIcon isActive isDiscord>
+            <FaDiscord />
+          </ServerIcon>
           <Pill isActive />
-          </div>
         </ArrowTooltip>
       </ListItem>
     </Container>
