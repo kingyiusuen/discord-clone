@@ -25,8 +25,8 @@ channelsRouter.get("/:id", async (request, response) => {
 
   try {
     const result = await db.query(
-      "SELECT channel_messages.id, author_id, username, avatar_color, channel_id, content, created_at "
-      + "FROM channel_messages INNER JOIN users ON channel_messages.author_id = users.id "
+      "SELECT messages.id, author_id, username, avatar_color, channel_id, content, created_at "
+      + "FROM messages INNER JOIN users ON messages.author_id = users.id "
       + "WHERE channel_id = $1 ORDER BY created_at",
       [channelId],
     );
@@ -58,7 +58,7 @@ channelsRouter.post("/:id/add", async (request, response) => {
 
   try {
     const result = await db.query(
-      "INSERT INTO channel_messages (author_id, channel_id, content, created_at) "
+      "INSERT INTO messages (author_id, channel_id, content, created_at) "
       + "VALUES($1, $2, $3, $4) RETURNING id",
       [userId, channelId, content, currentTime],
     );

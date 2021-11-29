@@ -40,7 +40,7 @@ usersRouter.post("/", async (request, response) => {
     const passwordHash = await bcrypt.hash(password, saltRounds);
 
     result = await db.query(
-      "INSERT INTO users (username, password, avatar_color) VALUES ($1, $2, $3) RETURNING id",
+      "INSERT INTO users (username, password_hash, avatar_color) VALUES ($1, $2, $3) RETURNING id",
       [username, passwordHash, "#5865f2"]
     );
     const newId = result.rows[0].id;
@@ -60,34 +60,14 @@ usersRouter.post("/login", async (request, response) => {
       "SELECT * FROM users WHERE username = $1",
       [username]
     );
-    const isPasswordCorrect =
-      result.rowCount === 0
-        ? false
-        : await bcrypt.compare(password, result.rows[0].password);
+    const isPasswordCorrect = result.rowCount === 0
+      ? false
+      : await bcrypt.compare(password, result.rows[0].password_hash);
     if (isPasswordCorrect) {
-      const { password, ...rest } = result.rows[0];
+      const { password_hash, ...rest } = result.rows[0];
       response.status(200).json(renameKeysSnakeToCamel(rest));
     } else {
       response.status(401).json("Invalid username or password");
-    }
-  } catch (err) {
-    response.status(500).send("A database error has occurred");
-  }
-});
-
-// Delete a user's profile
-usersRouter.delete("/:id", async (request, response) => {
-  const userId = request.params.id;
-
-  try {
-    const result = await db.query(
-      "DELETE FROM users WHERE id = $1 RETURNING id",
-      [userId]
-    );
-    if (result.rowCount) {
-      response.status(200).json(`User deleted with ID: ${userId}`);
-    } else {
-      response.status(401).send("This user does not exist");
     }
   } catch (err) {
     console.log(err);

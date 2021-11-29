@@ -25,13 +25,11 @@ io.on("connection", (socket) => {
   socket.on("message", async (message) => {
     const { user, channelId, content } = message;
     const result = await db.query(
-      "INSERT INTO channel_messages (author_id, channel_id, content) "
+      "INSERT INTO messages (author_id, channel_id, content) "
       + "VALUES ($1, $2, $3) RETURNING * ",
       [user.id, channelId, content],
     );
-    io
-      .to(`Channel: ${channelId}`)
-      .emit("message", {
+    io.to(`Channel: ${channelId}`).emit("message", {
         id: result.rows[0].id,
         content: message.content,
         createdAt: result.rows[0].created_at,
@@ -51,9 +49,7 @@ io.on("connection", (socket) => {
     // Emit the message if the receiver is also online
     for (const socketId in clients) {
       if (clients[socketId].id === receiverId) {
-        io
-          .to(receiverSocketId)
-          .emit("message", {
+        io.to(receiverSocketId).emit("message", {
             id: result.rows[0].id,
             content: message.content,
             createdAt: result.rows[0].created_at,
@@ -65,15 +61,13 @@ io.on("connection", (socket) => {
   });
 
   socket.on("typing", () => {
-    socket
-      .broadcast
+    socket.broadcast
       .to(`Channel: ${clients[socket.id].activeChannelId}`)
       .emit("typing", clients[socket.id]);
   });
 
   socket.on("stop-typing", () => {
-    socket
-      .broadcast
+    socket.broadcast
       .to(`Channel: ${clients[socket.id].activeChannelId}`)
       .emit("stop-typing", clients[socket.id]);
   });
