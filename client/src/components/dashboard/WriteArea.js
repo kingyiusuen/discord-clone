@@ -75,7 +75,7 @@ const WriteArea = () => {
           ref={inputRef}
           type="text"
           name="content"
-          placeholder={`Message #${activeChannel.name}`}
+          placeholder={`Message #${activeChannel?.name}`}
         />
         <InvisibleSubmitButton />
       </Form>

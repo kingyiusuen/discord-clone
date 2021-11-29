@@ -57,7 +57,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const isMemberListOpen = useSelector(state => state.memberList.isOpen);
   const channels = useSelector(state => state.channels);
-  const activeChannelName = !channels.loading && channels.byId[channels.active].name;
+  const activeChannelName = !channels.loading && channels.byId[channels.active]?.name;
 
   return (
     <Container id="header" className="disable-select">
