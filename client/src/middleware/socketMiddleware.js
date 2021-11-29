@@ -29,7 +29,7 @@ const socketMiddleware = () => {
     return next => action => {
       switch (action.type) {
         case "channels/setActiveChannel":
-          socket.emit("set-active-channel", action.payload);
+          socket.emit("set-active-channel", JSON.stringify(action.payload));
           break;
         case "chat/sendMessage":
           socket.emit("message", action.payload);
