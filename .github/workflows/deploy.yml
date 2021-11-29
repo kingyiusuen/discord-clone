@@ -27,8 +27,8 @@ jobs:
       - uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "pinterest-clone-ksuen"
+          heroku_app_name: "discord-clone-ksuen"
           heroku_email: "kingyiusuen@gmail.com"
-          healthcheck: "https://pinterest-clone-ksuen.herokuapp.com/health"
+          healthcheck: "https://discord-clone-ksuen.herokuapp.com/health"
           delay: 5
           rollbackonhealthcheckfailed: true
