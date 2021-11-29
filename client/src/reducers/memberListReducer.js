@@ -1,8 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  "onlineUsers": [],
-  "isOpen": false,
+  onlineUsers: [],
+  isOpen: false,
 };
 
 const memberListSlice = createSlice({
@@ -14,9 +14,9 @@ const memberListSlice = createSlice({
     },
     toggleMemberList(state, action) {
       state.isOpen = !state.isOpen;
-    }
+    },
   },
-})
+});
 
 export const { updateOnlineUsers, toggleMemberList } = memberListSlice.actions;
 

@@ -1,70 +1,52 @@
-# Getting Started with Create React App
+# Discord Clone
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Installation
 
-## Available Scripts
+- Clone the repo.
+- Run `npm install` to install dependencies for the server.
+- Run `cd client` and then `npm install` to install dependencies for the client.
+- Create a `.env` file in `server`, following the format of the `.evn.example` file. Fill in the details.
 
-In the project directory, you can run:
+## Running the App in Development Mode
 
-### `npm start`
+- Run `npm run client` to start the client.
+- Run `npm run server` to start the server.
+- Run `npm run dev` to start the client and the server concurrently.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Deploy to Heroku
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Install [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli).
 
-### `npm test`
+Login to your Heroku account.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+heroku login
+```
 
-### `npm run build`
+Create a new Heroku app.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+heroku create YOUR_APP_NAME
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Setup Heroku Postgres Database. This should return a `DATABASE_URL`.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+heroku addons:create heroku-postgresql:hobby-dev --app YOUR_APP_NAME
+```
 
-### `npm run eject`
+Log into the Heroku Postgre database.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+heroku pg:psql DATABASE_URL --app YOUR_APP_NAME
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Copy and paste the content in `server/src/db/schemas.sql` to create the tables.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Copy and paste the content in `server/src/db/sample_data.sql` to create the channels.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Quit the database.
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```
+\q
+```
