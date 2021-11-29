@@ -16,8 +16,6 @@ jobs:
         run: npm ci
       - name: Run Prettier
         run: npx prettier --check .
-      - name: Run ESLint
-        run: npm run lint
 
   deploy:
     needs: lint
