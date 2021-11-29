@@ -42,6 +42,9 @@ const DemoLoginPage = () => {
     <Layout heading="Discord Clone">
       <Form onSubmit={handleSubmit}>
         <Description>To visitors: You can open this website in multiple tabs and sign in with a different account in each tab.</Description>
+        <span className="errorMessage" style={{ textAlign: "center" }}>
+          {session.error}
+        </span>
         <Label htmlFor="username">Username</Label>
         <Select name="username" id="username" defaultValue="john.doe">
           <option value="john_doe">john_doe</option>
