@@ -20,6 +20,7 @@ jobs:
         run: npm run lint
 
   deploy:
+    needs: lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
