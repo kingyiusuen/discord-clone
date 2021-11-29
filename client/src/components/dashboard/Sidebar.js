@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 import styled from "styled-components";
 
@@ -9,16 +9,15 @@ const Container = styled.div`
   display: flex;
   flex: 0 0 auto;
   height: 100vh;
-`
+`;
 
 const Sidebar = () => {
-
   return (
     <Container>
       <ServerList />
       <ChannelList />
     </Container>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;

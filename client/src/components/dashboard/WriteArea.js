@@ -1,9 +1,9 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
-import InvisibleSubmitButton from './InvisibleSubmitButton';
+import InvisibleSubmitButton from "./InvisibleSubmitButton";
 import { sendMessage, typing, stopTyping } from "../../reducers/chatReducer";
 import { useActiveChannel } from "../../hooks";
 
@@ -12,9 +12,9 @@ const Container = styled.div`
   height: 68px;
   padding: 0 16px;
   flex: 0 0 auto;
-`
+`;
 
-const Form = styled.form``
+const Form = styled.form``;
 
 const Input = styled.input`
   border: 0;
@@ -30,18 +30,18 @@ const Input = styled.input`
   &::placeholder {
     color: var(--text-muted);
   }
-`
+`;
 
 const TypingStatus = styled.span`
   font-size: 12px;
   font-weight: 500;
   color: var(--text-normal);
   padding: 0 14px;
-`
+`;
 
 const WriteArea = () => {
   const dispatch = useDispatch();
-  const user = useSelector(state => state.session.user);
+  const user = useSelector((state) => state.session.user);
 
   const activeChannel = useActiveChannel();
 
@@ -53,9 +53,9 @@ const WriteArea = () => {
       event.target.reset();
     }
     dispatch(stopTyping(user));
-  }
+  };
 
-  const typingUser = useSelector(state => state.chat.typingUser);
+  const typingUser = useSelector((state) => state.chat.typingUser);
 
   // Detect whether the user is typing
   const inputRef = useRef(null);
@@ -65,8 +65,8 @@ const WriteArea = () => {
       dispatch(typing(user));
       clearTimeout(timeout);
       timeout = setTimeout(() => dispatch(stopTyping(user)), 3000);
-    })
-  }, [dispatch, user])
+    });
+  }, [dispatch, user]);
 
   return (
     <Container>
@@ -83,7 +83,7 @@ const WriteArea = () => {
         {typingUser && `${typingUser.username} is typing...`}
       </TypingStatus>
     </Container>
-  )
-}
+  );
+};
 
-export default WriteArea
+export default WriteArea;

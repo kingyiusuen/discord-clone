@@ -18,21 +18,17 @@ const Select = styled.select`
   }
 
   /* https://codepen.io/vkjgr/pen/VYMeXp */
-  background-image:
-    linear-gradient(45deg, transparent 50%, gray 50%),
+  background-image: linear-gradient(45deg, transparent 50%, gray 50%),
     linear-gradient(135deg, gray 50%, transparent 50%);
-  background-position:
-    calc(100% - 20px) calc(1em + 2px),
+  background-position: calc(100% - 20px) calc(1em + 2px),
     calc(100% - 15px) calc(1em + 2px);
-  background-size:
-    5px 5px,
-    5px 5px;
+  background-size: 5px 5px, 5px 5px;
   background-repeat: no-repeat;
 
   &:-moz-focusring {
     color: transparent;
     text-shadow: 0 0 0 #000;
   }
-`
+`;
 
 export default Select;

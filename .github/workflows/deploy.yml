@@ -1,0 +1,33 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - README.md
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install modules
+        run: npm ci
+      - name: Run Prettier
+        run: npx prettier --check .
+      - name: Run ESLint
+        run: npm run lint
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "pinterest-clone-ksuen"
+          heroku_email: "kingyiusuen@gmail.com"
+          healthcheck: "https://pinterest-clone-ksuen.herokuapp.com/health"
+          delay: 5
+          rollbackonhealthcheckfailed: true

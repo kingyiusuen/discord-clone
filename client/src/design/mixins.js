@@ -17,13 +17,14 @@ export const baseIcon = ({ border }) => css`
   border: ${border || "none"};
   ${wh};
   ${font};
-`
+`;
 
 export const roundedBackground = ({ bgColor, bgColorOnHover }) => css`
   border-radius: 50%;
   background-color: ${bgColor};
 
-  ${bgColorOnHover && css`
+  ${bgColorOnHover &&
+  css`
     transition: 0.3s;
 
     &:hover {
@@ -31,11 +32,13 @@ export const roundedBackground = ({ bgColor, bgColorOnHover }) => css`
       border-radius: 16px;
     }
 
-    ${p => p.isActive && css`
-      border-radius: 16px;
-    `}
+    ${(p) =>
+      p.isActive &&
+      css`
+        border-radius: 16px;
+      `}
   `}
-`
+`;
 
 export const interactiveColor = ({ isActive }) => css`
   color: ${isActive ? "var(--interactive-active)" : "var(--channels-default)"};
@@ -43,7 +46,7 @@ export const interactiveColor = ({ isActive }) => css`
   &:hover {
     color: var(--interactive-hover);
   }
-`
+`;
 
 export const hideInDesktop = css`
   display: none;
@@ -51,4 +54,4 @@ export const hideInDesktop = css`
   @media (max-width: 768px) {
     display: block;
   }
-`
+`;

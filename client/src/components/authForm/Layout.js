@@ -20,12 +20,12 @@ const Wrapper = styled.div`
       text-decoration: underline;
     }
   }
-`
+`;
 
 const Container = styled.div`
   padding: 28px;
   background-color: var(--background-primary);
-  box-shadow: 0 2px 10px 0 rgba(0,0,0,.2);
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   display: flex;
   flex-direction: column;
@@ -38,7 +38,7 @@ const Container = styled.div`
     border-radius: 0;
     justify-content: flex-start;
   }
-`
+`;
 
 const Header = styled.div`
   display: flex;
@@ -48,13 +48,13 @@ const Header = styled.div`
   font-size: 40px;
   color: white;
   margin-bottom: 20px;
-`
+`;
 
 const Heading = styled.h1`
   color: var(--header-primary);
   font-size: 24px;
   font-weight: 500;
-`
+`;
 
 const Layout = ({ heading, children }) => {
   return (
@@ -67,7 +67,7 @@ const Layout = ({ heading, children }) => {
         {children}
       </Container>
     </Wrapper>
-  )
-}
+  );
+};
 
 export default Layout;

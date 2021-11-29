@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const SubmitButton = styled.button.attrs(() => ({type: "submit"}))`
+const SubmitButton = styled.button.attrs(() => ({ type: "submit" }))`
   background-color: rgb(88, 101, 242);
   border: 0;
   border-radius: 4px;
@@ -15,6 +15,6 @@ const SubmitButton = styled.button.attrs(() => ({type: "submit"}))`
     background-color: rgb(71, 82, 196);
     cursor: pointer;
   }
-`
+`;
 
 export default SubmitButton;

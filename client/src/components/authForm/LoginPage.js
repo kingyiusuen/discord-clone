@@ -13,8 +13,8 @@ import { login, connectSocket } from "../../reducers/sessionReducer";
 import { loadChannels } from "../../reducers/channelsReducer";
 
 const LoginPage = () => {
-  const [usernameError, setUsernameError] = useState("")
-  const [passwordError, setPasswordError] = useState("")
+  const [usernameError, setUsernameError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   const dispatch = useDispatch();
 
@@ -33,17 +33,17 @@ const LoginPage = () => {
       setUsernameError("");
       setPasswordError("");
     }
-  }
+  };
 
   const navigate = useNavigate();
-  const session = useSelector(state => state.session);
+  const session = useSelector((state) => state.session);
   useEffect(() => {
     if (session.isAuthenticated) {
       dispatch(connectSocket(session.user));
       dispatch(loadChannels());
       navigate("/channels/1");
     }
-  }, [dispatch, navigate, session])
+  }, [dispatch, navigate, session]);
 
   return (
     <Layout heading="Welcome back!">
@@ -53,19 +53,26 @@ const LoginPage = () => {
         </span>
         <Label error={usernameError}>
           Username
-          {usernameError && <span className="errorMessage"> - {usernameError}</span>}
+          {usernameError && (
+            <span className="errorMessage"> - {usernameError}</span>
+          )}
         </Label>
-        <Input type="text" name="username" error={usernameError}/>
+        <Input type="text" name="username" error={usernameError} />
         <Label error={passwordError}>
           Password
-          {passwordError && <span className="errorMessage"> - {passwordError}</span>}
+          {passwordError && (
+            <span className="errorMessage"> - {passwordError}</span>
+          )}
         </Label>
-        <Input type="password" name="password" error={passwordError}/>
+        <Input type="password" name="password" error={passwordError} />
         <SubmitButton>Login</SubmitButton>
-        <div>Need an account? <Link to="/">Use a demo account</Link> or <Link to="/signup">Register</Link></div>
+        <div>
+          Need an account? <Link to="/">Use a demo account</Link> or{" "}
+          <Link to="/signup">Register</Link>
+        </div>
       </Form>
     </Layout>
-  )
-}
+  );
+};
 
 export default LoginPage;

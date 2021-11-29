@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from 'react';
+import { useLayoutEffect, useState } from "react";
 
 import { useSelector } from "react-redux";
 
@@ -10,19 +10,19 @@ export const useWindowWidth = () => {
     function updateSize() {
       setWidth(window.innerWidth);
     }
-    window.addEventListener('resize', updateSize);
+    window.addEventListener("resize", updateSize);
     updateSize();
-    return () => window.removeEventListener('resize', updateSize);
+    return () => window.removeEventListener("resize", updateSize);
   }, []);
   return width;
-}
+};
 
 export const useActiveChannel = () => {
-  const loading = useSelector(state => state.channels.loading);
-  const activeChannelId = useSelector(state => state.channels.active);
-  const channelsById = useSelector(state => state.channels.byId);
+  const loading = useSelector((state) => state.channels.loading);
+  const activeChannelId = useSelector((state) => state.channels.active);
+  const channelsById = useSelector((state) => state.channels.byId);
   return !loading && channelsById[activeChannelId];
-}
+};
 
 export const usePopover = () => {
   const [showPopover, setShowPopover] = useState(false);
@@ -41,5 +41,12 @@ export const usePopover = () => {
     setAnchorEl(null);
   };
 
-  return [user, anchorEl, showPopover, setShowPopover, handleClick, handleClickAway];
-}
+  return [
+    user,
+    anchorEl,
+    showPopover,
+    setShowPopover,
+    handleClick,
+    handleClickAway,
+  ];
+};

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 import { useSelector } from "react-redux";
 import styled from "styled-components";
@@ -6,7 +6,7 @@ import styled from "styled-components";
 import Avatar from "./Avatar";
 import List from "./List";
 import ListItem from "./ListItem";
-import UserPopover from './UserPopover';
+import UserPopover from "./UserPopover";
 import { usePopover } from "../../hooks";
 
 const Container = styled.div`
@@ -21,7 +21,7 @@ const Container = styled.div`
   @media (max-width: 768px) {
     height: 100vh;
   }
-`
+`;
 
 const Heading = styled.h3`
   font-size: 13px;
@@ -29,31 +29,39 @@ const Heading = styled.h3`
   margin: 8px 8px 4px 8px;
   color: var(--channels-default);
   text-transform: uppercase;
-`
+`;
 
 const MemberList = ({ isMobile }) => {
-  const users = useSelector(state => state.memberList.onlineUsers);
-  const [user, anchorEl, showPopover, setShowPopover, handleClick, handleClickAway] = usePopover();
+  const users = useSelector((state) => state.memberList.onlineUsers);
+  const [
+    user,
+    anchorEl,
+    showPopover,
+    setShowPopover,
+    handleClick,
+    handleClickAway,
+  ] = usePopover();
 
   return (
     <Container>
-      <Heading className="disable-select">
-        online — {users.length}
-      </Heading>
+      <Heading className="disable-select">online — {users.length}</Heading>
       <List gap="2px">
-        {
-          users.map((user) => (
-            <ListItem
-              key={user.id}
-              icon={
-                <Avatar size="21px" w="32px" bgColor={user.avatarColor} status="online" />
-              }
-              text={user.username}
-              style={{ gap: "12px", padding: "6px 8px"}}
-              onClick={(event) => handleClick(event, user)}
-            />
-          ))
-        }
+        {users.map((user) => (
+          <ListItem
+            key={user.id}
+            icon={
+              <Avatar
+                size="21px"
+                w="32px"
+                bgColor={user.avatarColor}
+                status="online"
+              />
+            }
+            text={user.username}
+            style={{ gap: "12px", padding: "6px 8px" }}
+            onClick={(event) => handleClick(event, user)}
+          />
+        ))}
       </List>
       <UserPopover
         open={showPopover}
@@ -65,7 +73,7 @@ const MemberList = ({ isMobile }) => {
         setShowPopover={setShowPopover}
       />
     </Container>
-  )
-}
+  );
+};
 
-export default MemberList
+export default MemberList;

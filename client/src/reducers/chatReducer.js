@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import * as channelAPI from "../api/channel";
 
@@ -28,9 +28,9 @@ const chatSlice = createSlice({
       state.messages.byId[message.id] = message;
       state.messages.allIds.push(message.id);
     },
-    sendMessage(state, action) { },
-    typing(state, action) { },
-    stopTyping(state, action) { },
+    sendMessage(state, action) {},
+    typing(state, action) {},
+    stopTyping(state, action) {},
     updateTypingUser(state, action) {
       state.typingUser = action.payload;
     },
@@ -47,10 +47,10 @@ const chatSlice = createSlice({
         action.payload.forEach((message) => {
           state.messages.byId[message.id] = message;
           state.messages.allIds.push(message.id);
-        })
-      })
-  }
-})
+        });
+      });
+  },
+});
 
 export const {
   setActiveChannel,

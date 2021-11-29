@@ -6,8 +6,8 @@ const api = axios.create({
 
 export const getChannels = async () => {
   return await api.get("/");
-}
+};
 
 export const getMessages = async (channelId) => {
   return await api.get(`/${channelId}`);
-}
+};

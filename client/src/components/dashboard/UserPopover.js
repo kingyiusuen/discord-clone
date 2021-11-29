@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 
 import styled from "styled-components";
-import Popover from '@mui/material/Popover';
+import Popover from "@mui/material/Popover";
 
 import Avatar, { GreenDotWrapper } from "./Avatar";
 import InvisibleSubmitButton from "./InvisibleSubmitButton";
@@ -12,13 +12,13 @@ const StyledPopover = styled(Popover)`
     background-color: var(--background-floating);
     transition-duration: 0s !important;
   }
-`
+`;
 
 const Banner = styled.div`
-  background-color: ${p => p.bgColor};
+  background-color: ${(p) => p.bgColor};
   width: 300px;
   height: 60px;
-`
+`;
 
 const AvatarWrapper = styled.div`
   position: absolute;
@@ -34,40 +34,40 @@ const AvatarWrapper = styled.div`
     bottom: 2px;
     background-color: var(--background-floating);
   }
-`
+`;
 
 const Header = styled.div`
   padding: 64px 16px 16px;
   overflow: hidden;
   position: relative;
   display: block;
-`
+`;
 
 const Divider = styled.div`
   height: 1px;
   background-color: var(--background-modifier-accent);
   margin-bottom: 12px;
-`
+`;
 
 const Content = styled.div`
   padding: 0 16px 16px 16px;
-`
+`;
 
 const Username = styled.span`
   color: var(--interactive-active);
   font-weight: 600;
   font-size: 24px;
-`
+`;
 
 const Footer = styled.div`
   padding: 0 16px 16px;
-`
+`;
 
 const Note = styled.div`
   font-size: 13px;
   color: var(--text-normal);
   padding-bottom: 8px;
-`
+`;
 
 const Input = styled.input`
   background-color: var(--background-secondary-alt);
@@ -83,9 +83,9 @@ const Input = styled.input`
 
   &:focus {
     outline: none;
-    border: 1px solid #00B0F4;
+    border: 1px solid #00b0f4;
   }
-`
+`;
 
 const UserPopover = ({ user, setShowPopover, ...delegated }) => {
   const handleSubmit = (event) => {
@@ -95,7 +95,7 @@ const UserPopover = ({ user, setShowPopover, ...delegated }) => {
       event.target.reset();
       setShowPopover(false);
     }
-  }
+  };
 
   return (
     <StyledPopover {...delegated}>
@@ -117,12 +117,16 @@ const UserPopover = ({ user, setShowPopover, ...delegated }) => {
       <Footer>
         <Note>Direct messaging is not implemented!</Note>
         <form onSubmit={handleSubmit}>
-          <Input type="text" name="content" placeholder={`message @${user.username}`} />
+          <Input
+            type="text"
+            name="content"
+            placeholder={`message @${user.username}`}
+          />
           <InvisibleSubmitButton />
         </form>
       </Footer>
     </StyledPopover>
-  )
-}
+  );
+};
 
 export default UserPopover;

@@ -1,10 +1,9 @@
-import React from 'react';
+import React from "react";
 
-import styled, { css } from 'styled-components';
-import { AiOutlineCode } from "react-icons/ai";
+import styled, { css } from "styled-components";
 import { FaDiscord } from "react-icons/fa";
 
-import ArrowTooltip from './ArrowTooltip';
+import ArrowTooltip from "./ArrowTooltip";
 import { baseIcon, roundedBackground } from "../../design/mixins";
 
 const PillWrapper = styled.div`
@@ -16,25 +15,26 @@ const PillWrapper = styled.div`
   height: 48px;
   display: flex;
   align-items: center;
-`
+`;
 
 const PillContainer = styled.div`
   width: 8px;
-  height: ${p => p.isActive ? "40px" : "0"};
+  height: ${(p) => (p.isActive ? "40px" : "0")};
   margin-left: -4px;
   border-radius: 0 4px 4px 0;
   background-color: var(--header-primary);
   transition: 0.2s;
-`
+`;
 
 const discordIconStyle = css`
-  color: ${p => p.isActive ? "white" : "var(--text-normal)"};
-  background-color: ${p => p.isActive ? "var(--brand)" : "var(--background-primary)"};
+  color: ${(p) => (p.isActive ? "white" : "var(--text-normal)")};
+  background-color: ${(p) =>
+    p.isActive ? "var(--brand)" : "var(--background-primary)"};
 
   &:hover {
     background-color: var(--brand);
   }
-`
+`;
 
 const IconWrapper = styled.div`
   ${baseIcon};
@@ -46,24 +46,26 @@ const IconWrapper = styled.div`
     border-radius: 16px;
   }
 
-  ${p => p.isActive && css`
-    border-radius: 16px;
-  `}
+  ${(p) =>
+    p.isActive &&
+    css`
+      border-radius: 16px;
+    `}
 
   &:hover + ${PillWrapper} > ${PillContainer} {
-    height: ${p => p.isActive ? "40px" : "24px"};
+    height: ${(p) => (p.isActive ? "40px" : "24px")};
   }
 
-  ${p => p.isDiscord && discordIconStyle}
-`
+  ${(p) => p.isDiscord && discordIconStyle}
+`;
 
 const ServerIcon = ({ children, ...delegated }) => {
   return (
     <IconWrapper size="28px" w="48px" color="white" {...delegated}>
       {children}
     </IconWrapper>
-  )
-}
+  );
+};
 
 const ListItem = styled.div`
   position: relative;
@@ -71,20 +73,15 @@ const ListItem = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-`
+`;
 
-const Pill = () => {
+const Pill = ({ isActive }) => {
   return (
-    <PillWrapper><PillContainer></PillContainer></PillWrapper>
-  )
-}
-
-const Divider = styled.div`
-  height: 2px;
-  width: 32px;
-  border-radius: 1px;
-  background-color: var(--background-modifier-accent);
-`
+    <PillWrapper>
+      <PillContainer isActive></PillContainer>
+    </PillWrapper>
+  );
+};
 
 const Container = styled.div`
   background-color: var(--background-tertiary);
@@ -95,30 +92,21 @@ const Container = styled.div`
   flex-direction: column;
   gap: 8px;
   align-items: center;
-`
+`;
 
 const ServerList = () => {
   return (
     <Container>
       <ListItem>
-        <ArrowTooltip title="Home" placement="left">
-          <ServerIcon isDiscord={true}>
+        <ArrowTooltip title="Sample Server" placement="left">
+          <ServerIcon isActive isDiscord>
             <FaDiscord />
           </ServerIcon>
+          <Pill isActive />
         </ArrowTooltip>
-        <Pill />
-      </ListItem>
-      <Divider></Divider>
-      <ListItem>
-        <ArrowTooltip title="Sample Server" placement="left">
-          <ServerIcon>
-            <AiOutlineCode />
-          </ServerIcon>
-        </ArrowTooltip>
-        <Pill />
       </ListItem>
     </Container>
-  )
-}
+  );
+};
 
 export default ServerList;

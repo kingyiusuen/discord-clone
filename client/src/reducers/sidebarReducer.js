@@ -1,9 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  "isOpen": false,
-  "servers": { byId: {}, allIds: {}},
-  "channels": { byId: {}, allIds: {}},
+  isOpen: false,
 };
 
 const sidebarSlice = createSlice({
@@ -12,9 +10,9 @@ const sidebarSlice = createSlice({
   reducers: {
     toggleSidebar(state, action) {
       state.isOpen = !state.isOpen;
-    }
+    },
   },
-})
+});
 
 export const { toggleSidebar } = sidebarSlice.actions;
 

@@ -13,7 +13,7 @@ const Container = styled.div`
   &:hover {
     background-color: #32353a;
   }
-`
+`;
 
 const AvatarWrapper = styled.div`
   margin: 0 16px;
@@ -21,13 +21,13 @@ const AvatarWrapper = styled.div`
   &:hover {
     cursor: pointer;
   }
-`
+`;
 
 const Header = styled.div`
   display: flex;
   align-items: center;
   padding-bottom: 4px;
-`
+`;
 
 const Username = styled.a`
   color: var(--header-primary);
@@ -39,21 +39,20 @@ const Username = styled.a`
     text-decoration: underline;
     cursor: pointer;
   }
-`
+`;
 
 const Timestamp = styled.div`
   color: var(--text-muted);
   font-size: 12px;
   cursor: default;
-`
+`;
 
 const Content = styled.div`
   color: var(--text-normal);
   font-size: 14px;
-`
+`;
 
 const Message = ({ message, handleClick }) => {
-
   return (
     <Container>
       <AvatarWrapper onClick={handleClick}>
@@ -61,15 +60,13 @@ const Message = ({ message, handleClick }) => {
       </AvatarWrapper>
       <div>
         <Header>
-          <Username onClick={handleClick}>
-            {message.user.username}
-          </Username>
+          <Username onClick={handleClick}>{message.user.username}</Username>
           <Timestamp>{format(message.createdAt)}</Timestamp>
         </Header>
         <Content>{message.content}</Content>
       </div>
     </Container>
-  )
-}
+  );
+};
 
 export default Message;

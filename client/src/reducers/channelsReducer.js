@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import * as channelAPI from "../api/channel";
 
@@ -41,10 +41,10 @@ const channelsSlice = createSlice({
         action.payload.forEach((channel) => {
           state.byId[channel.id] = channel;
           state.allIds.push(channel.id);
-        })
-      })
-  }
-})
+        });
+      });
+  },
+});
 
 export const { setActiveChannel } = channelsSlice.actions;
 

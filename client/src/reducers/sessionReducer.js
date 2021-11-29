@@ -37,7 +37,7 @@ const sessionSlice = createSlice({
   name: "session",
   initialState,
   reducers: {
-    connectSocket(state, action) { },
+    connectSocket(state, action) {},
     logout(state, action) {
       state.isAuthenticated = false;
       state.loading = false;
@@ -73,8 +73,8 @@ const sessionSlice = createSlice({
       .addCase(signup.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      })
-    }
+      });
+  },
 });
 
 export const { connectSocket, logout } = sessionSlice.actions;

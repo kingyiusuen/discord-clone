@@ -8,8 +8,8 @@ const Form = styled.form`
   width: 400px;
 
   @media (max-width: 550px) {
-    width: 100%
+    width: 100%;
   }
-`
+`;
 
 export default Form;

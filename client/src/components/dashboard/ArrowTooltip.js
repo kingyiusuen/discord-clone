@@ -1,10 +1,9 @@
-import React from 'react'
+import React from "react";
 
 import Tooltip from "@mui/material/Tooltip";
-import styled from "styled-components"
+import styled from "styled-components";
 
-
-const StyledTooltip = styled(props => (
+const StyledTooltip = styled((props) => (
   <Tooltip classes={{ popper: props.className }} {...props} />
 ))`
   & .MuiTooltip-tooltip {
@@ -19,14 +18,12 @@ const StyledTooltip = styled(props => (
   }
 `;
 
-const ArrowTooltip = ({children, ...delegated}) => {
+const ArrowTooltip = ({ children, ...delegated }) => {
   return (
     <StyledTooltip {...delegated} arrow>
-      <div>
-        {children}
-      </div>
+      <div>{children}</div>
     </StyledTooltip>
-  )
-}
+  );
+};
 
-export default ArrowTooltip
+export default ArrowTooltip;

@@ -4,29 +4,28 @@ import { receiveMessage, updateTypingUser } from "../reducers/chatReducer";
 import { updateOnlineUsers } from "../reducers/memberListReducer";
 
 const socketMiddleware = () => {
-  return storeAPI => {
-
+  return (storeAPI) => {
     // This part is called when the Redux store is created
     const socket = io("/", { autoConnect: false });
 
     socket.on("message", (message) => {
-      storeAPI.dispatch(receiveMessage(message))
+      storeAPI.dispatch(receiveMessage(message));
     });
 
     socket.on("update-member-list", (user) => {
-      storeAPI.dispatch(updateOnlineUsers(user))
-    })
+      storeAPI.dispatch(updateOnlineUsers(user));
+    });
 
     socket.on("typing", (user) => {
-      storeAPI.dispatch(updateTypingUser(user))
-    })
+      storeAPI.dispatch(updateTypingUser(user));
+    });
 
     socket.on("stop-typing", (user) => {
-      storeAPI.dispatch(updateTypingUser(null))
-    })
+      storeAPI.dispatch(updateTypingUser(null));
+    });
 
     // This part is called when an action is dispatched
-    return next => action => {
+    return (next) => (action) => {
       switch (action.type) {
         case "channels/setActiveChannel":
           socket.emit("set-active-channel", JSON.stringify(action.payload));
@@ -51,8 +50,8 @@ const socketMiddleware = () => {
           break;
       }
       return next(action);
-    }
-  }
-}
+    };
+  };
+};
 
 export default socketMiddleware();

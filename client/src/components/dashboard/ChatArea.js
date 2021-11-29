@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 import styled from "styled-components";
 
@@ -12,7 +12,7 @@ const Container = styled.div`
   width: 100%;
   height: calc(100vh - 48px);
   overflow: hidden;
-`
+`;
 
 const ChatArea = () => {
   return (
@@ -20,7 +20,7 @@ const ChatArea = () => {
       <Messages />
       <WriteArea />
     </Container>
-  )
-}
+  );
+};
 
-export default ChatArea
+export default ChatArea;

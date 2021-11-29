@@ -9,7 +9,7 @@ const Text = styled.span`
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-`
+`;
 
 const Container = styled.div`
   display: flex;
@@ -25,32 +25,31 @@ const Container = styled.div`
     color: var(--interactive-hover);
   }
 
-  ${p => p.isActive && css`
-    &, &:hover {
-      background-color: var(--background-modifier-selected);
-    }
+  ${(p) =>
+    p.isActive &&
+    css`
+      &,
+      &:hover {
+        background-color: var(--background-modifier-selected);
+      }
 
-    & > ${Text}, &:hover > ${Text} {
-      color: var(--interactive-active);
-    }
-  `}
-`
+      & > ${Text}, &:hover > ${Text} {
+        color: var(--interactive-active);
+      }
+    `}
+`;
 
 const ListItem = ({ icon, text, isActive, ...delegated }) => {
   return (
     <Container isActive={isActive} {...delegated}>
       <>{icon}</>
-      {
-        text &&
-        <Text
-          isActive={isActive}
-          className="disable-select"
-        >
-        {text}
+      {text && (
+        <Text isActive={isActive} className="disable-select">
+          {text}
         </Text>
-      }
+      )}
     </Container>
-  )
-}
+  );
+};
 
 export default ListItem;

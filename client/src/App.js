@@ -9,22 +9,12 @@ import SignupPage from "./components/authForm/SignupPage";
 import { RequireAuth } from "./routes";
 
 const App = () => {
-
   return (
     <BrowserRouter>
       <Routes>
-        <Route
-          path="/"
-          element={<DemoLoginPage />}
-        />
-        <Route
-          path="/login"
-          element={<LoginPage />}
-        />
-        <Route
-          path="/signup"
-          element={<SignupPage />}
-        />
+        <Route path="/" element={<DemoLoginPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
         <Route
           path="/channels/:channel"
           element={
@@ -35,7 +25,7 @@ const App = () => {
         />
       </Routes>
     </BrowserRouter>
-  )
-}
+  );
+};
 
-export default App
+export default App;
