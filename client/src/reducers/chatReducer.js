@@ -32,8 +32,16 @@ const chatSlice = createSlice({
       const message = action.payload;
       state.messages.byId[message.id] = message;
     },
+    receiveDeletedMessage(state, action) {
+      const message = action.payload;
+      delete state.messages.byId[message.id];
+      state.messages.allIds = state.messages.allIds.filter(
+        (id) => id !== message.id
+      );
+    },
     sendMessage(state, action) {},
     editMessage(state, action) {},
+    deleteMessage(state, action) {},
     typing(state, action) {},
     stopTyping(state, action) {},
     updateTypingUser(state, action) {
@@ -61,10 +69,12 @@ export const {
   setActiveChannel,
   receiveNewMessage,
   receiveEditedMessage,
+  receiveDeletedMessage,
   updateOnlineUsers,
   updateTypingUser,
   editMessage,
   sendMessage,
+  deleteMessage,
   stopTyping,
   typing,
 } = chatSlice.actions;

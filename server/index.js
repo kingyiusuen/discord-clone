@@ -56,6 +56,12 @@ io.on("connection", (socket) => {
     });
   });
 
+  socket.on("delete-message", async (message) => {
+    const { channelId, id } = message;
+    await db.query("DELETE FROM messages WHERE id = $1", [id]);
+    io.to(`Channel: ${channelId}`).emit("delete-message", { id });
+  });
+
   socket.on("typing", () => {
     socket.broadcast
       .to(`Channel: ${clients[socket.id].activeChannelId}`)

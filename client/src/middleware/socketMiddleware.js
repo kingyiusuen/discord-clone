@@ -1,6 +1,11 @@
 import io from "socket.io-client";
 
-import { receiveNewMessage, receiveEditedMessage, updateTypingUser } from "../reducers/chatReducer";
+import {
+  receiveNewMessage,
+  receiveEditedMessage,
+  receiveDeletedMessage,
+  updateTypingUser,
+} from "../reducers/chatReducer";
 import { updateOnlineUsers } from "../reducers/memberListReducer";
 
 const socketMiddleware = () => {
@@ -15,6 +20,10 @@ const socketMiddleware = () => {
     socket.on("edit-message", (message) => {
       storeAPI.dispatch(receiveEditedMessage(message));
     });
+
+    socket.on("delete-message", (message) => {
+      storeAPI.dispatch(receiveDeletedMessage(message));
+    })
 
     socket.on("update-member-list", (user) => {
       storeAPI.dispatch(updateOnlineUsers(user));
@@ -39,6 +48,9 @@ const socketMiddleware = () => {
           break;
         case "chat/editMessage":
           socket.emit('edit-message', action.payload);
+          break;
+        case "chat/deleteMessage":
+          socket.emit('delete-message', action.payload);
           break;
         case "chat/typing":
           socket.emit("typing", action.payload);

@@ -12,7 +12,7 @@ import ChannelTextArea from "./ChannelTextArea";
 import InvisibleSubmitButton from "./InvisibleSubmitButton";
 import { useActiveChannel } from "../../hooks";
 import { baseIcon, interactiveColor } from "../../design/mixins";
-import { editMessage } from "../../reducers/chatReducer";
+import { deleteMessage, editMessage } from "../../reducers/chatReducer";
 
 const MessageButtons = styled.div`
   background-color: var(--background-primary);
@@ -139,6 +139,10 @@ const Message = ({ message, handleClick }) => {
     }));
   }
 
+  const handleDeleteButtonClick = () => {
+    dispatch(deleteMessage({ id: message.id, channelId: activeChannel.id }))
+  }
+
   useEffect(() => {
     if (!showTextArea) {
       return;
@@ -194,7 +198,7 @@ const Message = ({ message, handleClick }) => {
             </IconButton>
           </ArrowTooltip>
           <ArrowTooltip title="Delete" placement="top">
-            <IconButton onClick={() => console.log("click")}>
+            <IconButton onClick={handleDeleteButtonClick}>
               <RiDeleteBin5Fill />
             </IconButton>
           </ArrowTooltip>
