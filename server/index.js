@@ -22,19 +22,37 @@ io.on("connection", (socket) => {
     socket.join(`Channel: ${activeChannelId}`);
   });
 
-  socket.on("message", async (message) => {
+  socket.on("send-message", async (message) => {
     const { user, channelId, content } = message;
     const result = await db.query(
       "INSERT INTO messages (author_id, channel_id, content) " +
         "VALUES ($1, $2, $3) RETURNING * ",
       [user.id, channelId, content]
     );
-    io.to(`Channel: ${channelId}`).emit("message", {
+    io.to(`Channel: ${channelId}`).emit("send-message", {
       id: result.rows[0].id,
-      content: message.content,
       createdAt: result.rows[0].created_at,
-      channelId: message.channelId,
+      content,
+      channelId,
       user,
+    });
+  });
+
+  socket.on("edit-message", async (message) => {
+    const { user, channelId, id, content } = message;
+    const result = await db.query(
+      "UPDATE messages SET content = $1, updated_at = NOW() " +
+      "WHERE id = $2 RETURNING *",
+      [content, id]
+    );
+
+    io.to(`Channel: ${channelId}`).emit("edit-message", {
+      id,
+      content,
+      user,
+      channelId,
+      createdAt: result.rows[0].created_at,
+      updatedAt: result.rows[0].updated_at,
     });
   });
 

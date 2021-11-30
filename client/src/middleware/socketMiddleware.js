@@ -1,6 +1,6 @@
 import io from "socket.io-client";
 
-import { receiveMessage, updateTypingUser } from "../reducers/chatReducer";
+import { receiveNewMessage, receiveEditedMessage, updateTypingUser } from "../reducers/chatReducer";
 import { updateOnlineUsers } from "../reducers/memberListReducer";
 
 const socketMiddleware = () => {
@@ -8,8 +8,12 @@ const socketMiddleware = () => {
     // This part is called when the Redux store is created
     const socket = io("/", { autoConnect: false });
 
-    socket.on("message", (message) => {
-      storeAPI.dispatch(receiveMessage(message));
+    socket.on("send-message", (message) => {
+      storeAPI.dispatch(receiveNewMessage(message));
+    });
+
+    socket.on("edit-message", (message) => {
+      storeAPI.dispatch(receiveEditedMessage(message));
     });
 
     socket.on("update-member-list", (user) => {
@@ -31,7 +35,10 @@ const socketMiddleware = () => {
           socket.emit("set-active-channel", JSON.stringify(action.payload));
           break;
         case "chat/sendMessage":
-          socket.emit("message", action.payload);
+          socket.emit("send-message", action.payload);
+          break;
+        case "chat/editMessage":
+          socket.emit('edit-message', action.payload);
           break;
         case "chat/typing":
           socket.emit("typing", action.payload);

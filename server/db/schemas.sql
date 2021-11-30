@@ -15,5 +15,6 @@ CREATE TABLE messages (
     channel_id INTEGER REFERENCES channels (id) NOT NULL,
     author_id INTEGER REFERENCES users (id) NOT NULL,
     content TEXT NOT NULL,
-    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ
 );

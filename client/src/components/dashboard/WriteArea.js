@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
 import InvisibleSubmitButton from "./InvisibleSubmitButton";
+import ChannelTextArea from "./ChannelTextArea";
 import { sendMessage, typing, stopTyping } from "../../reducers/chatReducer";
 import { useActiveChannel } from "../../hooks";
 
@@ -16,27 +17,10 @@ const Container = styled.div`
 
 const Form = styled.form``;
 
-const Input = styled.input`
-  border: 0;
-  border-radius: 8px;
-  background-color: var(--channeltextarea-background);
-  color: var(--text-normal);
-  font-size: 15px;
-  height: 44px;
-  outline: none;
-  padding-left: 14px;
-  width: 100%;
-
-  &::placeholder {
-    color: var(--text-muted);
-  }
-`;
-
 const TypingStatus = styled.span`
   font-size: 12px;
   font-weight: 500;
   color: var(--text-normal);
-  padding: 0 14px;
 `;
 
 const WriteArea = () => {
@@ -45,6 +29,7 @@ const WriteArea = () => {
 
   const activeChannel = useActiveChannel();
 
+  let timeout = undefined;
   const handleSubmit = (event) => {
     event.preventDefault();
     const content = event.target.content.value;
@@ -52,30 +37,30 @@ const WriteArea = () => {
       dispatch(sendMessage({ user, content, channelId: activeChannel.id }));
       event.target.reset();
     }
-    dispatch(stopTyping(user));
   };
 
   const typingUser = useSelector((state) => state.chat.typingUser);
 
   // Detect whether the user is typing
-  const inputRef = useRef(null);
-  useEffect(() => {
-    let timeout = undefined;
-    inputRef.current.addEventListener("keyup", () => {
+  const handleKeyUp = (event) => {
+    const enterKey = 13;
+    if (event.keyCode === enterKey) {
+      dispatch(stopTyping(user))
+    } else {
       dispatch(typing(user));
       clearTimeout(timeout);
-      timeout = setTimeout(() => dispatch(stopTyping(user)), 3000);
-    });
-  }, [dispatch, user]);
+      timeout = setTimeout(() => dispatch(stopTyping(user)), 2000);
+    }
+  }
 
   return (
     <Container>
       <Form onSubmit={handleSubmit}>
-        <Input
-          ref={inputRef}
+        <ChannelTextArea
           type="text"
           name="content"
           placeholder={`Message #${activeChannel?.name}`}
+          onKeyUp={handleKeyUp}
         />
         <InvisibleSubmitButton />
       </Form>

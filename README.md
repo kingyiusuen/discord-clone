@@ -5,10 +5,10 @@
 - Clone the repo.
 - Run `npm install` to install dependencies for the server.
 - Run `cd client` and then `npm install` to install dependencies for the client.
+
+## Local Development
+
 - Create a `.env` file in `server`, following the format of the `.evn.example` file. Fill in the details.
-
-## Running the App in Development Mode
-
 - Run `npm run client` to start the client.
 - Run `npm run server` to start the server.
 - Run `npm run dev` to start the client and the server concurrently.
@@ -45,8 +45,4 @@ Copy and paste the content in `server/src/db/schemas.sql` to create the tables.
 
 Copy and paste the content in `server/src/db/sample_data.sql` to create the channels.
 
-Quit the database.
-
-```
-\q
-```
+Use `\q` to quit the database.
