@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 
+import Modal from '@mui/material/Modal';
 import styled from "styled-components";
 import { format } from "timeago.js";
 import { useDispatch, useSelector } from "react-redux";
@@ -112,6 +113,57 @@ const Operation = styled.span`
   }
 `;
 
+const PopupContainer = styled.div`
+  background-color: var(--background-primary);
+  color: var(--text-normal);
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%) translateY(-50%);
+  width: 440px;
+  border-radius: 4px;
+  font-size: 15px;
+`
+
+const PopupMessageContainer = styled.div`
+  padding: 16px;
+
+  h2 {
+    padding-bottom: 16px;
+  }
+`
+
+const PopupButtonContainer = styled.div`
+  background-color: var(--background-secondary);
+  border-radius: 4px;
+  text-align: right;
+  padding: 12px 16px;
+`
+
+const CancelButton = styled.button`
+  color: white;
+  padding: 10px 24px;
+  margin: 0 8px;
+  background: transparent;
+  border: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`
+
+const DeleteButton = styled.button`
+  color: white;
+  padding: 10px 24px;
+  border-radius: 4px;
+  border: none;
+  background-color: #f04444;
+
+  &:hover {
+    background-color: #c83434;
+  }
+`
+
 const IconButton = ({ children, ...delegated }) => {
 
   return (
@@ -126,6 +178,7 @@ const Message = ({ message, handleClick }) => {
   const [showTextArea, setShowTextArea] = useState(false);
   const dispatch = useDispatch();
   const activeChannel = useActiveChannel();
+  const [openDeleteMessage, setOpenPopup] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -164,12 +217,15 @@ const Message = ({ message, handleClick }) => {
     return () => document.removeEventListener("keydown", onKeyDown);
   })
 
+  const handleOpenPopup = () => setOpenPopup(true);
+  const handleClosePopup = () => setOpenPopup(false);
+
   return (
     <Container>
       <AvatarWrapper onClick={handleClick}>
         <Avatar size="27px" w="40px" bgColor={message.user.avatarColor} />
       </AvatarWrapper>
-      <div style={{width: "100%"}}>
+      <div style={{ width: "100%" }}>
         <Header>
           <Username onClick={handleClick}>{message.user.username}</Username>
           <Timestamp>{format(message.createdAt)}{message.updatedAt ? " (edited)" : ""}
@@ -191,18 +247,36 @@ const Message = ({ message, handleClick }) => {
       </div>
 
       {user.id === message.user.id &&
-        <MessageButtons>
-          <ArrowTooltip title="Edit" placement="top">
-            <IconButton onClick={() => setShowTextArea(true)}>
-              <MdEdit />
-            </IconButton>
-          </ArrowTooltip>
-          <ArrowTooltip title="Delete" placement="top">
-            <IconButton onClick={handleDeleteButtonClick}>
-              <RiDeleteBin5Fill />
-            </IconButton>
-          </ArrowTooltip>
-        </MessageButtons>
+        <>
+          <MessageButtons>
+            <ArrowTooltip title="Edit" placement="top">
+              <IconButton onClick={() => setShowTextArea(true)}>
+                <MdEdit />
+              </IconButton>
+            </ArrowTooltip>
+            <ArrowTooltip title="Delete" placement="top">
+              <IconButton onClick={handleOpenPopup}>
+                <RiDeleteBin5Fill />
+              </IconButton>
+            </ArrowTooltip>
+          </MessageButtons>
+        
+          <Modal
+            open={openDeleteMessage}
+            onClose={handleClosePopup}
+          >
+            <PopupContainer>
+              <PopupMessageContainer>
+                <h2>Delete Message</h2>
+                Are you sure you want to delete this message?
+              </PopupMessageContainer>
+              <PopupButtonContainer>
+                <CancelButton onClick={handleClosePopup}>Cancel</CancelButton>
+                <DeleteButton onClick={handleDeleteButtonClick}>Delete</DeleteButton>
+              </PopupButtonContainer>
+            </PopupContainer>
+          </Modal>
+        </>
       }
     </Container>
   );
