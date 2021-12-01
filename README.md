@@ -2,7 +2,7 @@
 
 A real-time chat application that mimics Discord.
 
-![demo](https://user-images.githubusercontent.com/14181114/144296236-765fe66b-4951-4973-a3c8-733fa3b84398.gif)
+![demo](https://user-images.githubusercontent.com/14181114/144297551-b79aff6a-f3f0-4791-b089-14c3475778a2.gif)
 
 ## Features
 
