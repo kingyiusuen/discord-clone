@@ -8,7 +8,9 @@ import Hashtag from "./Hashtag";
 import Avatar from "./Avatar";
 import List from "./List";
 import ListItem from "./ListItem";
+import { useWindowWidth } from "../../hooks";
 import { loadChannels } from "../../reducers/channelsReducer";
+import { toggleSidebar } from "../../reducers/sidebarReducer";
 
 const Container = styled.div`
   width: 240px;
@@ -71,6 +73,7 @@ const ChannelList = () => {
   const user = useSelector((state) => state.session.user);
   const channels = useSelector((state) => state.channels);
   const activeChannelId = useSelector((state) => state.channels.active);
+  const isInDesktop = useWindowWidth() > 768;
 
   return (
     <Container className="disable-select">
@@ -81,7 +84,11 @@ const ChannelList = () => {
         <List gap="2px">
           {!channels.loading &&
             channels.allIds.map((id) => (
-              <Link key={id} to={`/channels/${id}`}>
+              <Link
+                key={id}
+                to={`/channels/${id}`}
+                onClick={() => !isInDesktop && dispatch(toggleSidebar())}
+              >
                 <ListItem
                   icon={<Hashtag size="20px" />}
                   text={channels.byId[id].name}
