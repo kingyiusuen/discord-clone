@@ -2,6 +2,14 @@
 
 A real-time chat application that mimics Discord.
 
+![demo](https://user-images.githubusercontent.com/14181114/144296236-765fe66b-4951-4973-a3c8-733fa3b84398.gif)
+
+## Features
+
+- Show who is typing.
+- Show who is online.
+- Allow users to edit/delete their own messages.
+
 ## Technologies
 
 - JavaScript

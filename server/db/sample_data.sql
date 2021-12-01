@@ -2,9 +2,9 @@ INSERT INTO
     channels
     (name)
 VALUES
-    ('welcome'),
-    ('introduce-yourself'),
     ('general'),
+    ('introduce-yourself'),
+    ('welcome'),
     ('programming'),
     ('gaming')
 ;
