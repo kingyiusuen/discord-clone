@@ -42,7 +42,7 @@ io.on("connection", (socket) => {
     const { user, channelId, id, content } = message;
     const result = await db.query(
       "UPDATE messages SET content = $1, updated_at = NOW() " +
-      "WHERE id = $2 RETURNING *",
+        "WHERE id = $2 RETURNING *",
       [content, id]
     );
 

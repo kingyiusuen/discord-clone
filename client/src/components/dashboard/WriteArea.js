@@ -45,13 +45,13 @@ const WriteArea = () => {
   const handleKeyUp = (event) => {
     const enterKey = 13;
     if (event.keyCode === enterKey) {
-      dispatch(stopTyping(user))
+      dispatch(stopTyping(user));
     } else {
       dispatch(typing(user));
       clearTimeout(timeout);
       timeout = setTimeout(() => dispatch(stopTyping(user)), 2000);
     }
-  }
+  };
 
   return (
     <Container>

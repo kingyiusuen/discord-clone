@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import Modal from '@mui/material/Modal';
+import Modal from "@mui/material/Modal";
 import styled from "styled-components";
 import { format } from "timeago.js";
 import { useDispatch, useSelector } from "react-redux";
@@ -33,7 +33,7 @@ const MessageButtons = styled.div`
   &:hover {
     box-shadow: 0 0 0 1px rgba(4, 4, 5, 0.15);
   }
-`
+`;
 
 const Container = styled.div`
   display: flex;
@@ -106,7 +106,7 @@ const Operation = styled.span`
     color: var(--text-link);
     border: none;
     font-size: 12px;
-    
+
     &:hover {
       text-decoration: underline;
     }
@@ -123,7 +123,7 @@ const PopupContainer = styled.div`
   width: 440px;
   border-radius: 4px;
   font-size: 15px;
-`
+`;
 
 const PopupMessageContainer = styled.div`
   padding: 16px;
@@ -131,14 +131,14 @@ const PopupMessageContainer = styled.div`
   h2 {
     padding-bottom: 16px;
   }
-`
+`;
 
 const PopupButtonContainer = styled.div`
   background-color: var(--background-secondary);
   border-radius: 4px;
   text-align: right;
   padding: 12px 16px;
-`
+`;
 
 const CancelButton = styled.button`
   color: white;
@@ -150,7 +150,7 @@ const CancelButton = styled.button`
   &:hover {
     text-decoration: underline;
   }
-`
+`;
 
 const DeleteButton = styled.button`
   color: white;
@@ -162,10 +162,9 @@ const DeleteButton = styled.button`
   &:hover {
     background-color: #c83434;
   }
-`
+`;
 
 const IconButton = ({ children, ...delegated }) => {
-
   return (
     <IconWrapper as="button" type="button" size="20px" w="32px" {...delegated}>
       {children}
@@ -174,7 +173,7 @@ const IconButton = ({ children, ...delegated }) => {
 };
 
 const Message = ({ message, handleClick }) => {
-  const user = useSelector(state => state.session.user);
+  const user = useSelector((state) => state.session.user);
   const [showTextArea, setShowTextArea] = useState(false);
   const dispatch = useDispatch();
   const activeChannel = useActiveChannel();
@@ -183,18 +182,20 @@ const Message = ({ message, handleClick }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const content = event.target.value;
-    console.log(content)
-    dispatch(editMessage({
-      id: message.id,
-      channelId: activeChannel.id,
-      content,
-      user,
-    }));
-  }
+    console.log(content);
+    dispatch(
+      editMessage({
+        id: message.id,
+        channelId: activeChannel.id,
+        content,
+        user,
+      })
+    );
+  };
 
   const handleDeleteButtonClick = () => {
-    dispatch(deleteMessage({ id: message.id, channelId: activeChannel.id }))
-  }
+    dispatch(deleteMessage({ id: message.id, channelId: activeChannel.id }));
+  };
 
   useEffect(() => {
     if (!showTextArea) {
@@ -211,11 +212,11 @@ const Message = ({ message, handleClick }) => {
         event.preventDefault();
         setShowTextArea(false);
       }
-    }
+    };
 
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
-  })
+  });
 
   const handleOpenPopup = () => setOpenPopup(true);
   const handleClosePopup = () => setOpenPopup(false);
@@ -228,25 +229,33 @@ const Message = ({ message, handleClick }) => {
       <div style={{ width: "100%" }}>
         <Header>
           <Username onClick={handleClick}>{message.user.username}</Username>
-          <Timestamp>{format(message.createdAt)}{message.updatedAt ? " (edited)" : ""}
+          <Timestamp>
+            {format(message.createdAt)}
+            {message.updatedAt ? " (edited)" : ""}
           </Timestamp>
         </Header>
-        {showTextArea
-          ? <>
-              <form onSubmit={handleSubmit}>
-                <ChannelTextArea type="text" name="content" defaultValue={message.content} />
-                <Operation>
-                  escape to <button onClick={() => setShowTextArea(false)}>cancel</button> •
-                  enter to <button>save</button>
-                </Operation>
-                <InvisibleSubmitButton />
-              </form>
-            </>
-          : <Content>{message.content}</Content>
-        }
+        {showTextArea ? (
+          <>
+            <form onSubmit={handleSubmit}>
+              <ChannelTextArea
+                type="text"
+                name="content"
+                defaultValue={message.content}
+              />
+              <Operation>
+                escape to{" "}
+                <button onClick={() => setShowTextArea(false)}>cancel</button> •
+                enter to <button>save</button>
+              </Operation>
+              <InvisibleSubmitButton />
+            </form>
+          </>
+        ) : (
+          <Content>{message.content}</Content>
+        )}
       </div>
 
-      {user.id === message.user.id &&
+      {user.id === message.user.id && (
         <>
           <MessageButtons>
             <ArrowTooltip title="Edit" placement="top">
@@ -260,24 +269,23 @@ const Message = ({ message, handleClick }) => {
               </IconButton>
             </ArrowTooltip>
           </MessageButtons>
-        
-          <Modal
-            open={openDeleteMessage}
-            onClose={handleClosePopup}
-          >
-            <PopupContainer>
+
+          <Modal open={openDeleteMessage} onClose={handleClosePopup}>
+            <PopupContainer className="disable-select">
               <PopupMessageContainer>
                 <h2>Delete Message</h2>
                 Are you sure you want to delete this message?
               </PopupMessageContainer>
               <PopupButtonContainer>
                 <CancelButton onClick={handleClosePopup}>Cancel</CancelButton>
-                <DeleteButton onClick={handleDeleteButtonClick}>Delete</DeleteButton>
+                <DeleteButton onClick={handleDeleteButtonClick}>
+                  Delete
+                </DeleteButton>
               </PopupButtonContainer>
             </PopupContainer>
           </Modal>
         </>
-      }
+      )}
     </Container>
   );
 };

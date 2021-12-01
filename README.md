@@ -1,5 +1,18 @@
 # Discord Clone
 
+A real-time chat application that mimics Discord.
+
+## Technologies
+
+- JavaScript
+- React
+- Redux
+- Styled components
+- Node.js
+- Express.js
+- Socket.io
+- PostgreSQL
+
 ## Installation
 
 - Clone the repo.

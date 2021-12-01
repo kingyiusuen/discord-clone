@@ -23,7 +23,7 @@ const socketMiddleware = () => {
 
     socket.on("delete-message", (message) => {
       storeAPI.dispatch(receiveDeletedMessage(message));
-    })
+    });
 
     socket.on("update-member-list", (user) => {
       storeAPI.dispatch(updateOnlineUsers(user));
@@ -47,10 +47,10 @@ const socketMiddleware = () => {
           socket.emit("send-message", action.payload);
           break;
         case "chat/editMessage":
-          socket.emit('edit-message', action.payload);
+          socket.emit("edit-message", action.payload);
           break;
         case "chat/deleteMessage":
-          socket.emit('delete-message', action.payload);
+          socket.emit("delete-message", action.payload);
           break;
         case "chat/typing":
           socket.emit("typing", action.payload);
