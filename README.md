@@ -2,8 +2,6 @@
 
 A real-time chat application that mimics Discord.
 
-Live Demo: [https://discord-clone-ksuen.herokuapp.com/](https://discord-clone-ksuen.herokuapp.com/)
-
 ![demo](https://user-images.githubusercontent.com/14181114/144297551-b79aff6a-f3f0-4791-b089-14c3475778a2.gif)
 
 ## Features
